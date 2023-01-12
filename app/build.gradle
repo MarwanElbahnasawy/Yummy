@@ -50,4 +50,25 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.1"
     annotationProcessor"androidx.room:room-compiler:2.4.1"
 
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+
+    // For example, add the dependencies for Firebase Authentication and Cloud Firestore
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
+    //RXJAVA
+    implementation 'io.reactivex.rxjava3:rxjava:2.5.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment:2.3.5"
+    implementation "androidx.navigation:navigation-ui:2.3.5"
+
+    //Circular Image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:3.4.0"
+
 }
