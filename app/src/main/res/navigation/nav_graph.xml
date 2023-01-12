@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/spashScreen">
+
+    <fragment
+        android:id="@+id/spashScreen"
+        android:name="com.example.foodplanner.SpashScreen"
+        android:label="fragment_spash_screen"
+        tools:layout="@layout/fragment_spash_screen" />
+    <fragment
+        android:id="@+id/onBoarding"
+        android:name="com.example.foodplanner.OnBoarding"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" />
+    <fragment
+        android:id="@+id/signIn"
+        android:name="com.example.foodplanner.SignIn"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" />
+    <fragment
+        android:id="@+id/register"
+        android:name="com.example.foodplanner.Register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+</navigation>
