@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.foodplanner.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_savedMeals"
+        android:name="com.example.foodplanner.SavedMeals"
+        android:label="fragment_saved_meals"
+        tools:layout="@layout/fragment_saved_meals" />
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.foodplanner.Search"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/nav_weekPlanner"
+        android:name="com.example.foodplanner.WeekPlanner"
+        android:label="fragment_week_planner"
+        tools:layout="@layout/fragment_week_planner" />
+</navigation>

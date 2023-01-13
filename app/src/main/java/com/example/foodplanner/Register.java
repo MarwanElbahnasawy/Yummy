@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +25,6 @@ public class Register extends Fragment {
     AppCompatButton register;
     FirebaseAuth firebaseAuth = FirebaseInstance.getFirebaseAutInstance();
 
-
-
-    public Register() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -51,7 +46,7 @@ public class Register extends Fragment {
 
         signUp_email=view.findViewById(R.id.signUp_email_edt);
         signUp_password=view.findViewById(R.id.signUp_password_edt);
-        register=view.findViewById(R.id.signup_button);
+        register=view.findViewById(R.id.register_button);
         super.onViewCreated(view, savedInstanceState);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +64,9 @@ public class Register extends Fragment {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             if (user != null) {
                                 updateUserData(user, email);
+                                //Navigation.findNavController(view).navigate(RegisterDirections.actionNavRegisterToNavHome());
+//                                Intent intent = new Intent(requireContext(),MainActivity.class);
+//                                startActivity(intent);
                             }
                         } else {
                             Exception exception = task.getException();
@@ -93,6 +91,11 @@ public class Register extends Fragment {
                     }
 
                 }
+
+                Intent intent = new Intent(requireContext(),MainActivity.class);
+                startActivity(intent);
+
+
             }
             private void updateUserData(FirebaseUser currentUser, String name) {
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

@@ -3,25 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/spashScreen">
+    app:startDestination="@id/navSpashScreen">
 
     <fragment
-        android:id="@+id/spashScreen"
+        android:id="@+id/navSpashScreen"
         android:name="com.example.foodplanner.SpashScreen"
         android:label="fragment_spash_screen"
-        tools:layout="@layout/fragment_spash_screen" />
+        tools:layout="@layout/fragment_spash_screen" >
+        <action
+            android:id="@+id/action_navSpashScreen_to_navOnBoarding"
+            app:destination="@id/navOnBoarding" />
+    </fragment>
     <fragment
-        android:id="@+id/onBoarding"
+        android:id="@+id/navOnBoarding"
         android:name="com.example.foodplanner.OnBoarding"
         android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" />
+        tools:layout="@layout/fragment_on_boarding" >
+        <action
+            android:id="@+id/action_navOnBoarding_to_navSignIn"
+            app:destination="@id/navSignIn" />
+    </fragment>
     <fragment
-        android:id="@+id/signIn"
+        android:id="@+id/navSignIn"
         android:name="com.example.foodplanner.SignIn"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_navSignIn_to_nav_register"
+            app:destination="@id/nav_register" />
+    </fragment>
     <fragment
-        android:id="@+id/register"
+        android:id="@+id/nav_register"
         android:name="com.example.foodplanner.Register"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
