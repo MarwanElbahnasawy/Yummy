@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.Controller.Fragments.InitialFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.foodplanner.Controller.Activities.MainActivity;
+import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class Register extends Fragment {
     TextInputEditText signUp_email,signUp_password;
     AppCompatButton register;
-    FirebaseAuth firebaseAuth = FirebaseInstance.getFirebaseAutInstance();
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 
 
@@ -92,7 +93,7 @@ public class Register extends Fragment {
 
                 }
 
-                Intent intent = new Intent(requireContext(),MainActivity.class);
+                Intent intent = new Intent(requireContext(), MainActivity.class);
                 startActivity(intent);
 
 

@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.Controller.Fragments.InitialFragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.window.SplashScreen;
+
+import com.example.foodplanner.R;
 
 
 public class SpashScreen extends Fragment {

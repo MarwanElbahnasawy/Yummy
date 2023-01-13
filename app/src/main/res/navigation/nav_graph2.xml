@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.foodplanner.Home"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_savedMeals"
-        android:name="com.example.foodplanner.SavedMeals"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SavedMeals"
         android:label="fragment_saved_meals"
         tools:layout="@layout/fragment_saved_meals" />
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.foodplanner.Search"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/nav_weekPlanner"
-        android:name="com.example.foodplanner.WeekPlanner"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
         android:label="fragment_week_planner"
         tools:layout="@layout/fragment_week_planner" />
 </navigation>

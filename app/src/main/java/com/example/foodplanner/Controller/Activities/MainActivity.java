@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.Controller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -8,16 +8,21 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.example.foodplanner.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private ActivityMainBinding binding;
+   //private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_main);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation_view);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_main);
 //        NavigationUI.setupActionBarWithNavController(this,navController);
