@@ -1,21 +1,26 @@
 package com.example.foodplanner.Controller.Fragments.InitialFragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
@@ -25,6 +30,8 @@ public class Register extends Fragment {
     AppCompatButton register;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+    private ProgressDialog loadingBar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +40,8 @@ public class Register extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
@@ -41,21 +49,33 @@ public class Register extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         signUp_email = view.findViewById(R.id.signUp_email_edt);
         signUp_password = view.findViewById(R.id.signUp_password_edt);
         register = view.findViewById(R.id.register_button);
-        super.onViewCreated(view, savedInstanceState);
+        loadingBar = new ProgressDialog(requireContext());
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                loadingBar.setTitle("Registering");
+                loadingBar.setMessage("Please wait while signing in");
+                loadingBar.setCanceledOnTouchOutside(false);
+
 
                 String email = signUp_email.getText().toString();
                 String password = signUp_password.getText().toString();
 
 
                 if ((!email.isEmpty()) && (!password.isEmpty())) {
+
+                    loadingBar.show();
+
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+
+                        loadingBar.dismiss();
 
 
                         if (task.isSuccessful()) {
@@ -64,14 +84,19 @@ public class Register extends Fragment {
                                 updateUserData(user, email);
                                 Intent intent = new Intent(requireContext(), MainActivity.class);
                                 startActivity(intent);
-
                             }
                         } else {
                             Exception exception = task.getException();
                             if (exception == null) {
-                                Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
+
+                                    Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+
                             }
 
                         }
@@ -86,11 +111,16 @@ public class Register extends Fragment {
 
                 }
 
+//                Intent intent = new Intent(requireContext(), MainActivity.class);
+//                startActivity(intent);
+
 
             }
 
             private void updateUserData(FirebaseUser currentUser, String name) {
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build();
 
                 currentUser.updateProfile(profileUpdates).addOnCompleteListener(task -> {
 
