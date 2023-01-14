@@ -69,13 +69,14 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     //Navigation
+
     implementation "androidx.navigation:navigation-fragment:2.3.5"
     implementation "androidx.navigation:navigation-ui:2.3.5"
-
     //Circular Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //Lottie
     implementation "com.airbnb.android:lottie:3.4.0"
 
+    implementation 'com.ramotion.paperonboarding:paper-onboarding:1.1.3'
 }
