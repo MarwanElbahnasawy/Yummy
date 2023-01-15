@@ -1,6 +1,5 @@
 package com.example.foodplanner.Controller.Activities;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -9,7 +8,6 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 
 import com.example.foodplanner.R;
-import com.google.android.material.navigation.NavigationView;
 
 public class InitialActivity extends AppCompatActivity {
 
