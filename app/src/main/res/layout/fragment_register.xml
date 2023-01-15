@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/slide1"
+        android:src="@drawable/register"
         tools:layout_editor_absoluteX="76dp"
         tools:layout_editor_absoluteY="175dp" />
 

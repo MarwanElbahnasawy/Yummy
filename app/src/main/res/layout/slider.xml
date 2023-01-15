@@ -14,23 +14,23 @@
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="-223dp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="64dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:src="@drawable/logo"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.496"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="459dp"
+        android:layout_marginTop="344dp"
         android:background="@color/white2"
         android:text="@string/desrpition1"
         android:textAlignment="center"
@@ -38,7 +38,7 @@
         android:textSize="30sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/background_slider" />
 

@@ -1,24 +1,34 @@
 package com.example.foodplanner.Controller.Fragments.InitialFragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.window.SplashScreen;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import pl.droidsonroids.gif.GifImageView;
 
 
 public class SpashScreen extends Fragment {
 
-    Button button;
+    private static final int timer = 5000;
+    GifImageView gifImageView;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,21 +41,40 @@ public class SpashScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavOnBoarding());
+
         return inflater.inflate(R.layout.fragment_spash_screen, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        button = view.findViewById(R.id.buttonSplash);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        gifImageView = view.findViewById(R.id.gif_splash);
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
+            public void run() {
+                SharedPreferences sharedPref = requireContext().getSharedPreferences("setting", Context.MODE_PRIVATE);
 
-                Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavOnBoarding());
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                boolean isFirst = sharedPref.getBoolean("first_look", false);
+
+                if (!isFirst) {
+                    Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavOnBoarding());
+
+                } else if (user == null) {
+                    Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavSignIn());
+
+                } else {
+                    intent = new Intent(requireContext(), MainActivity.class);
+                    startActivity(intent);
+
+                }
+
+
             }
-        });
+
+           }, timer);
+
     }
 }

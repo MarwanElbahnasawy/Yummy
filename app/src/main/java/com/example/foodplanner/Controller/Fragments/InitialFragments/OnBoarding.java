@@ -2,6 +2,12 @@ package com.example.foodplanner.Controller.Fragments.InitialFragments;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,14 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.example.foodplanner.R;
 import com.example.foodplanner.ViewPadgerAdapter;
 
@@ -27,10 +25,9 @@ public class OnBoarding extends Fragment {
 
     ViewPager viewPager;
     LinearLayout dotLayout;
-    AppCompatButton  skipButton;
+    AppCompatButton skipButton;
     TextView[] dots;
     ViewPadgerAdapter viewPagerAdapter;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,15 +50,14 @@ public class OnBoarding extends Fragment {
         //hide ActionBar
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        skipButton=view.findViewById(R.id.skip_btn);
-        viewPager =  view.findViewById(R.id.slideViewPager);
-        dotLayout =  view.findViewById(R.id.indicator_layout);
+        skipButton = view.findViewById(R.id.skip_btn);
+        viewPager = view.findViewById(R.id.slideViewPager);
+        dotLayout = view.findViewById(R.id.indicator_layout);
 
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(OnBoardingDirections.actionNavOnBoardingToNavSignIn());
-
 
             }
         });
@@ -74,28 +70,30 @@ public class OnBoarding extends Fragment {
         viewPager.addOnPageChangeListener(viewListener);
 
     }
-    public void setUpIndicator(int position){
+
+    public void setUpIndicator(int position) {
 
         dots = new TextView[4];
         dotLayout.removeAllViews();
 
-        for (int i = 0 ; i < dots.length ; i++){
+        for (int i = 0; i < dots.length; i++) {
 
             dots[i] = new TextView(requireContext());
             dots[i].setText(Html.fromHtml("&#8226"));
             dots[i].setTextSize(35);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dots[i].setTextColor(getResources().getColor(R.color.inactive,requireContext().getTheme()));
+                dots[i].setTextColor(getResources().getColor(R.color.inactive, requireContext().getTheme()));
             }
             dotLayout.addView(dots[i]);
 
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            dots[position].setTextColor(getResources().getColor(R.color.active,requireContext() .getTheme()));
+            dots[position].setTextColor(getResources().getColor(R.color.active, requireContext().getTheme()));
         }
 
     }
+
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -114,7 +112,8 @@ public class OnBoarding extends Fragment {
 
         }
     };
-    private int getItem(int i){
+
+    private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
 
