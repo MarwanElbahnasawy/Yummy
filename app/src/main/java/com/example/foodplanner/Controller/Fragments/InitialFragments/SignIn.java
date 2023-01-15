@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -121,9 +123,16 @@ public class SignIn extends Fragment {
                                 if (exception == null) {
                                     Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_LONG).show();
                                 } else {
-                                    if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_USER_NOT_FOUND")) {
-                                        Toast.makeText(getContext(), "User not found", Toast.LENGTH_LONG).show();
-                                    } else {
+                                    if(exception.getClass().equals(FirebaseAuthException.class)){
+                                        if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_USER_NOT_FOUND")) {
+                                            Toast.makeText(getContext(), "User not found", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                    else if (exception.getClass().equals(FirebaseNetworkException.class)){
+                                        Toast.makeText(getContext(), "Network error", Toast.LENGTH_LONG).show();
+                                    } else{
                                         Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
 
