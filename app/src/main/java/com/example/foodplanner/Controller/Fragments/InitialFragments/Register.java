@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,7 +59,7 @@ public class Register extends Fragment {
             public void onClick(View view) {
 
                 loadingBar.setTitle("Registering");
-                loadingBar.setMessage("Please wait while signing in");
+                loadingBar.setMessage("Please wait while registering");
                 loadingBar.setCanceledOnTouchOutside(false);
 
 
@@ -82,6 +80,7 @@ public class Register extends Fragment {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             if (user != null) {
                                 updateUserData(user, email);
+                                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(requireContext(), MainActivity.class);
                                 startActivity(intent);
                             }

@@ -4,42 +4,60 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignIn extends Fragment {
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    Button button;
-    TextView et_email;
-    TextView et_password;
-    Button btn_signIn;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private Button button;
+    private TextView et_email;
+    private EditText et_password;
+    private Button btn_signInWithEmailAndPassword;
     private ProgressDialog loadingBar;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
+    private SignInButton googeSignIn;
+    private ImageView img_eye;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //For google sign in
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(requireContext(), gso);
     }
 
     @Override
@@ -53,13 +71,16 @@ public class SignIn extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        loadingBar = new ProgressDialog(requireContext());
         button = view.findViewById(R.id.buttonSignIn);
         et_email = view.findViewById(R.id.et_email);
         et_password = view.findViewById(R.id.et_password);
-        btn_signIn = view.findViewById(R.id.btn_signIn);
-        loadingBar = new ProgressDialog(requireContext());
+        btn_signInWithEmailAndPassword = view.findViewById(R.id.btn_signInWithEmailAndPassword);
+        googeSignIn = view.findViewById(R.id.btn_signInWithGoogle);
+        img_eye = view.findViewById(R.id.img_eye);
 
-        btn_signIn.setOnClickListener(new View.OnClickListener() {
+        //Signing in with email and password
+        btn_signInWithEmailAndPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loadingBar.setTitle("Signing in");
@@ -112,6 +133,7 @@ public class SignIn extends Fragment {
             }
         });
 
+        //button to skip to register fragment
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +143,59 @@ public class SignIn extends Fragment {
             }
         });
 
+        //Google sign in button
+        googeSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                signInGoogle();
+            }
+        });
+
+        //eye (password visibility) image
+        img_eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (et_password.getTransformationMethod().getClass().getSimpleName() .equals("PasswordTransformationMethod")) {
+                    et_password.setTransformationMethod(new SingleLineTransformationMethod());
+                }
+                else {
+                    et_password.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                et_password.setSelection(et_password.getText().length());
+            }
+        });
+
+    }
+
+    //For google sign in
+    void signInGoogle() {
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent, 1000);
     }
 
 
+    //callback of sign in with google request (for google sign in)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            if (task.isSuccessful()) {
+                Toast.makeText(requireContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
+
+                //Next 2 lines were used to link google sign in with firebase
+                AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(task.getResult().getIdToken(), null);
+                firebaseAuth.signInWithCredential(firebaseCredential);
+
+                Intent intent = new Intent(requireContext(), MainActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 }
+
