@@ -13,16 +13,18 @@
         <action
             android:id="@+id/action_navSpashScreen_to_navOnBoarding"
             app:destination="@id/navOnBoarding"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@id/nav_graph" />
         <action
             android:id="@+id/action_navSpashScreen_to_nav_graph"
             app:destination="@id/nav_graph" />
         <action
             android:id="@+id/action_navSpashScreen_to_navSignIn"
-            app:destination="@id/navSignIn" />
+            app:destination="@id/navSignIn"
+            app:popUpTo="@id/nav_graph" />
         <action
             android:id="@+id/action_navSpashScreen_to_navSignIn2"
-            app:popUpTo="@id/navSignIn" />
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/navOnBoarding"
@@ -31,7 +33,8 @@
         tools:layout="@layout/fragment_on_boarding">
         <action
             android:id="@+id/action_navOnBoarding_to_navSignIn"
-            app:destination="@id/navSignIn" />
+            app:destination="@id/navSignIn"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/navSignIn"
@@ -41,6 +44,9 @@
         <action
             android:id="@+id/action_navSignIn_to_nav_register"
             app:destination="@id/nav_register" />
+        <action
+            android:id="@+id/action_navSignIn_self"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/nav_register"

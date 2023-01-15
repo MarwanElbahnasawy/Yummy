@@ -60,10 +60,10 @@ public class SpashScreen extends Fragment {
                 boolean isFirst = sharedPref.getBoolean("first_look", false);
 
                 if (!isFirst) {
-                    Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavOnBoarding());
+                    Navigation.findNavController(view).navigate(R.id.action_navSpashScreen_to_navOnBoarding);
 
                 } else if (user == null) {
-                    Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavSignIn());
+                    Navigation.findNavController(view).navigate(R.id.action_navSpashScreen_to_navSignIn);
 
                 } else {
                     intent = new Intent(requireContext(), MainActivity.class);
