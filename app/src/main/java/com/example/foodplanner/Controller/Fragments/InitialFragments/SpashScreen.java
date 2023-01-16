@@ -25,7 +25,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class SpashScreen extends Fragment {
 
-    private static final int timer = 5000;
+    private static final int timer = 4000;
     GifImageView gifImageView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     Intent intent;

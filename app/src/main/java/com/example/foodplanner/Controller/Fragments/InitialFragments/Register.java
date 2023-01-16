@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 public class Register extends Fragment {
-    TextInputEditText signUp_email, signUp_password;
+    TextInputEditText signUp_email, signUp_password,confirmPassword;
     AppCompatButton register;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -52,6 +53,7 @@ public class Register extends Fragment {
         signUp_email = view.findViewById(R.id.signUp_email_edt);
         signUp_password = view.findViewById(R.id.signUp_password_edt);
         register = view.findViewById(R.id.register_button);
+        confirmPassword=view.findViewById(R.id.signUp_Confirm_password_edt);
         loadingBar = new ProgressDialog(requireContext());
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -65,9 +67,10 @@ public class Register extends Fragment {
 
                 String email = signUp_email.getText().toString();
                 String password = signUp_password.getText().toString();
+                String confirm=confirmPassword.getText().toString();
 
 
-                if ((!email.isEmpty()) && (!password.isEmpty())) {
+                if ((!email.isEmpty()) && (!password.isEmpty())&&(password.equals(confirm))) {
 
                     loadingBar.show();
 
@@ -88,15 +91,23 @@ public class Register extends Fragment {
                             Exception exception = task.getException();
                             if (exception == null) {
                                 Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_LONG).show();
-                            } else {
+                            }
+                            else if (exception.getClass().equals(FirebaseNetworkException.class)){
+                                Toast.makeText(getContext(), "Network error", Toast.LENGTH_LONG).show();
+
+                            }
+                            else {
                                 if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
 
                                     Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_LONG).show();
-                                } else {
+                                }
+
+                                else {
                                     Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                                 }
 
                             }
+
 
                         }
 
@@ -106,6 +117,11 @@ public class Register extends Fragment {
                         Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();
                     } else if (password.isEmpty()) {
                         Toast.makeText(getContext(), "Enter your password", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(!password.equals(confirm))
+                    {
+                        Toast.makeText(getContext(), "Password not identical", Toast.LENGTH_LONG).show();
+
                     }
 
                 }

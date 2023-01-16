@@ -5,23 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import android.text.method.PasswordTransformationMethod;
-import android.text.method.SingleLineTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
@@ -32,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -42,15 +38,16 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class SignIn extends Fragment {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private Button button;
-    private TextView et_email;
-    private EditText et_password;
-    private Button btn_signInWithEmailAndPassword;
+    private AppCompatButton button;
+    private TextInputEditText et_email;
+    private TextInputEditText et_password;
+    private AppCompatButton btn_signInWithEmailAndPassword;
     private ProgressDialog loadingBar;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
     private SignInButton googeSignIn;
     private ImageView img_eye;
+    private TextView register;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,12 +73,12 @@ public class SignIn extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         loadingBar = new ProgressDialog(requireContext());
-        button = view.findViewById(R.id.buttonSignIn);
+        register = view.findViewById(R.id.buttonSignIn);
         et_email = view.findViewById(R.id.et_email);
         et_password = view.findViewById(R.id.et_password);
         btn_signInWithEmailAndPassword = view.findViewById(R.id.btn_signInWithEmailAndPassword);
         googeSignIn = view.findViewById(R.id.btn_signInWithGoogle);
-        img_eye = view.findViewById(R.id.img_eye);
+        // img_eye = view.findViewById(R.id.img_eye);
 
         // sharedPreferences to save status of onBoarding
 
@@ -123,16 +120,15 @@ public class SignIn extends Fragment {
                                 if (exception == null) {
                                     Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_LONG).show();
                                 } else {
-                                    if(exception.getClass().equals(FirebaseAuthException.class)){
+                                    if (exception.getClass().equals(FirebaseAuthException.class)) {
                                         if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_USER_NOT_FOUND")) {
                                             Toast.makeText(getContext(), "User not found", Toast.LENGTH_LONG).show();
                                         } else {
                                             Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                         }
-                                    }
-                                    else if (exception.getClass().equals(FirebaseNetworkException.class)){
+                                    } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
                                         Toast.makeText(getContext(), "Network error", Toast.LENGTH_LONG).show();
-                                    } else{
+                                    } else {
                                         Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
 
@@ -151,8 +147,8 @@ public class SignIn extends Fragment {
             }
         });
 
-        //button to skip to register fragment
-        button.setOnClickListener(new View.OnClickListener() {
+       // button to skip to register fragment
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -171,18 +167,18 @@ public class SignIn extends Fragment {
         });
 
         //eye (password visibility) image
-        img_eye.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (et_password.getTransformationMethod().getClass().getSimpleName() .equals("PasswordTransformationMethod")) {
-                    et_password.setTransformationMethod(new SingleLineTransformationMethod());
-                }
-                else {
-                    et_password.setTransformationMethod(new PasswordTransformationMethod());
-                }
-                et_password.setSelection(et_password.getText().length());
-            }
-        });
+//        img_eye.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (et_password.getTransformationMethod().getClass().getSimpleName() .equals("PasswordTransformationMethod")) {
+//                    et_password.setTransformationMethod(new SingleLineTransformationMethod());
+//                }
+//                else {
+//                    et_password.setTransformationMethod(new PasswordTransformationMethod());
+//                }
+//                et_password.setSelection(et_password.getText().length());
+//            }
+//        });
 
     }
 
@@ -208,8 +204,7 @@ public class SignIn extends Fragment {
 
                 Intent intent = new Intent(requireContext(), MainActivity.class);
                 startActivity(intent);
-            }
-            else{
+            } else {
                 Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show();
             }
 

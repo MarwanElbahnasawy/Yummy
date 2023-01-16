@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/register"
+        android:src="@drawable/img_1"
         tools:layout_editor_absoluteX="76dp"
         tools:layout_editor_absoluteY="175dp" />
 
@@ -30,8 +30,8 @@
         style="@style/customEditText"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:hint="Enter Email"
-        android:layout_marginTop="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -39,8 +39,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUp_email_edt"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/gray"
             android:layout_height="match_parent"
+            android:backgroundTint="#B3FFFFFF"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,8 +49,9 @@
         style="@style/customEditText"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
         android:hint="Enter Password"
-        android:layout_marginTop="300dp"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -58,27 +59,46 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUp_password_edt"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/gray"
             android:layout_height="match_parent"
+            android:backgroundTint="#B3FFFFFF"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        style="@style/customEditText"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:hint="Confirm Password"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signUp_Confirm_password_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#B3FFFFFF"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register_button"
-        android:layout_width="170dp"
+        android:layout_width="190dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="120dp"
+
+        android:layout_marginTop="36dp"
         android:background="@drawable/background"
         android:text="Register"
-
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
