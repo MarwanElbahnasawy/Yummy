@@ -17,11 +17,13 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <pl.droidsonroids.gif.GifImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/gif_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash"
+        app:lottie_rawRes="@raw/splash"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,8 +26,8 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class SpashScreen extends Fragment {
 
-    private static final int timer = 4000;
-    GifImageView gifImageView;
+    private static final int timer = 5000;
+    LottieAnimationView gifImageView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     Intent intent;
 
