@@ -86,6 +86,13 @@ dependencies {
 
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+
+    //Viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //Rounded image view (also related to the view pager)
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
     }
 
 apply plugin: 'com.google.gms.google-services'
