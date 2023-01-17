@@ -25,7 +25,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class SpashScreen extends Fragment {
 
-    private static final int timer = 5000;
+    private static final int timer = 3000;
     GifImageView gifImageView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     Intent intent;
@@ -50,7 +50,9 @@ public class SpashScreen extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         gifImageView = view.findViewById(R.id.gif_splash);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
