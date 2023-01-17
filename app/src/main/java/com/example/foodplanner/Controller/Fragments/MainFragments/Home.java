@@ -6,6 +6,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,10 +52,20 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                // Handle the back button even
+//                Log.d("BACKBUTTON", "Back button clicks");
+//            }
+//        };
+//
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
 
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -158,4 +169,7 @@ public class Home extends Fragment {
         //to handle sliding at onResume
         sliderHandler.postDelayed(sliderRunnable, 3000);
     }
+
+
+
 }

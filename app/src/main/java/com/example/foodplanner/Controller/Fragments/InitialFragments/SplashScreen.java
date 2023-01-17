@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.Controller.Activities.MainActivity;
@@ -21,10 +22,8 @@ import com.example.foodplanner.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import pl.droidsonroids.gif.GifImageView;
 
-
-public class SpashScreen extends Fragment {
+public class SplashScreen extends Fragment {
 
     private static final int timer = 4000;
     LottieAnimationView gifImageView;
@@ -71,6 +70,7 @@ public class SpashScreen extends Fragment {
                 } else {
                     intent = new Intent(requireContext(), MainActivity.class);
                     startActivity(intent);
+                    requireActivity().finish();
 
                 }
 

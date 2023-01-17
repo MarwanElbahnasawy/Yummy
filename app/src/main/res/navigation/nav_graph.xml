@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navSpashScreen"
-        android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.SpashScreen"
+        android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.SplashScreen"
         android:label="Splash Screen"
         tools:layout="@layout/fragment_spash_screen">
         <action
@@ -16,15 +16,10 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popUpTo="@id/nav_graph" />
         <action
-            android:id="@+id/action_navSpashScreen_to_nav_graph"
-            app:destination="@id/nav_graph" />
-        <action
             android:id="@+id/action_navSpashScreen_to_navSignIn"
             app:destination="@id/navSignIn"
             app:popUpTo="@id/nav_graph" />
-        <action
-            android:id="@+id/action_navSpashScreen_to_navSignIn2"
-            app:popUpTo="@id/nav_graph" />
+
     </fragment>
     <fragment
         android:id="@+id/navOnBoarding"
@@ -53,5 +48,5 @@
         android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.Register"
         android:label="Register"
         tools:layout="@layout/fragment_register" />
-<!--    <include app:graph="@navigation/nav_graph2" />-->
+
 </navigation>
