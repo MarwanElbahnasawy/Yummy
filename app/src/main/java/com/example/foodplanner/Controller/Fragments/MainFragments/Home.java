@@ -149,7 +149,7 @@ public class Home extends Fragment {
                         public void onPageSelected(int position) {
                             super.onPageSelected(position);
                             sliderHandler.removeCallbacks(sliderRunnable);
-                            sliderHandler.postDelayed(sliderRunnable, 3000);
+                            sliderHandler.postDelayed(sliderRunnable, 5000);
                         }
                     });
                     Log.i(TAG, "onResponse: " + meals.get(0).getStrMeal());
