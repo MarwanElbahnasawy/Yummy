@@ -84,7 +84,7 @@
                 android:backgroundTint="#99FFFFFF"
                 android:inputType="textEmailAddress"
 
-                />
+                android:password="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

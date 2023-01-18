@@ -87,7 +87,7 @@ public class Register extends Fragment {
                                 Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
 //                                Intent intent = new Intent(requireContext(), MainActivity.class);
 //                                startActivity(intent);
-                                Navigation.findNavController(v).navigate(R.id.action_nav_register_to_nav_home);
+                                Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
 
                             }
                         } else {

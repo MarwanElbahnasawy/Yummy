@@ -72,7 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="#B3FFFFFF"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:password="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -92,7 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="#B3FFFFFF"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:password="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -117,7 +117,7 @@ public class SignIn extends Fragment {
 
 //                                Intent intent = new Intent(requireContext(), MainActivity.class);
 //                                startActivity(intent);
-                                Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
+                                Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
                             } else {
                                 Exception exception = task.getException();
                                 if (exception == null) {
