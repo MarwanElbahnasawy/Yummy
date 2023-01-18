@@ -93,6 +93,9 @@ dependencies {
     //Rounded image view (also related to the view pager)
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    //rxjava retrofit
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+
     }
 
 apply plugin: 'com.google.gms.google-services'
