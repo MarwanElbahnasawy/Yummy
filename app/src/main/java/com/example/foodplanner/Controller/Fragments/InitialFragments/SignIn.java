@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,12 @@ public class SignIn extends Fragment {
     private TextView register;
     private View v;
 
+    private static final String TAG = "SignIn";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         //For google sign in
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -113,11 +117,13 @@ public class SignIn extends Fragment {
                             loadingBar.dismiss();
 
                             if (task.isSuccessful()) {
+                                Log.i(TAG, "onActivityResult: " + firebaseAuth.getCurrentUser().getEmail());
+
                                 Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show();
 
 //                                Intent intent = new Intent(requireContext(), MainActivity.class);
 //                                startActivity(intent);
-                                Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
+                                Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
                             } else {
                                 Exception exception = task.getException();
                                 if (exception == null) {
@@ -150,7 +156,7 @@ public class SignIn extends Fragment {
             }
         });
 
-       // button to skip to register fragment
+        // button to skip to register fragment
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,24 +170,11 @@ public class SignIn extends Fragment {
         googeSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.i("bbbbbbbb", "at sign in clicked in sign in: " + FirebaseAuth.getInstance().getCurrentUser());
                 signInGoogle();
             }
         });
 
-        //eye (password visibility) image
-//        img_eye.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (et_password.getTransformationMethod().getClass().getSimpleName() .equals("PasswordTransformationMethod")) {
-//                    et_password.setTransformationMethod(new SingleLineTransformationMethod());
-//                }
-//                else {
-//                    et_password.setTransformationMethod(new PasswordTransformationMethod());
-//                }
-//                et_password.setSelection(et_password.getText().length());
-//            }
-//        });
 
     }
 
@@ -198,21 +191,18 @@ public class SignIn extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            if (task.isSuccessful()) {
-                Toast.makeText(requireContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
 
-                //Next 2 lines were used to link google sign in with firebase
-                AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(task.getResult().getIdToken(), null);
-                firebaseAuth.signInWithCredential(firebaseCredential);
-
-//                Intent intent = new Intent(requireContext(), MainActivity.class);
-//                startActivity(intent);
-
-                Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
-
-            } else {
-                Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show();
-            }
+            firebaseAuth.signInWithCredential(GoogleAuthProvider.getCredential(task.getResult().getIdToken(), null)).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(requireContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
+                    } else {
+                        Toast.makeText(requireContext(), "Sign in with google failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         }
     }

@@ -34,6 +34,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.View.SliderAdapter;
 import com.example.foodplanner.View.SliderItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        Log.i("bbbbbbbb", "at home " + FirebaseAuth.getInstance().getCurrentUser());
 
 //        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
 //            @Override

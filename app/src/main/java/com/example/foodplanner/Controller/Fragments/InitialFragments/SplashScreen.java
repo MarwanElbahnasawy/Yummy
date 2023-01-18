@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class SplashScreen extends Fragment {
                 SharedPreferences sharedPref = requireContext().getSharedPreferences("setting", Context.MODE_PRIVATE);
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+                Log.i("aaaaaaa", "run: " + firebaseAuth.getCurrentUser());
                 boolean isFirst = sharedPref.getBoolean("first_look", false);
 
                 if (!isFirst) {
