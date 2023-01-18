@@ -1,20 +1,12 @@
 package com.example.foodplanner.Controller.Fragments.MainFragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
+
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -33,15 +25,15 @@ import com.example.foodplanner.Network.RetrofitClient;
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.SliderAdapter;
 import com.example.foodplanner.View.SliderItem;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Home extends Fragment {
 
@@ -57,17 +49,7 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                // Handle the back button even
-//                Log.d("BACKBUTTON", "Back button clicks");
-//            }
-//        };
-//
-//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        Log.i("bbbbbbbb", "at home " + FirebaseAuth.getInstance().getCurrentUser());
 
 
     }
@@ -89,16 +71,7 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_fragment_new);
-//        NavController navController = navHostFragment.getNavController();
-//        BottomNavigationView bottomNav = view.findViewById(R.id.activity_main_bottom_navigation_view);
-//        NavigationUI.setupWithNavController(bottomNav, navController);
 
-//
-//        NavHostFragment.create(
-//        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_new);
-//        BottomNavigationView bottomNavigationView = view.findViewById(R.id.activity_main_bottom_navigation_view);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         getDailyInspirations();
 
@@ -111,7 +84,59 @@ public class Home extends Fragment {
 
         String[] countriesList = {"Indian", "Italian", "Chinese", "French", "British"};
         String randomCountry = countriesList[(new Random()).nextInt(countriesList.length)];
-        Call<Root> call = RetrofitClient.getInstance().getMyApi().getRoot(randomCountry);
+
+        Observable<Root> observable = RetrofitClient.getInstance().getMyApi().getRoot(randomCountry);
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> {
+                            List<MealsItem> meals = response.getMeals();
+
+                            sliderItemList = new ArrayList<>();
+                            for(int i = 0 ; i<10 ; i++){
+                                sliderItemList.add(new SliderItem(meals.get(i).getStrMealThumb(), meals.get(i).getStrMeal()));
+                            }
+
+                            viewPager2.setAdapter(new SliderAdapter(sliderItemList, viewPager2, requireContext()));
+
+                            //for slider to show 3 cards next to each other
+                            viewPager2.setClipToPadding(false);
+                            viewPager2.setClipChildren(false);
+                            viewPager2.setOffscreenPageLimit(4);
+                            viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_IF_CONTENT_SCROLLS);
+                            CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+                            compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+                            compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+                                @Override
+                                public void transformPage(@NonNull View page, float position) {
+                                    float r = 1 - Math.abs(position);
+                                    page.setScaleY(0.85f + r * 0.15f);
+
+                                }
+                            });
+                            viewPager2.setPageTransformer(compositePageTransformer);
+
+                            //for auto sliding part 1/2
+                            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                                @Override
+                                public void onPageSelected(int position) {
+                                    super.onPageSelected(position);
+                                    sliderHandler.removeCallbacks(sliderRunnable);
+                                    sliderHandler.postDelayed(sliderRunnable, 5000);
+                                }
+                            });
+                            Log.i(TAG, "onResponse: " + meals.get(0).getStrMeal());
+                        } ,
+
+                        error -> {
+                            error.printStackTrace();
+                        }
+                );
+
+
+
+       /* Call<Root> call = RetrofitClient.getInstance().getMyApi().getRoot(randomCountry);
         call.enqueue(new Callback<Root>() {
 
             @Override
@@ -159,7 +184,7 @@ public class Home extends Fragment {
             public void onFailure(Call<Root> call, Throwable t) {
                 t.printStackTrace();
             }
-        });
+        });  */
     }
 
     //for auto sliding part 2/2

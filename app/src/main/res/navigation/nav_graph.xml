@@ -63,7 +63,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_mealDeatailsFragment"
+            app:destination="@id/MealDetails" />
+    </fragment>
     <fragment
         android:id="@+id/nav_search"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Search"
@@ -79,5 +83,9 @@
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
         android:label="fragment_week_planner"
         tools:layout="@layout/fragment_week_planner" />
+    <fragment
+        android:id="@+id/MealDetails"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealDeatailsFragment"
+        android:label="MealDeatailsFragment" />
 
 </navigation>

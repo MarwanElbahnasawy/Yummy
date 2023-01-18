@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_weekPlanner:
                                 Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);
                                 return true;
+                            case R.id.MealDetails:
+                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.MealDetails);
+                                return true;
                         }
 
                         return false;
