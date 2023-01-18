@@ -15,7 +15,7 @@
         android:id="@+id/tv_dailyInspirations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/amaranth_bold"
         android:text="Daily Inspirations"

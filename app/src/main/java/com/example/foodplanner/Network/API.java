@@ -1,6 +1,7 @@
 package com.example.foodplanner.Network;
 
 import com.example.foodplanner.Model.Root;
+import com.example.foodplanner.Model.RootSingleMeal;
 
 import java.util.Random;
 
@@ -20,6 +21,9 @@ public interface API {
 
     @GET("filter.php")
     Observable<Root> getRoot(@Query("a") String randomCountry);
+
+    @GET("search.php")
+    Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);
 
 
 

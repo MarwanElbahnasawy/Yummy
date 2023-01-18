@@ -3,6 +3,7 @@ package com.example.foodplanner.Controller.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -11,21 +12,27 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
 
     NavController navController;
     BottomNavigationView bottomNavigationView;
+    ImageView img_lotOut;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        img_lotOut = findViewById(R.id.img_logOut);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -56,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                                 Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.MealDetails);
                                 return true;
                         }
-
                         return false;
                     }
                 });
@@ -70,10 +76,30 @@ public class MainActivity extends AppCompatActivity {
                    case R.id.nav_signIn:
                    case R.id.nav_register:
                        bottomNavigationView.setVisibility(View.GONE);
+                       img_lotOut.setVisibility(View.GONE);
+
                        break;
                    default:
                        bottomNavigationView.setVisibility(View.VISIBLE);
+                       img_lotOut.setVisibility(View.VISIBLE);
                }
+            }
+        });
+
+        img_lotOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                if(FirebaseAuth.getInstance().getCurrentUser() == null){
+
+                    while (navController.popBackStack() == true){}
+
+                    Toast.makeText(MainActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_signIn);
+                } else{
+                    Toast.makeText(MainActivity.this, "Logging out failed", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
