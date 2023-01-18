@@ -20,6 +20,7 @@ public class RetrofitClient {
         Gson gson = new GsonBuilder().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API.BASE_URL_DAILY_INSPIRATIONS)
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())          //rxjava retrofit
                 .build();

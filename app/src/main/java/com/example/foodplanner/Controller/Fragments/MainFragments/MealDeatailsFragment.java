@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.Controller.Fragments.MainFragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-class MealDetailsFragment extends Fragment {
+import com.example.foodplanner.R;
+
+public class MealDeatailsFragment extends Fragment {
 
     @Nullable
     @Override
@@ -17,5 +19,9 @@ class MealDetailsFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_meal_details, container, false);
+    }
+
+    public MealDeatailsFragment(){
+
     }
 }
