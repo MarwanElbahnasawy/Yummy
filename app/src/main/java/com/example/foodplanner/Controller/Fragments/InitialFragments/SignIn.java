@@ -18,7 +18,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -48,6 +47,7 @@ public class SignIn extends Fragment {
     private SignInButton googeSignIn;
     private ImageView img_eye;
     private TextView register;
+    private View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,8 @@ public class SignIn extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        v = view;
 
         loadingBar = new ProgressDialog(requireContext());
         register = view.findViewById(R.id.buttonSignIn);
@@ -113,8 +115,9 @@ public class SignIn extends Fragment {
                             if (task.isSuccessful()) {
                                 Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(requireContext(), MainActivity.class);
-                                startActivity(intent);
+//                                Intent intent = new Intent(requireContext(), MainActivity.class);
+//                                startActivity(intent);
+                                Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
                             } else {
                                 Exception exception = task.getException();
                                 if (exception == null) {
@@ -202,8 +205,11 @@ public class SignIn extends Fragment {
                 AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(task.getResult().getIdToken(), null);
                 firebaseAuth.signInWithCredential(firebaseCredential);
 
-                Intent intent = new Intent(requireContext(), MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(requireContext(), MainActivity.class);
+//                startActivity(intent);
+
+                Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
+
             } else {
                 Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_SHORT).show();
             }

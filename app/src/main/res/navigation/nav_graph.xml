@@ -3,36 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navSpashScreen">
+    app:startDestination="@id/nav_spashScreen">
 
     <fragment
-        android:id="@+id/navSpashScreen"
+        android:id="@+id/nav_spashScreen"
         android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.SplashScreen"
         android:label="Splash Screen"
         tools:layout="@layout/fragment_spash_screen">
         <action
             android:id="@+id/action_navSpashScreen_to_navOnBoarding"
-            app:destination="@id/navOnBoarding"
+            app:destination="@id/nav_onBoarding"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popUpTo="@id/nav_graph" />
         <action
             android:id="@+id/action_navSpashScreen_to_navSignIn"
-            app:destination="@id/navSignIn"
+            app:destination="@id/nav_signIn"
+            app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_navSpashScreen_to_nav_home"
+            app:destination="@id/nav_home"
             app:popUpTo="@id/nav_graph" />
 
     </fragment>
     <fragment
-        android:id="@+id/navOnBoarding"
+        android:id="@+id/nav_onBoarding"
         android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.OnBoarding"
         android:label="On Boarding"
         tools:layout="@layout/fragment_on_boarding">
         <action
             android:id="@+id/action_navOnBoarding_to_navSignIn"
-            app:destination="@id/navSignIn"
+            app:destination="@id/nav_signIn"
             app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
-        android:id="@+id/navSignIn"
+        android:id="@+id/nav_signIn"
         android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.SignIn"
         android:label="Sign In"
         tools:layout="@layout/fragment_sign_in">
@@ -42,11 +46,38 @@
         <action
             android:id="@+id/action_navSignIn_self"
             app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_navSignIn_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/nav_register"
         android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.Register"
         android:label="Register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_nav_register_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Search"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/nav_savedMeals"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SavedMeals"
+        android:label="fragment_saved_meals"
+        tools:layout="@layout/fragment_saved_meals" />
+    <fragment
+        android:id="@+id/nav_weekPlanner"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
+        android:label="fragment_week_planner"
+        tools:layout="@layout/fragment_week_planner" />
 
 </navigation>

@@ -14,10 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +28,7 @@ public class SplashScreen extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     Intent intent;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +40,6 @@ public class SplashScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //Navigation.findNavController(view).navigate(SpashScreenDirections.actionNavSpashScreenToNavOnBoarding());
 
         return inflater.inflate(R.layout.fragment_spash_screen, container, false);
     }
@@ -52,6 +50,7 @@ public class SplashScreen extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         gifImageView = view.findViewById(R.id.gif_splash);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -68,9 +67,10 @@ public class SplashScreen extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_navSpashScreen_to_navSignIn);
 
                 } else {
-                    intent = new Intent(requireContext(), MainActivity.class);
-                    startActivity(intent);
-                    requireActivity().finish();
+//                    intent = new Intent(requireContext(), MainActivity.class);
+//                    startActivity(intent);
+//                    requireActivity().finish();
+                    Navigation.findNavController(view).navigate(R.id.action_navSpashScreen_to_nav_home);
 
                 }
 

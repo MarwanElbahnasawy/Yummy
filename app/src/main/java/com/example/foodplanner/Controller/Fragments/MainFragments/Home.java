@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -29,6 +33,7 @@ import com.example.foodplanner.Network.RetrofitClient;
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.SliderAdapter;
 import com.example.foodplanner.View.SliderItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +56,8 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
 //        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
 //            @Override
@@ -82,7 +89,16 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+//        NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_fragment_new);
+//        NavController navController = navHostFragment.getNavController();
+//        BottomNavigationView bottomNav = view.findViewById(R.id.activity_main_bottom_navigation_view);
+//        NavigationUI.setupWithNavController(bottomNav, navController);
 
+//
+//        NavHostFragment.create(
+//        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_new);
+//        BottomNavigationView bottomNavigationView = view.findViewById(R.id.activity_main_bottom_navigation_view);
+//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         getDailyInspirations();
 
