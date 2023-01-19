@@ -1,7 +1,6 @@
 package com.example.foodplanner.View;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +28,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 
-    Context context;
-    ViewGroup frag;
 
-    public SliderAdapter(List<SliderItem> sliderItemList, ViewPager2 viewPager2, Context context) {
-        this.context = context;
+    ViewGroup viewGroupOfMeal;
+
+    public SliderAdapter(List<SliderItem> sliderItemList, ViewPager2 viewPager2) {
         this.sliderItemList = sliderItemList;
         this.viewPager2 = viewPager2;
 
@@ -46,7 +44,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     @NonNull
     @Override
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        frag = parent;
+        viewGroupOfMeal = parent;
         return new SliderViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.slide_item_container,
@@ -74,7 +72,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                     List<MealsItem> singleMeal = response.getMeals();
 ////
 
-                                    Navigation.findNavController(frag).navigate(HomeDirections.actionNavHomeToMealDeatailsFragment(singleMeal.get(0)));
+                                    Navigation.findNavController(viewGroupOfMeal).navigate(HomeDirections.actionNavHomeToMealDeatailsFragment(singleMeal.get(0)));
 
 //
                                     Log.i("aaaaaaaaaa", "onClick: " + singleMeal.get(0).getStrInstructions());
@@ -87,7 +85,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             }
         });
         SliderItem sliderItem = sliderItemList.get(position);
-        Glide.with(context).load(sliderItem.getImageURL()).into(holder.imageView);
+        Glide.with(viewGroupOfMeal.getContext()).load(sliderItem.getImageURL()).into(holder.imageView);
         holder.tv_mealName.setText(sliderItem.getMealName());
 
         // to make scrolling infinite part 2/2

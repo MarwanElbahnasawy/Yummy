@@ -111,12 +111,12 @@ public class Home extends Fragment {
                                 sliderItemList.add(new SliderItem(meals.get(i).getStrMealThumb(), meals.get(i).getStrMeal()));
                             }
 
-                            viewPager2.setAdapter(new SliderAdapter(sliderItemList, viewPager2, requireContext()));
+                            viewPager2.setAdapter(new SliderAdapter(sliderItemList, viewPager2));
 
                             //for slider to show 3 cards next to each other
                             viewPager2.setClipToPadding(false);
                             viewPager2.setClipChildren(false);
-                            viewPager2.setOffscreenPageLimit(4);
+                            viewPager2.setOffscreenPageLimit(3);
                             viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_IF_CONTENT_SCROLLS);
                             CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
                             compositePageTransformer.addTransformer(new MarginPageTransformer(40));
@@ -166,7 +166,7 @@ public class Home extends Fragment {
     public void onResume() {
         super.onResume();
         //to handle sliding at onResume
-        sliderHandler.postDelayed(sliderRunnable, 3000);
+        sliderHandler.postDelayed(sliderRunnable, 5000);
     }
 
 

@@ -18,7 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.ViewPadgerAdapter;
+import com.example.foodplanner.View.ViewPagerAdapter;
 
 
 public class OnBoarding extends Fragment {
@@ -27,7 +27,7 @@ public class OnBoarding extends Fragment {
     LinearLayout dotLayout;
     AppCompatButton skipButton;
     TextView[] dots;
-    ViewPadgerAdapter viewPagerAdapter;
+    ViewPagerAdapter viewPagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class OnBoarding extends Fragment {
             }
         });
 
-        viewPagerAdapter = new ViewPadgerAdapter(requireContext());
+        viewPagerAdapter = new ViewPagerAdapter(requireContext());
 
         viewPager.setAdapter(viewPagerAdapter);
 

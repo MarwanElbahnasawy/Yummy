@@ -85,10 +85,10 @@
         tools:layout="@layout/fragment_week_planner" />
     <fragment
         android:id="@+id/mealDeatailsFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealDeatailsFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealDetailsFragment"
         android:label="MealDeatailsFragment" >
         <argument
-            android:name="mealDetailsArges"
+            android:name="mealDetailsArgs"
             app:argType="com.example.foodplanner.Model.MealsItem" />
     </fragment>
 

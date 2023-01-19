@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class ViewPadgerAdapter extends PagerAdapter {
+import com.example.foodplanner.R;
+
+public class ViewPagerAdapter extends PagerAdapter {
 
     Context context;
     int images[] = {
@@ -24,7 +26,7 @@ public class ViewPadgerAdapter extends PagerAdapter {
             R.string.desrpition1, R.string.desrpition2, R.string.desrpition3, R.string.desrpition4
     };
 
-    public ViewPadgerAdapter(Context context) {
+    public ViewPagerAdapter(Context context) {
 
         this.context = context;
 

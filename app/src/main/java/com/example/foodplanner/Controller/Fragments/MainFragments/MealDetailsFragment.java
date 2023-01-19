@@ -19,7 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-public class MealDeatailsFragment extends Fragment {
+public class MealDetailsFragment extends Fragment {
     TextView mealName, area, description;
     ImageView mealImage;
     YouTubePlayerView videoView;
@@ -27,12 +27,15 @@ public class MealDeatailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MealsItem mealsItem = MealDeatailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArges();
+
+        MealsItem mealsItem = MealDetailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArgs();
+
         mealName = view.findViewById(R.id.tv_mealName);
         area = view.findViewById(R.id.tv_meal_area);
         description = view.findViewById(R.id.tv_Meal_description);
         mealImage = view.findViewById(R.id.mealImage);
         videoView = view.findViewById(R.id.video);
+
         getLifecycle().addObserver((LifecycleObserver) videoView);
         String[] split = mealsItem.getStrYoutube().split("=");
 
@@ -60,7 +63,7 @@ public class MealDeatailsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_meal_details, container, false);
     }
 
-    public MealDeatailsFragment() {
+    public MealDetailsFragment() {
 
     }
 }
