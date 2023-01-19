@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                    case R.id.nav_onBoarding:
                    case R.id.nav_signIn:
                    case R.id.nav_register:
+                   case R.id.mealDeatailsFragment:
                        bottomNavigationView.setVisibility(View.GONE);
                        img_lotOut.setVisibility(View.GONE);
 

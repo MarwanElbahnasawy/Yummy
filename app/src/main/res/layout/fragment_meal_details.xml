@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_gradiant_color">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:textAlignment="center"
+                    android:fontFamily="@font/amaranth_bold"
                     android:textColor="@color/yellow"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -56,9 +57,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/andika_new_basic"
                     android:textAlignment="center"
-                    android:textColor="@color/active"
-                    android:textSize="20sp" />
+                    android:textColor="#B3C4C4C4"
+                    android:textSize="24sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -69,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="32dp"
+            android:fontFamily="@font/amaranth_bold"
             android:text="Steps"
             android:textColor="@color/yellow"
             android:textSize="25sp"
@@ -83,6 +86,7 @@
             android:layout_marginStart="17dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:fontFamily="@font/andika_new_basic"
             android:text=""
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +107,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/amaranth_bold"
             android:text="Ingredient"
-            android:layout_marginStart="15dp"
             android:textColor="@color/yellow"
             android:textSize="25sp"
             android:textStyle="bold"
