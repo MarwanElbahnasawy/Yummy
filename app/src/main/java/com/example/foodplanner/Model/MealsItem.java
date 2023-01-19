@@ -2,7 +2,10 @@ package com.example.foodplanner.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MealsItem{
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+
+public class MealsItem implements Serializable {
 	private Object strImageSource;
 	private String strIngredient10;
 	private String strIngredient12;
@@ -58,222 +61,219 @@ public class MealsItem{
 	private String strMeasure15;
 
 
-
-
-
-
-
-
-
-	public Object getStrImageSource(){
+	public Object getStrImageSource() {
 		return strImageSource;
 	}
 
-	public String getStrIngredient10(){
+	public String getStrIngredient10() {
 		return strIngredient10;
 	}
 
-	public String getStrIngredient12(){
+	public String getStrIngredient12() {
 		return strIngredient12;
 	}
 
-	public String getStrIngredient11(){
+	public String getStrIngredient11() {
 		return strIngredient11;
 	}
 
-	public String getStrIngredient14(){
+	public String getStrIngredient14() {
 		return strIngredient14;
 	}
 
-	public String getStrCategory(){
+	public String getStrCategory() {
 		return strCategory;
 	}
 
-	public String getStrIngredient13(){
+	public String getStrIngredient13() {
 		return strIngredient13;
 	}
 
-	public Object getStrIngredient16(){
+	public Object getStrIngredient16() {
 		return strIngredient16;
 	}
 
-	public String getStrIngredient15(){
+	public String getStrIngredient15() {
 		return strIngredient15;
 	}
 
-	public Object getStrIngredient18(){
+	public Object getStrIngredient18() {
 		return strIngredient18;
 	}
 
-	public Object getStrIngredient17(){
+	public Object getStrIngredient17() {
 		return strIngredient17;
 	}
 
-	public String getStrArea(){
+	public String getStrArea() {
 		return strArea;
 	}
 
-	public Object getStrCreativeCommonsConfirmed(){
+	public Object getStrCreativeCommonsConfirmed() {
 		return strCreativeCommonsConfirmed;
 	}
 
-	public Object getStrIngredient19(){
+	public Object getStrIngredient19() {
 		return strIngredient19;
 	}
 
-	public String getStrTags(){
+	public String getStrTags() {
 		return strTags;
 	}
 
-	public String getIdMeal(){
+	public String getIdMeal() {
 		return idMeal;
 	}
 
-	public String getStrInstructions(){
+	public String getStrInstructions() {
 		return strInstructions;
 	}
 
-	public String getStrIngredient1(){
+	public String getStrIngredient1() {
 		return strIngredient1;
 	}
 
-	public String getStrIngredient3(){
+	public String getStrIngredient3() {
 		return strIngredient3;
 	}
 
-	public String getStrIngredient2(){
+	public String getStrIngredient2() {
 		return strIngredient2;
 	}
 
-	public Object getStrIngredient20(){
+	public Object getStrIngredient20() {
 		return strIngredient20;
 	}
 
-	public String getStrIngredient5(){
+	public String getStrIngredient5() {
 		return strIngredient5;
 	}
 
-	public String getStrIngredient4(){
+	public String getStrIngredient4() {
 		return strIngredient4;
 	}
 
-	public String getStrIngredient7(){
+	public String getStrIngredient7() {
 		return strIngredient7;
 	}
 
-	public String getStrIngredient6(){
+	public String getStrIngredient6() {
 		return strIngredient6;
 	}
 
-	public String getStrIngredient9(){
+	public String getStrIngredient9() {
 		return strIngredient9;
 	}
 
-	public String getStrIngredient8(){
+	public String getStrIngredient8() {
 		return strIngredient8;
 	}
 
-	public String getStrMealThumb(){
+	public String getStrMealThumb() {
 		return strMealThumb;
 	}
 
-	public Object getStrMeasure20(){
+	public Object getStrMeasure20() {
 		return strMeasure20;
 	}
 
-	public String getStrYoutube(){
+	public String getStrYoutube() {
 		return strYoutube;
 	}
 
-	public String getStrMeal(){
+	public String getStrMeal() {
 		return strMeal;
 	}
 
-	public String getStrMeasure12(){
+	public String getStrMeasure12() {
 		return strMeasure12;
 	}
 
-	public String getStrMeasure13(){
+	public String getStrMeasure13() {
 		return strMeasure13;
 	}
 
-	public String getStrMeasure10(){
+	public String getStrMeasure10() {
 		return strMeasure10;
 	}
 
-	public String getStrMeasure11(){
+	public String getStrMeasure11() {
 		return strMeasure11;
 	}
 
-	public Object getDateModified(){
+	public Object getDateModified() {
 		return dateModified;
 	}
 
-	public Object getStrDrinkAlternate(){
+	public Object getStrDrinkAlternate() {
 		return strDrinkAlternate;
 	}
 
-	public Object getStrSource(){
+	public Object getStrSource() {
 		return strSource;
 	}
 
-	public String getStrMeasure9(){
+	public String getStrMeasure9() {
 		return strMeasure9;
 	}
 
-	public String getStrMeasure7(){
+	public String getStrMeasure7() {
 		return strMeasure7;
 	}
 
-	public String getStrMeasure8(){
+	public String getStrMeasure8() {
 		return strMeasure8;
 	}
 
-	public String getStrMeasure5(){
+	public String getStrMeasure5() {
 		return strMeasure5;
 	}
 
-	public String getStrMeasure6(){
+	public String getStrMeasure6() {
 		return strMeasure6;
 	}
 
-	public String getStrMeasure3(){
+	public String getStrMeasure3() {
 		return strMeasure3;
 	}
 
-	public String getStrMeasure4(){
+	public String getStrMeasure4() {
 		return strMeasure4;
 	}
 
-	public String getStrMeasure1(){
+	public String getStrMeasure1() {
 		return strMeasure1;
 	}
 
-	public Object getStrMeasure18(){
+	public Object getStrMeasure18() {
 		return strMeasure18;
 	}
 
-	public String getStrMeasure2(){
+	public String getStrMeasure2() {
 		return strMeasure2;
 	}
 
-	public Object getStrMeasure19(){
+	public Object getStrMeasure19() {
 		return strMeasure19;
 	}
 
-	public Object getStrMeasure16(){
+	public Object getStrMeasure16() {
 		return strMeasure16;
 	}
 
-	public Object getStrMeasure17(){
+	public Object getStrMeasure17() {
 		return strMeasure17;
 	}
 
-	public String getStrMeasure14(){
+	public String getStrMeasure14() {
 		return strMeasure14;
 	}
 
-	public String getStrMeasure15(){
+	public String getStrMeasure15() {
 		return strMeasure15;
 	}
+
+
 }
+
+

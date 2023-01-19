@@ -1,7 +1,7 @@
 package com.example.foodplanner.View;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,6 @@ import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.Model.RootSingleMeal;
 import com.example.foodplanner.Network.RetrofitClient;
 import com.example.foodplanner.R;
-import com.example.foodplanner.databinding.FragmentMealDetailsBinding;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -28,7 +27,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class SliderAdapter extends  RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
+public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 
     Context context;
     ViewGroup frag;
@@ -47,38 +46,43 @@ public class SliderAdapter extends  RecyclerView.Adapter<SliderAdapter.SliderVie
     @NonNull
     @Override
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        frag=parent;
+        frag = parent;
         return new SliderViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.slide_item_container,
                         parent,
                         false)
 
-                );
+        );
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SliderViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //holder.imageView.setImageResource(sliderItemList.get(position).getImage());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Observable<RootSingleMeal> observable = RetrofitClient.getInstance().getMyApi().getRootSingleMeal(holder.getTv_mealName().getText().toString());
 
+                Observable<RootSingleMeal> observable = RetrofitClient.getInstance().getMyApi().getRootSingleMeal(holder.tv_mealName.getText().toString());
 
                 observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 response -> {
                                     List<MealsItem> singleMeal = response.getMeals();
-                                } ,
-                                error -> {
-                                    error.printStackTrace();}
-                        );
+////
 
-               Navigation.findNavController(frag).navigate(HomeDirections.actionNavHomeToMealDeatailsFragment());
+                                    Navigation.findNavController(frag).navigate(HomeDirections.actionNavHomeToMealDeatailsFragment(singleMeal.get(0)));
+
+//
+                                    Log.i("aaaaaaaaaa", "onClick: " + singleMeal.get(0).getStrInstructions());
+                                },
+                                error -> {
+                                    error.printStackTrace();
+                                }
+                        );
 
             }
         });
@@ -87,7 +91,7 @@ public class SliderAdapter extends  RecyclerView.Adapter<SliderAdapter.SliderVie
         holder.tv_mealName.setText(sliderItem.getMealName());
 
         // to make scrolling infinite part 2/2
-        if(position == sliderItemList.size() - 2){
+        if (position == sliderItemList.size() - 2) {
             viewPager2.post(runnable);
         }
     }
@@ -97,7 +101,7 @@ public class SliderAdapter extends  RecyclerView.Adapter<SliderAdapter.SliderVie
         return sliderItemList.size();
     }
 
-    class SliderViewHolder extends RecyclerView.ViewHolder{
+    class SliderViewHolder extends RecyclerView.ViewHolder {
         private RoundedImageView imageView;
         private TextView tv_mealName;
 
@@ -108,9 +112,6 @@ public class SliderAdapter extends  RecyclerView.Adapter<SliderAdapter.SliderVie
             tv_mealName = itemView.findViewById(R.id.tv_mealName);
         }
 
-        public TextView getTv_mealName() {
-            return tv_mealName;
-        }
     }
 
     // to make scrolling infinite part 1/2

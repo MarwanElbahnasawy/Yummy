@@ -31,12 +31,12 @@
 
     <ImageView
         android:id="@+id/img_logOut"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_margin="5dp"
-        android:elevation="10dp"
+        android:elevation="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logout_icon" />
+        app:srcCompat="@drawable/ic_baseline_logout_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
