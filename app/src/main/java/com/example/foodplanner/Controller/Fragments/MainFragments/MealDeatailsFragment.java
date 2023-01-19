@@ -1,58 +1,53 @@
 package com.example.foodplanner.Controller.Fragments.MainFragments;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleObserver;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.R;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 public class MealDeatailsFragment extends Fragment {
-    TextView mealName,area,description;
+    TextView mealName, area, description;
     ImageView mealImage;
-    VideoView videoView;
+    YouTubePlayerView videoView;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MealsItem mealsItem=MealDeatailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArges();
-        mealName=view.findViewById(R.id.tv_mealName);
-        area=view.findViewById(R.id.tv_meal_area);
-        description=view.findViewById(R.id.tv_Meal_description);
-        mealImage=view.findViewById(R.id.mealImage);
-        videoView=view.findViewById(R.id.video);
+        MealsItem mealsItem = MealDeatailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArges();
+        mealName = view.findViewById(R.id.tv_mealName);
+        area = view.findViewById(R.id.tv_meal_area);
+        description = view.findViewById(R.id.tv_Meal_description);
+        mealImage = view.findViewById(R.id.mealImage);
+        videoView = view.findViewById(R.id.video);
+        getLifecycle().addObserver((LifecycleObserver) videoView);
+        String[] split = mealsItem.getStrYoutube().split("=");
 
-        //Creating MediaController
-        MediaController mediaController= new MediaController(getContext());
-        mediaController.setAnchorView(videoView);
-
-        //specify the location of media file
-        Uri uri=Uri.parse(Environment.getExternalStorageDirectory().getPath()+mealsItem.getStrYoutube());
-
-        //Setting MediaController and URI, then starting the videoView
-        videoView.setMediaController(mediaController);
-        videoView.setVideoURI(uri);
-        videoView.requestFocus();
-        videoView.start();
-
+        videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                String videoId = split[1];
+                youTubePlayer.loadVideo(videoId, 0);
+            }
+        });
 
         mealName.setText(mealsItem.getStrMeal());
         area.setText(mealsItem.getStrArea());
         Glide.with(view.getContext()).load(mealsItem.getStrMealThumb()).into(mealImage);
         description.setText(mealsItem.getStrInstructions());
-
-
 
 
     }
@@ -65,7 +60,7 @@ public class MealDeatailsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_meal_details, container, false);
     }
 
-    public MealDeatailsFragment(){
+    public MealDeatailsFragment() {
 
     }
 }

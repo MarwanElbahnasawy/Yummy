@@ -55,7 +55,7 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-runtime:2.4.1"
-    annotationProcessor"androidx.room:room-compiler:2.4.1"
+    annotationProcessor "androidx.room:room-compiler:2.4.1"
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
@@ -96,8 +96,9 @@ dependencies {
     //rx retrofit
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
+    //Display video
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 
-    
 
 }
 
