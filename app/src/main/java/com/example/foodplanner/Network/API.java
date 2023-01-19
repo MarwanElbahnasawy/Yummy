@@ -14,6 +14,9 @@ public interface API {
     //Base url for daily inspirations
     String BASE_URL_DAILY_INSPIRATIONS = "https://www.themealdb.com/api/json/v1/1/";
 
+    @GET("search.php")
+    Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);
+
 
 
 //    @GET("filter.php")
