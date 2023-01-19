@@ -19,6 +19,11 @@ public interface API {
 //    @GET("filter.php")
 //    Call<Root> getRoot(@Query("a") String randomCountry);
 
+
+
+    @GET("random.php")
+    Observable<Root> getRootRandom();
+
     @GET("filter.php")
     Observable<Root> getRoot(@Query("a") String randomCountry);
 

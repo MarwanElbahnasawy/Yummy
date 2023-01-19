@@ -67,17 +67,14 @@ public class SliderAdapter extends  RecyclerView.Adapter<SliderAdapter.SliderVie
 
                 Observable<RootSingleMeal> observable = RetrofitClient.getInstance().getMyApi().getRootSingleMeal(holder.getTv_mealName().getText().toString());
 
-                Log.i("aaaaaaaaaa", "onClick: should be name" + holder.getTv_mealName().getText());
 
                 observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 response -> {
                                     List<MealsItem> singleMeal = response.getMeals();
-                                    Log.i("aaaaaaaaaa", "onClick: " + singleMeal.get(0).getStrInstructions());
                                 } ,
                                 error -> {
-                                    Log.i("aaaaaaaaaa", "onClick: " + "errorrr" + error.toString());
                                     error.printStackTrace();}
                         );
 
