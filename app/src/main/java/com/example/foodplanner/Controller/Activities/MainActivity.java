@@ -3,7 +3,6 @@ package com.example.foodplanner.Controller.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -53,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_search:
                                 Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_search);
                                 return true;
-                            case R.id.nav_savedMeals:
-                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_savedMeals);
+                            case R.id.nav_favoriteMeals:
+                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_favoriteMeals);
                                 return true;
                             case R.id.nav_weekPlanner:
                                 Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);

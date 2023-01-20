@@ -74,10 +74,10 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
-        android:id="@+id/nav_savedMeals"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SavedMeals"
+        android:id="@+id/nav_favoriteMeals"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.FavoriteMeals"
         android:label="fragment_saved_meals"
-        tools:layout="@layout/fragment_saved_meals" />
+        tools:layout="@layout/fragment_favorite_meals" />
     <fragment
         android:id="@+id/nav_weekPlanner"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
