@@ -1,5 +1,6 @@
 package com.example.foodplanner.Network;
 
+import com.example.foodplanner.Model.AreaListModel;
 import com.example.foodplanner.Model.Root;
 import com.example.foodplanner.Model.RootSingleMeal;
 
@@ -25,6 +26,9 @@ public interface API {
 
     @GET("search.php")
     Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);
+    @GET("list.php?a=list")
+    Observable<AreaListModel> getCountry();
+
 
 
 }

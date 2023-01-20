@@ -73,7 +73,11 @@
         android:id="@+id/nav_search"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Search"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_searchBYCountryFragment"
+            app:destination="@id/searchBYCountryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_savedMeals"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SavedMeals"
@@ -92,5 +96,10 @@
             android:name="mealDetailsArgs"
             app:argType="com.example.foodplanner.Model.MealsItem" />
     </fragment>
+    <fragment
+        android:id="@+id/searchBYCountryFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SearchBYCountryFragment"
+        android:label="fragment_search_b_y_country"
+        tools:layout="@layout/fragment_search_b_y_country" />
 
 </navigation>
