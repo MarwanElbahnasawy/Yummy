@@ -8,12 +8,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.Controller.Fragments.MainFragments.FavoriteMealsDirections;
+import com.example.foodplanner.Controller.Fragments.MainFragments.HomeDirections;
 import com.example.foodplanner.Model.MealsItem;
+import com.example.foodplanner.Model.Root;
+import com.example.foodplanner.Model.RootSingleMeal;
+import com.example.foodplanner.Network.RetrofitClient;
 import com.example.foodplanner.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,11 +29,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdapter.ViewHolder> {
 
     private Context context;
+    private ViewGroup parent;
     List<MealsItem> mealsFavorite = new ArrayList<>();
     private static final String TAG = "FavoriteMealsAdapter";
+    Observable<RootSingleMeal> observableMealSelectedFromFavorites;
 
     public FavoriteMealsAdapter(List<MealsItem> mealsFavorite) {
         this.mealsFavorite = mealsFavorite;
@@ -35,7 +48,10 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
     @NonNull
     @Override
     public FavoriteMealsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        this.parent = parent;
         context = parent.getContext();                      ////////////
+        Toast.makeText(context, "called", Toast.LENGTH_SHORT).show();
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.row_fav , parent , false);          //\\\\\\\\\\
         ViewHolder viewHolder = new ViewHolder(itemView);
@@ -71,6 +87,27 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
                                 Log.i(TAG, "Error deleting document", e);
                             }
                         });                                            //\\\\\\\
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "item is clicked", Toast.LENGTH_SHORT).show();
+                Observable<RootSingleMeal> observableMealSelectedFromFavorites = RetrofitClient.getInstance().getMyApi().getRootSingleMeal(mealsFavorite.get(position).getStrMeal());
+
+                observableMealSelectedFromFavorites.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                response -> {
+                                    mealsFavorite.clear(); //cause clicked back multiplied whats shown in the view.
+                                    Navigation.findNavController(parent).navigate(FavoriteMealsDirections.actionNavFavoriteMealsToMealDeatailsFragment(response.getMeals().get(0)));
+
+                                },
+
+                                error -> {
+                                    error.printStackTrace();
+                                } );
             }
         });
     }

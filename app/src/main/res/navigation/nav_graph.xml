@@ -78,7 +78,11 @@
         android:id="@+id/nav_favoriteMeals"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.FavoriteMeals"
         android:label="fragment_saved_meals"
-        tools:layout="@layout/fragment_favorite_meals" />
+        tools:layout="@layout/fragment_favorite_meals" >
+        <action
+            android:id="@+id/action_nav_favoriteMeals_to_mealDeatailsFragment"
+            app:destination="@id/mealDeatailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_weekPlanner"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
