@@ -1,11 +1,19 @@
 package com.example.foodplanner.Model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 
 public class MealsItem implements Serializable {
+
+	public String documentID;
+
+	public MealsItem(String documentID, String strMeal, String strArea, String strMealThumb) {
+		this.documentID = documentID;
+		this.strMeal = strMeal;
+		this.strArea = strArea;
+		this.strMealThumb = strMealThumb;
+
+	}
+
 	private Object strImageSource;
 	private String strIngredient10;
 	private String strIngredient12;
