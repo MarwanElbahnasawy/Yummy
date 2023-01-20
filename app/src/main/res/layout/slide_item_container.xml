@@ -68,7 +68,7 @@
                 app:layout_constraintStart_toStartOf="@+id/imageSlide" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/img_bookmark"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="5dp"

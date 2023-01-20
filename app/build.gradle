@@ -60,9 +60,8 @@ dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
 
-    // For example, add the dependencies for Firebase Authentication and Cloud Firestore
+    // For example, add the dependencies for Firebase Authentication
     implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'com.google.firebase:firebase-firestore'
 
     //RXJAVA
     implementation 'io.reactivex.rxjava3:rxjava:2.5.0'
@@ -98,6 +97,10 @@ dependencies {
 
     //Display video
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
+
+    //Firestore
+    implementation 'com.google.firebase:firebase-firestore:24.4.1'
+
 
 
 }

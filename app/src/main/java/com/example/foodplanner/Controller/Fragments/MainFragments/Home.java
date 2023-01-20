@@ -111,7 +111,7 @@ public class Home extends Fragment {
                                 sliderItemList.add(new SliderItem(meals.get(i).getStrMealThumb(), meals.get(i).getStrMeal()));
                             }
 
-                            viewPager2.setAdapter(new SliderAdapter(sliderItemList, viewPager2));
+                            viewPager2.setAdapter(new SliderAdapter(meals, viewPager2));
 
                             //for slider to show 3 cards next to each other
                             viewPager2.setClipToPadding(false);
