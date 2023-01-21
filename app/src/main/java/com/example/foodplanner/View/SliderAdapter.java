@@ -18,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Controller.Fragments.MainFragments.HomeDirections;
 import com.example.foodplanner.Model.MealsItem;
+import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,6 +47,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     Boolean isAlreadyInFavorites;
 
+    Repository rep;
 
     //private List<SliderItem> meals;
     private ViewPager2 viewPager2;
@@ -79,7 +81,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Navigation.findNavController(viewGroupOfMeal).navigate(HomeDirections.actionNavHomeToMealDeatailsFragment(meals.get(position)));
 
             }
@@ -88,17 +89,32 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         Glide.with(viewGroupOfMeal.getContext()).load(mealsItem.getStrMealThumb()).into(holder.imageView);
         holder.tv_mealName.setText(mealsItem.getStrMeal());
 
-        //Bookmark button on click:
+        /* Favorites Firestore part 1/4: Bookmark button */
+        /*
         holder.img_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 checkIfItemAlreadyExists(meals.get(position));
 
+            }
+        });
 
+         */
+
+        /* Favorites Room part 1/4: Bookmark button */
+
+        holder.img_bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                rep=new Repository(viewGroupOfMeal.getContext());
+                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail() ,mealsItem);
 
             }
         });
+
+
 
         // to make scrolling infinite part 2/2
         if (position == meals.size() - 2) {
@@ -108,7 +124,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     private void checkIfItemAlreadyExists(MealsItem mealsItemSelected) {
         isAlreadyInFavorites = false;
-        FirebaseFirestore.getInstance().collection("users")
+        FirebaseFirestore.getInstance().collection("userFavorites")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                            @Override
@@ -144,17 +160,21 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         loadingBar.show();
 
 
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> userFavorites = new HashMap<>();
 
-        user.put("userID", FirebaseAuth.getInstance().getCurrentUser().getUid());
-        user.put("userEmail", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        user.put("mealName", mealsItem.getStrMeal());
-        user.put("mealArea", mealsItem.getStrArea());
-        user.put("mealImgURL", mealsItem.getStrMealThumb());
-        user.put("timeAdded", System.currentTimeMillis());
+        userFavorites.put("userID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userFavorites.put("userEmail", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        userFavorites.put("timeAdded", System.currentTimeMillis());
+        userFavorites.put("strMeal", mealsItem.getStrMeal());
+        userFavorites.put("strArea", mealsItem.getStrArea());
+        userFavorites.put("strMealThumb", mealsItem.getStrMealThumb());
+        userFavorites.put("strYoutube", mealsItem.getStrYoutube());
+        userFavorites.put("strInstructions", mealsItem.getStrInstructions());
 
-        FirebaseFirestore.getInstance().collection("users")
-                .add(user)
+
+
+        FirebaseFirestore.getInstance().collection("userFavorites")
+                .add(userFavorites)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

@@ -20,7 +20,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 public class MealDetailsFragment extends Fragment {
-    TextView mealName, area, description;
+    TextView mealName, area, instructions;
     ImageView mealImage;
     YouTubePlayerView videoView;
 
@@ -32,7 +32,7 @@ public class MealDetailsFragment extends Fragment {
 
         mealName = view.findViewById(R.id.tv_mealName);
         area = view.findViewById(R.id.tv_meal_area);
-        description = view.findViewById(R.id.tv_Meal_description);
+        instructions = view.findViewById(R.id.tv_Meal_instructions);
         mealImage = view.findViewById(R.id.mealImage);
         videoView = view.findViewById(R.id.video);
 
@@ -50,7 +50,7 @@ public class MealDetailsFragment extends Fragment {
         mealName.setText(mealsItem.getStrMeal());
         area.setText(mealsItem.getStrArea());
         Glide.with(view.getContext()).load(mealsItem.getStrMealThumb()).into(mealImage);
-        description.setText(mealsItem.getStrInstructions());
+        instructions.setText(mealsItem.getStrInstructions());
 
 
     }
