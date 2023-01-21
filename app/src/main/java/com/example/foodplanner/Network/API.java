@@ -13,16 +13,13 @@ public interface API {
     String BASE_URL_DAILY_INSPIRATIONS = "https://www.themealdb.com/api/json/v1/1/";
 
 
-//    @GET("filter.php")
-//    Call<Root> getRoot(@Query("a") String randomCountry);
-
-
-
     @GET("random.php")
     Observable<Root> getRootRandom();
 
     @GET("filter.php")
     Observable<Root> getRoot(@Query("a") String randomCountry);
+
+
 
     @GET("search.php")
     Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);

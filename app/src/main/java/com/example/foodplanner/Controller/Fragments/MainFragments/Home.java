@@ -98,7 +98,10 @@ public class Home extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         response -> {
-                            meals.add(response.getMeals().get(0));
+
+                            for(int i = 0 ; i<response.getMeals().size() ; i++){
+                                meals.add(response.getMeals().get(i));
+                            }
                         },
 
                         error -> {

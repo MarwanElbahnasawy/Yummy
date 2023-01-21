@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.foodplanner.Model.MealsItem;
+import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.FavoriteMealsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,8 @@ public class FavoriteMeals extends Fragment {
     FavoriteMealsAdapter favoriteMealsAdapter;
     private static final String TAG = "SavedMeals";
     List<MealsItem> mealsFavorite = new ArrayList<>();
+
+    Repository rep;
 
 
 
@@ -62,13 +65,22 @@ public class FavoriteMeals extends Fragment {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        getFavoriteMeals();
+        /* Favorites Firestore part 2/4: Getting data */
+        /* getFavoriteMealsUsingFirestore(); */
+
+        /* Favorites Room part 2/4: Getting data */
+
+        rep=new Repository(requireContext());
+        favoriteMealsAdapter=new FavoriteMealsAdapter(rep.returnStoredMealsItems().blockingFirst());
+        recyclerView.setAdapter(favoriteMealsAdapter);
+
 
 
     }
 
-    private void getFavoriteMeals() {
-        FirebaseFirestore.getInstance().collection("users")
+
+    private void getFavoriteMealsUsingFirestore() {
+        FirebaseFirestore.getInstance().collection("userFavorites")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                            @Override
@@ -77,14 +89,19 @@ public class FavoriteMeals extends Fragment {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
 
                                                        if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                                                           mealsFavorite.add(new MealsItem(document.getId() ,document.get("mealName").toString(),document.get("mealArea").toString(),document.get("mealImgURL").toString()));
+                                                           mealsFavorite.add(new MealsItem(document.getId() ,
+                                                                   document.get("strMeal").toString(),
+                                                                   document.get("strArea").toString(),
+                                                                   document.get("strMealThumb").toString(),
+                                                                   document.get("strInstructions").toString(),
+                                                                   document.get("strYoutube").toString() )
+                                                           );
                                                        }
 
                                                    }
 
                                                    if(mealsFavorite.size() != 0){
                                                        favoriteMealsAdapter=new FavoriteMealsAdapter(mealsFavorite);
-                                                       //favoriteMealsAdapter.notifyDataSetChanged();        //didnt need this, why was it put here?
                                                        recyclerView.setAdapter(favoriteMealsAdapter);
                                                    }
                                                    else{
@@ -100,4 +117,6 @@ public class FavoriteMeals extends Fragment {
                                        }
                 );
     }
+
+
 }
