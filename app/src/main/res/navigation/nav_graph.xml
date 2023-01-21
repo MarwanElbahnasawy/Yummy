@@ -104,6 +104,19 @@
         android:id="@+id/searchBYCountryFragment"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SearchBYCountryFragment"
         android:label="fragment_search_b_y_country"
-        tools:layout="@layout/fragment_search_b_y_country" />
+        tools:layout="@layout/fragment_search_b_y_country" >
+        <action
+            android:id="@+id/action_searchBYCountryFragment_to_mealByCountryFragment"
+            app:destination="@id/mealByCountryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealByCountryFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealByCountryFragment"
+        android:label="fragment_meal_by_country"
+        tools:layout="@layout/fragment_meal_by_country" >
+        <argument
+            android:name="area"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
