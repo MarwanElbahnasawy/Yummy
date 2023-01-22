@@ -134,7 +134,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             public void onClick(View view) {
 
                 rep=new Repository(viewGroupOfMeal.getContext());
-                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail(), null ,mealsItem);
+                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail(), "NULL" ,mealsItem);
 
             }
         });

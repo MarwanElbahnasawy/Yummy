@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity (tableName = "MealsItem", primaryKeys = {"currentUserEmail","strMeal"})
+@Entity (tableName = "MealsItem", primaryKeys = {"currentUserEmail","strMeal","weekDay"})
 public class MealsItem implements Serializable {
 
 	public String documentID;
@@ -19,7 +19,7 @@ public class MealsItem implements Serializable {
 	private String currentUserEmail;
 	@NonNull
 	private String strMeal;
-
+	@NonNull
 	private String weekDay;
 
 

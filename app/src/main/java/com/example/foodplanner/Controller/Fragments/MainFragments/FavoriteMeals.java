@@ -80,7 +80,7 @@ public class FavoriteMeals extends Fragment {
         List<MealsItem> returnStoredMealsItemsWithWeekDayNull = new ArrayList<>();
 
         for(MealsItem mealsItem: returnStoredMealsItems){
-            if(mealsItem.getWeekDay() == null){
+            if(mealsItem.getWeekDay().equals("NULL")){
                 returnStoredMealsItemsWithWeekDayNull.add(mealsItem);
             }
         }

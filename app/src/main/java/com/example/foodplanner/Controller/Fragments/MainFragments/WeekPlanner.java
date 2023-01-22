@@ -133,7 +133,7 @@ public class WeekPlanner extends Fragment {
         List<MealsItem> returnStoredMealsItemsWithWeekDayNotNull = new ArrayList<>();
 
         for(MealsItem mealsItem: mealsItemsArrayList){
-            if(mealsItem.getWeekDay() != null){
+            if(!mealsItem.getWeekDay().equals("NULL")){
                 returnStoredMealsItemsWithWeekDayNotNull.add(mealsItem);
             }
         }
