@@ -52,32 +52,58 @@
 
                 android:drawableLeft="@drawable/food_icon"
                 android:drawablePadding="5dp"
+
                 android:fontFamily="@font/amaranth_bold"
+
+
                 android:gravity="center_vertical"
-
                 android:hint="Empty at first"
-
 
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="10dp"
 
+
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-
+                app:layout_constraintBottom_toTopOf="@+id/btn_addToFavorites"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageSlide" />
 
-            <ImageView
-                android:id="@+id/img_bookmark"
-                android:layout_width="40dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout"
                 android:layout_height="40dp"
-                android:padding="5dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/imageSlide"
+                android:layout_width="180dp"
+                android:layout_margin="16dp"
+                android:hint="Add to week plan"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:textSize="14sp"
+
+                    />
 
 
-                app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_addToFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Add to Favorites"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/text_input_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -3,36 +3,41 @@ package com.example.foodplanner.Model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity (tableName = "MealsItem")
+@Entity (tableName = "MealsItem", primaryKeys = {"currentUserEmail","strMeal"})
 public class MealsItem implements Serializable {
 
 	public String documentID;
 
+
+
+	@NonNull
 	private String currentUserEmail;
+	@NonNull
+	private String strMeal;
+
+	private String weekDay;
 
 
-
-
-
-	public MealsItem(String documentID, String strMeal, String strArea, String strMealThumb, String strInstructions, String strYoutube) {
+	public MealsItem(String documentID, String strMeal, String strArea, String strMealThumb, String strInstructions, String strYoutube, String weekDay) {
 		this.documentID = documentID;
 		this.strMeal = strMeal;
 		this.strArea = strArea;
 		this.strMealThumb = strMealThumb;
 		this.strInstructions = strInstructions;
 		this.strYoutube = strYoutube;
-
+		this.weekDay = weekDay;
 	}
 
-	@PrimaryKey
-	@NonNull
-	private long currentTimeMillis = System.currentTimeMillis();
 
-	private String strMeal;
+
+	//private long currentTimeMillis = System.currentTimeMillis();
+
+
 
 	//private Object strImageSource;
 	private String strIngredient10;
@@ -98,12 +103,20 @@ public class MealsItem implements Serializable {
 		this.currentUserEmail = currentUserEmail;
 	}
 
-	public long getCurrentTimeMillis() {
-		return currentTimeMillis;
+//	public long getCurrentTimeMillis() {
+//		return currentTimeMillis;
+//	}
+//
+//	public void setCurrentTimeMillis(long currentTimeMillis) {
+//		this.currentTimeMillis = currentTimeMillis;
+//	}
+
+	public String getWeekDay() {
+		return weekDay;
 	}
 
-	public void setCurrentTimeMillis(long currentTimeMillis) {
-		this.currentTimeMillis = currentTimeMillis;
+	public void setWeekDay(String weekDay) {
+		this.weekDay = weekDay;
 	}
 
 	//	public Object getStrImageSource() {

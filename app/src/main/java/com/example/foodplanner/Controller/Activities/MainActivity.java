@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     BottomNavigationView bottomNavigationView;
     ImageView img_lotOut;
+
+    Repository rep;
 
 
     @Override
@@ -91,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 if(FirebaseAuth.getInstance().getCurrentUser() == null){
+
+                    rep=new Repository(MainActivity.this);
+
+                    new Thread(() -> rep.deleteTableRoom()).start();
 
                     while (navController.popBackStack() == true){}
 

@@ -6,7 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +52,10 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     Boolean isAlreadyInFavorites;
 
     Repository rep;
+
+    //For drop down weekdays:  part 1/3
+    String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednsday", "Thursday", "Friday"};
+    ArrayAdapter<String> arrayAdapter;
 
     //private List<SliderItem> meals;
     private ViewPager2 viewPager2;
@@ -89,30 +97,61 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         Glide.with(viewGroupOfMeal.getContext()).load(mealsItem.getStrMealThumb()).into(holder.imageView);
         holder.tv_mealName.setText(mealsItem.getStrMeal());
 
+
+
         /* Favorites Firestore part 1/4: Bookmark button */
         /*
-        holder.img_bookmark.setOnClickListener(new View.OnClickListener() {
+        holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                checkIfItemAlreadyExists(meals.get(position));
+                checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
 
+            }
+        });     */
+
+        //For drop down weekdays: part 3/3
+        /* WeekPlanner Firestore part 1/4: Add button  */
+        /*
+        holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                Toast.makeText(viewGroupOfMeal.getContext(), parent.getItemAtPosition(positionDay).toString() , Toast.LENGTH_SHORT).show();
+                checkIfItemAlreadyExistsInWeekPlan(meals.get(position),parent.getItemAtPosition(positionDay).toString());
             }
         });
 
          */
 
+
+
+
+
         /* Favorites Room part 1/4: Bookmark button */
 
-        holder.img_bookmark.setOnClickListener(new View.OnClickListener() {
+        holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 rep=new Repository(viewGroupOfMeal.getContext());
-                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail() ,mealsItem);
+                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail(), null ,mealsItem);
 
             }
         });
+
+
+
+        /* WeekPlanner Room part 1/4: Add button  */
+
+        holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                rep=new Repository(viewGroupOfMeal.getContext());
+                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail(),parent.getItemAtPosition(positionDay).toString() ,mealsItem);
+            }
+        });
+
+
 
 
 
@@ -120,9 +159,14 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         if (position == meals.size() - 2) {
             viewPager2.post(runnable);
         }
+
+
+
+
     }
 
-    private void checkIfItemAlreadyExists(MealsItem mealsItemSelected) {
+
+    private void checkIfItemAlreadyExistsInFavoritesOfFirestore(MealsItem mealsItemSelected) {
         isAlreadyInFavorites = false;
         FirebaseFirestore.getInstance().collection("userFavorites")
                 .get()
@@ -131,15 +175,12 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                       Log.i(TAG, document.getId() + " => " + document.getData());
-                                                       Log.i(TAG, " 1: => " + document.get("mealName"));
-                                                       Log.i(TAG, " 2: => " + mealsItemSelected.getStrMeal());
-                                                        if(document.get("mealName").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                         if(document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
                                                              isAlreadyInFavorites = true;
                                                         }
                                                    }
                                                    if(!isAlreadyInFavorites){
-                                                       uploadDataToFireStore(mealsItemSelected);
+                                                       uploadDataToFireStoreInFavorites(mealsItemSelected);
                                                    } else{
                                                        Toast.makeText(viewGroupOfMeal.getContext() , "This item is already in favorites", Toast.LENGTH_SHORT).show();
                                                    }
@@ -149,10 +190,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                            }
                                        }
                 );
-        Log.i(TAG, " 3: => " + isAlreadyInFavorites.toString());
     }
 
-    private void uploadDataToFireStore(MealsItem mealsItem) {
+    private void uploadDataToFireStoreInFavorites(MealsItem mealsItem) {
         loadingBar = new ProgressDialog(viewGroupOfMeal.getContext());
         loadingBar.setTitle("Adding to favorites");
         loadingBar.setMessage("Please wait while adding the selected item to your favorites.");
@@ -196,6 +236,85 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     }
 
+
+
+    private void checkIfItemAlreadyExistsInWeekPlan(MealsItem mealsItemSelected, String weekDay) {
+        isAlreadyInFavorites = false;
+        FirebaseFirestore.getInstance().collection("userWeekPlan")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                           @Override
+                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                               if (task.isSuccessful()) {
+                                                   for (QueryDocumentSnapshot document : task.getResult()) {
+                                                       mealsItemSelected.setWeekDay(weekDay);
+                                                       mealsItemSelected.setCurrentUserEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+                                                        if(document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) & document.get("weekDay").equals(weekDay)){
+                                                           Log.i(TAG, "onComplete: here i am!!");
+                                                           isAlreadyInFavorites = true;
+                                                       }
+                                                   }
+                                                   if(!isAlreadyInFavorites){
+                                                       uploadDataToFireStoreInWeekPlan(mealsItemSelected, weekDay);
+                                                   } else{
+                                                       Toast.makeText(viewGroupOfMeal.getContext() , "This item is already in the week plan on this day.", Toast.LENGTH_SHORT).show();
+
+                                                   }
+                                               } else {
+                                                   Log.i(TAG, "Error getting documents.", task.getException());
+                                               }
+                                           }
+                                       }
+                );
+        Log.i(TAG, " 3: => " + isAlreadyInFavorites.toString());
+    }
+
+    private void uploadDataToFireStoreInWeekPlan(MealsItem mealsItem, String weekDay) {
+        loadingBar = new ProgressDialog(viewGroupOfMeal.getContext());
+        loadingBar.setTitle("Adding to week plan");
+        loadingBar.setMessage("Please wait while adding the selected item to your week plan.");
+        loadingBar.setCanceledOnTouchOutside(false);
+        loadingBar.show();
+
+
+        Map<String, Object> userWeekPlan = new HashMap<>();
+
+        userWeekPlan.put("userID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userWeekPlan.put("userEmail", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        userWeekPlan.put("timeAdded", System.currentTimeMillis());
+        userWeekPlan.put("strMeal", mealsItem.getStrMeal());
+        userWeekPlan.put("strArea", mealsItem.getStrArea());
+        userWeekPlan.put("strMealThumb", mealsItem.getStrMealThumb());
+        userWeekPlan.put("strYoutube", mealsItem.getStrYoutube());
+        userWeekPlan.put("strInstructions", mealsItem.getStrInstructions());
+        userWeekPlan.put("weekDay", weekDay);
+
+
+
+        FirebaseFirestore.getInstance().collection("userWeekPlan")
+                .add(userWeekPlan)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        loadingBar.dismiss();
+                        Toast.makeText(viewGroupOfMeal.getContext(), "Data added successfully", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        loadingBar.dismiss();
+                        Toast.makeText(viewGroupOfMeal.getContext(), "Error while uploading data: " + e.toString(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+    }
+
     @Override
     public int getItemCount() {
         return meals.size();
@@ -204,14 +323,25 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     class SliderViewHolder extends RecyclerView.ViewHolder {
         private RoundedImageView imageView;
         private TextView tv_mealName;
-        private ImageView img_bookmark;
+        private Button btn_addToFavorites;
+        //For drop down weekdays: part 2/3
+        AutoCompleteTextView autoCompleteTextView;
+        TextInputLayout textInputLayout;
 
         SliderViewHolder(@NonNull View itemView) {
 
             super(itemView);
             imageView = itemView.findViewById(R.id.imageSlide);
             tv_mealName = itemView.findViewById(R.id.tv_mealName);
-            img_bookmark = itemView.findViewById(R.id.img_bookmark);
+            btn_addToFavorites = itemView.findViewById(R.id.btn_addToFavorites);
+
+
+            //For drop down weekdays: part 2/3
+            autoCompleteTextView = itemView.findViewById(R.id.auto_complete_textview);
+            textInputLayout = itemView.findViewById(R.id.text_input_layout);
+            arrayAdapter = new ArrayAdapter<String>(viewGroupOfMeal.getContext(), R.layout.list_weekdays  , weekDays);
+            autoCompleteTextView.setAdapter(arrayAdapter);
+
         }
 
     }

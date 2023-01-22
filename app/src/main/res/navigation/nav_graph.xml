@@ -91,7 +91,11 @@
         android:id="@+id/nav_weekPlanner"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
         android:label="fragment_week_planner"
-        tools:layout="@layout/fragment_week_planner" />
+        tools:layout="@layout/fragment_week_planner" >
+        <action
+            android:id="@+id/action_nav_weekPlanner_to_mealDeatailsFragment"
+            app:destination="@id/mealDeatailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mealDeatailsFragment"
         android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealDetailsFragment"

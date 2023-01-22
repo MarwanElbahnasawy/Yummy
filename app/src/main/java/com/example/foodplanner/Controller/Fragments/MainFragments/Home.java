@@ -17,7 +17,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.Model.Root;
@@ -47,6 +51,7 @@ public class Home extends Fragment {
     List<MealsItem> meals = new ArrayList<>();
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +77,13 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+
+
+
         getDailyInspirations();
 
         viewPager2 = view.findViewById(R.id.viewPagerImageSlider);
+
 
 
     }
@@ -102,6 +111,7 @@ public class Home extends Fragment {
                             for(int i = 0 ; i<response.getMeals().size() ; i++){
                                 meals.add(response.getMeals().get(i));
                             }
+
                         },
 
                         error -> {

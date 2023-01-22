@@ -66,13 +66,29 @@ public class FavoriteMeals extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         /* Favorites Firestore part 2/4: Getting data */
-        /* getFavoriteMealsUsingFirestore(); */
+        /*
+         getFavoriteMealsUsingFirestore();
+
+         */
 
         /* Favorites Room part 2/4: Getting data */
 
+
         rep=new Repository(requireContext());
-        favoriteMealsAdapter=new FavoriteMealsAdapter(rep.returnStoredMealsItems().blockingFirst());
+
+        List<MealsItem> returnStoredMealsItems = rep.returnStoredMealsItems().blockingFirst();
+        List<MealsItem> returnStoredMealsItemsWithWeekDayNull = new ArrayList<>();
+
+        for(MealsItem mealsItem: returnStoredMealsItems){
+            if(mealsItem.getWeekDay() == null){
+                returnStoredMealsItemsWithWeekDayNull.add(mealsItem);
+            }
+        }
+
+        favoriteMealsAdapter=new FavoriteMealsAdapter(returnStoredMealsItemsWithWeekDayNull);
         recyclerView.setAdapter(favoriteMealsAdapter);
+
+
 
 
 
@@ -94,7 +110,9 @@ public class FavoriteMeals extends Fragment {
                                                                    document.get("strArea").toString(),
                                                                    document.get("strMealThumb").toString(),
                                                                    document.get("strInstructions").toString(),
-                                                                   document.get("strYoutube").toString() )
+                                                                   document.get("strYoutube").toString(),
+                                                                   null
+                                                                   )
                                                            );
                                                        }
 

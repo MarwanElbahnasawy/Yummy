@@ -2,6 +2,7 @@ package com.example.foodplanner.Database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.DeleteTable;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -25,4 +26,7 @@ public interface MealDAO {
 
     @Delete
     void deleteMeal(MealsItem mealsItem);
+
+    @Query("DELETE FROM MealsItem")
+    void deleteTableRoom();
 }
