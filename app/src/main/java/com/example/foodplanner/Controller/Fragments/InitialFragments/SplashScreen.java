@@ -28,6 +28,8 @@ public class SplashScreen extends Fragment {
     LottieAnimationView gifImageView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     Intent intent;
+    Handler handler;
+    Runnable handlerRunnable;
 
 
     @Override
@@ -52,8 +54,8 @@ public class SplashScreen extends Fragment {
 
         gifImageView = view.findViewById(R.id.gif_splash);
 
-
-        new Handler().postDelayed(new Runnable() {
+        handler = new Handler();
+        handlerRunnable = new Runnable() {
             @Override
             public void run() {
                 SharedPreferences sharedPref = requireContext().getSharedPreferences("setting", Context.MODE_PRIVATE);
@@ -75,11 +77,22 @@ public class SplashScreen extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_navSpashScreen_to_nav_home);
 
                 }
-
-
             }
+        };
 
-           }, timer);
+        handler.postDelayed(handlerRunnable, timer);
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(handlerRunnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.postDelayed(handlerRunnable, timer);
     }
 }
