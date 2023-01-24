@@ -11,14 +11,13 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.Model.IngrdiantMealModel;
-import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.Network.RetrofitClient;
 import com.example.foodplanner.R;
-import com.example.foodplanner.View.MealByCategoriesAdapter;
 import com.example.foodplanner.View.MealByIngrdiantAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -58,8 +57,10 @@ public class MealByIngrediantFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         e -> {
+                          //  Log.e(TAG, "onViewCreated: "+MealByIngrediantFragmentDirections.actionMealByIngrediantFragmentToMealDeatailsFragment(null));
                             mealsItemList = e.getMeals();
-                            mealByIngrdiantAdapter = new MealByIngrdiantAdapter(mealsItemList);
+                            mealByIngrdiantAdapter = new MealByIngrdiantAdapter(mealsItemList, NavHostFragment.findNavController(this));
+
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView.setLayoutManager(linearLayoutManager);
@@ -80,7 +81,7 @@ public class MealByIngrediantFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 mealByIngrdiantAdapter = new MealByIngrdiantAdapter(mealsItemList.stream().filter(
-                        mealsItem -> mealsItem.getStrMeal().startsWith(s.toString())).collect(Collectors.toList()));
+                        mealsItem -> mealsItem.getStrMeal().startsWith(s.toString())).collect(Collectors.toList()), NavHostFragment.findNavController(MealByIngrediantFragment.this));
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                 linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
