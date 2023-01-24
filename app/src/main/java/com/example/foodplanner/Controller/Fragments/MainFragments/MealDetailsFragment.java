@@ -31,6 +31,7 @@ public class MealDetailsFragment extends Fragment {
     YouTubePlayerView videoView;
     RecyclerView recyclerView;
     List<String> ingrediant = new ArrayList<>();
+    List<String> megure = new ArrayList<>();
     MealDeatailIngrediantAdapter mealDeatailIngrediantAdapter;
 
     @Override
@@ -77,13 +78,29 @@ public class MealDetailsFragment extends Fragment {
         getIngredient(mealsItem.getStrIngredient13());
         getIngredient(mealsItem.getStrIngredient14());
         getIngredient(mealsItem.getStrIngredient15());
+        getMegure(mealsItem.getStrMeasure1());
+        getMegure(mealsItem.getStrMeasure2());
+        getMegure(mealsItem.getStrMeasure3());
+        getMegure(mealsItem.getStrMeasure4());
+        getMegure(mealsItem.getStrMeasure5());
+        getMegure(mealsItem.getStrMeasure6());
+        getMegure(mealsItem.getStrMeasure7());
+        getMegure(mealsItem.getStrMeasure8());
+        getMegure(mealsItem.getStrMeasure9());
+        getMegure(mealsItem.getStrMeasure10());
+        getMegure(mealsItem.getStrMeasure11());
+        getMegure(mealsItem.getStrMeasure12());
+        getMegure(mealsItem.getStrMeasure13());
+        getMegure(mealsItem.getStrMeasure15());
+
+
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
-        mealDeatailIngrediantAdapter = new MealDeatailIngrediantAdapter(ingrediant);
+        mealDeatailIngrediantAdapter = new MealDeatailIngrediantAdapter(ingrediant,megure);
         recyclerView.setAdapter(mealDeatailIngrediantAdapter);
 
 
@@ -105,6 +122,11 @@ public class MealDetailsFragment extends Fragment {
         if (ingredientName != null && !ingredientName.isEmpty())
             ingrediant.add(ingredientName);
         return ingrediant;
+    }
+    private List<String> getMegure(String ingredientName) {
+        if (ingredientName != null && !ingredientName.isEmpty())
+            megure.add(ingredientName);
+        return megure;
     }
 
 }
