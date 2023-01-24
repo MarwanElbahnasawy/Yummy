@@ -1,6 +1,9 @@
 package com.example.foodplanner.Network;
 
 import com.example.foodplanner.Model.AreaListModel;
+import com.example.foodplanner.Model.CategoryListModel;
+import com.example.foodplanner.Model.GrediantListModel;
+import com.example.foodplanner.Model.IngrdiantMealListModel;
 import com.example.foodplanner.Model.Root;
 import com.example.foodplanner.Model.RootSingleMeal;
 
@@ -25,6 +28,16 @@ public interface API {
     Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);
     @GET("list.php?a=list")
     Observable<AreaListModel> getCountry();
+    @GET("list.php?c=list")
+    Observable<CategoryListModel> getCategory();
+    @GET("list.php?i=list")
+    Observable<GrediantListModel> getIngradiant();
+
+    @GET("filter.php")
+    Observable<Root> getCategoryMeal(@Query("c") String categoryMeal);
+    @GET("filter.php")
+    Observable<IngrdiantMealListModel> getIngrdiantMeal(@Query("i") String ingrediantMeal);
+
 
 
 

@@ -14,12 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodplanner.Model.AreaListModel;
-import com.example.foodplanner.Model.AreaModel;
+import com.example.foodplanner.Model.GrediantListModel;
+import com.example.foodplanner.Model.GrediantModel;
 import com.example.foodplanner.Network.RetrofitClient;
 import com.example.foodplanner.R;
-import com.example.foodplanner.View.CountryAdapter;
-import com.example.foodplanner.View.MealByCategoriesAdapter;
+import com.example.foodplanner.View.IngradiantAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
@@ -29,40 +28,40 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class SearchBYCountryFragment extends Fragment {
-    List<AreaModel> countries;
-    CountryAdapter countryAdapter;
-    RecyclerView recyclerView;
+public class SearchByIngrdiantFragment extends Fragment {
+
+    List<GrediantModel> grediances;
     TextInputEditText textInputEditText;
+    IngradiantAdapter ingradiantAdapter;
+    RecyclerView recyclerView;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        textInputEditText = view.findViewById(R.id.tinput_search_Ingediant);
 
-        recyclerView = view.findViewById(R.id.rv_coun);
-        textInputEditText=view.findViewById(R.id.tinput_search);
+        recyclerView = view.findViewById(R.id.rv_ingrediace);
+        Observable<GrediantListModel> observableCategory = RetrofitClient.getInstance().getMyApi().getIngradiant();
 
-
-        Observable<AreaListModel> observableCountry = RetrofitClient.getInstance().getMyApi().getCountry();
-        observableCountry.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+        observableCategory.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 response -> {
-                    countries = response.getMeals();
+                    grediances = response.getMeals();
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                     recyclerView.setLayoutManager(linearLayoutManager);
 
                     linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                    countryAdapter = new CountryAdapter(countries);
-                    recyclerView.setAdapter(countryAdapter);
-                    Log.i("eeeeee", "onViewCreated: " + countries.get(0).getStrArea());
+                    ingradiantAdapter = new IngradiantAdapter(grediances);
+                    recyclerView.setAdapter(ingradiantAdapter);
+                    Log.i("eeeeee", "onViewCreated: " + grediances.get(0).getStrIngredient());
                 },
                 error -> {
                     error.printStackTrace();
                 }
         );
 
-
-       textInputEditText .addTextChangedListener(new TextWatcher() {
+        textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -71,12 +70,12 @@ public class SearchBYCountryFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                countryAdapter = new CountryAdapter(countries.stream().filter(
-                        AreaModel ->AreaModel.getStrArea() .startsWith(s.toString())).collect(Collectors.toList()));
+                ingradiantAdapter = new IngradiantAdapter(grediances.stream().filter(
+                        AreaModel -> AreaModel.getStrIngredient().startsWith(s.toString())).collect(Collectors.toList()));
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                 linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setAdapter(countryAdapter);
+                recyclerView.setAdapter(ingradiantAdapter);
             }
 
             @Override
@@ -88,13 +87,12 @@ public class SearchBYCountryFragment extends Fragment {
 
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-
-        return inflater.inflate(R.layout.fragment_search_b_y_country, container, false);
+        return inflater.inflate(R.layout.fragment_search_by_ingrdiant, container, false);
     }
 }
