@@ -8,15 +8,15 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity (tableName = "MealsItem", primaryKeys = {"currentUserEmail","strMeal","weekDay"})
+@Entity (tableName = "MealsItem", primaryKeys = {"strMeal","weekDay"})
 public class MealsItem implements Serializable {
 
 	public String documentID;
 
 
 
-	@NonNull
 	private String currentUserEmail;
+
 	@NonNull
 	private String strMeal;
 	@NonNull

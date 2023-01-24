@@ -65,13 +65,9 @@ public class FavoriteMeals extends Fragment {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        /* Favorites Firestore part 2/4: Getting data */
-        /*
-         getFavoriteMealsUsingFirestore();
+        /* Favorites Firestore + Room part 2/4: Getting data */
 
-         */
-
-        /* Favorites Room part 2/4: Getting data */
+        //--> no need to get from firestore when items are already saved in room.
 
 
         rep=new Repository(requireContext());
@@ -94,47 +90,6 @@ public class FavoriteMeals extends Fragment {
 
     }
 
-
-    private void getFavoriteMealsUsingFirestore() {
-        FirebaseFirestore.getInstance().collection("userFavorites")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                           @Override
-                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                               if (task.isSuccessful()) {
-                                                   for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                                                           mealsFavorite.add(new MealsItem(document.getId() ,
-                                                                   document.get("strMeal").toString(),
-                                                                   document.get("strArea").toString(),
-                                                                   document.get("strMealThumb").toString(),
-                                                                   document.get("strInstructions").toString(),
-                                                                   document.get("strYoutube").toString(),
-                                                                   null
-                                                                   )
-                                                           );
-                                                       }
-
-                                                   }
-
-                                                   if(mealsFavorite.size() != 0){
-                                                       favoriteMealsAdapter=new FavoriteMealsAdapter(mealsFavorite);
-                                                       recyclerView.setAdapter(favoriteMealsAdapter);
-                                                   }
-                                                   else{
-                                                       Toast.makeText(requireContext(), "No items are saved.", Toast.LENGTH_SHORT).show();
-                                                   }
-
-
-
-                                               } else {
-                                                   Log.i(TAG, "Error getting documents.", task.getException());
-                                               }
-                                           }
-                                       }
-                );
-    }
 
 
 }

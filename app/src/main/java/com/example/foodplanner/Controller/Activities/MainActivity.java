@@ -1,5 +1,6 @@
 package com.example.foodplanner.Controller.Activities;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,16 +9,23 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Utility.NetworkChecker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView bottomNavigationView;
     ImageView img_lotOut;
     public static Boolean isLoginAsGuest = false;
+    private NetworkChecker networkChecker ;
+    public static MainActivity mainActivity;
+    TextView tv_internetConnection;
+    private int timerInternetIsConnected;
 
 
     Repository rep;
@@ -35,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tv_internetConnection = findViewById(R.id.tv_internetConnection);
+
+        mainActivity = this;
+
+        networkChecker = NetworkChecker.getInstance(this);
 
         img_lotOut = findViewById(R.id.img_logOut);
 
@@ -122,6 +140,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Timer t = new Timer( );
+        t.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                if (!NetworkChecker.getInstance().checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_internetConnection.setVisibility(View.VISIBLE);
+                            tv_internetConnection.setText("No Internet Connection");
+                            tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
+                            timerInternetIsConnected = 5001;
+                        }
+                    });
+
+                } else{
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(timerInternetIsConnected > 0){
+                                timerInternetIsConnected = timerInternetIsConnected - 500;
+                                tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.green));
+                                tv_internetConnection.setText("Internet is back!");
+                            } else{
+                                tv_internetConnection.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+
+                }
+
+            }
+        }, 1000,500);
+
 
 
     }
@@ -130,4 +183,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
+
+
 }
