@@ -147,6 +147,9 @@
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_mealByCategoryFragment_to_mealDeatailsFragment"
+            app:destination="@id/mealDeatailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchByIngrdiantFragment"

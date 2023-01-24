@@ -38,7 +38,6 @@ public interface API {
     @GET("filter.php")
     Observable<IngrdiantMealListModel> getIngrdiantMeal(@Query("i") String ingrediantMeal);
 
-
-
-
+   @GET("lookup.php")
+    Observable<Root> getMealById(@Query("i") int parseInt);
 }
