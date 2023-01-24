@@ -23,6 +23,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.Model.Root;
 import com.example.foodplanner.Network.RetrofitClient;

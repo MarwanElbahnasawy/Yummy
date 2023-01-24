@@ -14,6 +14,8 @@
     <color name="active">#FE724C</color>
     <color name="white2">#4DFFFFFF</color>
     <color name="gray2">#33C4C4C4</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#61FD00</color>
 
 
 </resources>

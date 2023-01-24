@@ -24,6 +24,7 @@ import com.example.foodplanner.Controller.Fragments.MainFragments.HomeDirections
 import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Utility.NetworkChecker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,7 +47,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     ViewGroup viewGroupOfMeal;
 
-    private ProgressDialog loadingBar;
+    private ProgressDialog progressDialog;
 
     private static final String TAG = "SliderAdapter";
 
@@ -62,10 +63,12 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     private ViewPager2 viewPager2;
     List<MealsItem> meals = new ArrayList<>();
 
+
     public SliderAdapter(List<MealsItem> meals, ViewPager2 viewPager2) {
 
         this.meals = meals;
         this.viewPager2 = viewPager2;
+
 
     }
 
@@ -102,74 +105,71 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         if(MainActivity.isLoginAsGuest == false){
 
 
-        /* Favorites Firestore part 1/4: Bookmark button */
-        /*
+        /* Favorites Firestore+Room part 1/4: Bookmark button */
+
         holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
+                NetworkChecker networkChecker = NetworkChecker.getInstance();
+
+                if(!networkChecker.checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()){
+                    checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
+                }
+
 
             }
-        });     */
+        });
 
         //For drop down weekdays: part 3/3
-        /* WeekPlanner Firestore part 1/4: Add button  */
-        /*
-        holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
-                Toast.makeText(viewGroupOfMeal.getContext(), parent.getItemAtPosition(positionDay).toString() , Toast.LENGTH_SHORT).show();
-                checkIfItemAlreadyExistsInWeekPlan(meals.get(position),parent.getItemAtPosition(positionDay).toString());
-            }
-        });
-
-         */
-
-
-
-
-
-        /* Favorites Room part 1/4: Bookmark button */
-
-        holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                rep = new Repository(viewGroupOfMeal.getContext());
-                rep.insert(System.currentTimeMillis(), FirebaseAuth.getInstance().getCurrentUser().getEmail(), "NULL", mealsItem);
-
-            }
-        });
-
-
-
-        /* WeekPlanner Room part 1/4: Add button  */
+        /* WeekPlanner Firestore+Room part 1/4: Add button  */
 
         holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
-                rep = new Repository(viewGroupOfMeal.getContext());
-                rep.insert(System.currentTimeMillis(), FirebaseAuth.getInstance().getCurrentUser().getEmail(), parent.getItemAtPosition(positionDay).toString(), mealsItem);
+
+                NetworkChecker networkChecker = NetworkChecker.getInstance();
+
+                if(!networkChecker.checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else if (networkChecker.checkIfInternetIsConnected()){
+                    String daySelected = parent.getItemAtPosition(positionDay).toString();
+                    checkIfItemAlreadyExistsInWeekPlan(meals.get(position),daySelected);
+
+                }
+
             }
         });
+
+
 
     }
-        else{
+        else if(MainActivity.isLoginAsGuest == true){
             holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals as favorites.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
 
                 }
             });
 
-
-
             holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
-                Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals in your week plan.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -217,11 +217,11 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     }
 
     private void uploadDataToFireStoreInFavorites(MealsItem mealsItem) {
-        loadingBar = new ProgressDialog(viewGroupOfMeal.getContext());
-        loadingBar.setTitle("Adding to favorites");
-        loadingBar.setMessage("Please wait while adding the selected item to your favorites.");
-        loadingBar.setCanceledOnTouchOutside(false);
-        loadingBar.show();
+        progressDialog = new ProgressDialog(viewGroupOfMeal.getContext());
+        progressDialog.setTitle("Adding to favorites");
+        progressDialog.setMessage("Please wait while adding the selected item to your favorites.");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
 
         Map<String, Object> userFavorites = new HashMap<>();
@@ -243,7 +243,11 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        loadingBar.dismiss();
+
+                        rep = new Repository(viewGroupOfMeal.getContext());
+                        rep.insert(mealsItem, "NULL",  documentReference.getId());
+
+                        progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Data added successfully", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -251,7 +255,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
-                        loadingBar.dismiss();
+                        progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Error while uploading data: " + e.toString(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -295,11 +299,11 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     }
 
     private void uploadDataToFireStoreInWeekPlan(MealsItem mealsItem, String weekDay) {
-        loadingBar = new ProgressDialog(viewGroupOfMeal.getContext());
-        loadingBar.setTitle("Adding to week plan");
-        loadingBar.setMessage("Please wait while adding the selected item to your week plan.");
-        loadingBar.setCanceledOnTouchOutside(false);
-        loadingBar.show();
+        progressDialog = new ProgressDialog(viewGroupOfMeal.getContext());
+        progressDialog.setTitle("Adding to week plan");
+        progressDialog.setMessage("Please wait while adding the selected item to your week plan.");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
 
         Map<String, Object> userWeekPlan = new HashMap<>();
@@ -322,7 +326,11 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        loadingBar.dismiss();
+
+                        rep = new Repository(viewGroupOfMeal.getContext());
+                        rep.insert(mealsItem , weekDay, documentReference.getId());
+
+                        progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Data added successfully", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -330,7 +338,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
-                        loadingBar.dismiss();
+                        progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Error while uploading data: " + e.toString(), Toast.LENGTH_SHORT).show();
 
                     }

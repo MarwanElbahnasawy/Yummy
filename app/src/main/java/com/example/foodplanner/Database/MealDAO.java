@@ -18,11 +18,12 @@ public interface MealDAO {
     @Query("SELECT * FROM MealsItem")
     Flowable<List<MealsItem>> getStoredMealsItems();
 
-    @Query("SELECT * FROM MealsItem WHERE strMeal LIKE :mealsItemName")
-    MealsItem FindMealByName(String mealsItemName);
+    @Query("SELECT * FROM MealsItem WHERE strMeal LIKE :mealsItemName AND weekDay LIKE :weekDayString")
+    MealsItem findMealByName(String mealsItemName, String weekDayString);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertMeal(MealsItem mealsItem);
+
 
     @Delete
     void deleteMeal(MealsItem mealsItem);

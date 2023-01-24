@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.foodplanner.Controller.Activities.MainActivity;
+import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -53,6 +54,7 @@ public class SignIn extends Fragment {
     private TextView register;
     private View v;
     private AppCompatButton btn_loginAsGuest;
+    Repository rep;
 
     private static final String TAG = "SignIn";
 
@@ -128,6 +130,10 @@ public class SignIn extends Fragment {
 
 //                                Intent intent = new Intent(requireContext(), MainActivity.class);
 //                                startActivity(intent);
+
+                                rep=new Repository(requireContext());
+                                rep.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
                                 Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
                             } else {
                                 Exception exception = task.getException();
@@ -210,7 +216,11 @@ public class SignIn extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(requireContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Sign in with Google was successful", Toast.LENGTH_SHORT).show();
+
+                        rep=new Repository(requireContext());
+                        rep.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
                         Navigation.findNavController(v).navigate(R.id.action_navSignIn_to_nav_home);
                     } else {
                         Toast.makeText(requireContext(), "Sign in with google failed", Toast.LENGTH_SHORT).show();
@@ -220,7 +230,6 @@ public class SignIn extends Fragment {
 
         }
     }
-
 
 
 

@@ -23,6 +23,8 @@ public class MealDetailsFragment extends Fragment {
     TextView mealName, area, instructions;
     ImageView mealImage;
     YouTubePlayerView videoView;
+    String[] split;
+    Boolean youtubeURLisExists = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -35,17 +37,26 @@ public class MealDetailsFragment extends Fragment {
         instructions = view.findViewById(R.id.tv_Meal_instructions);
         mealImage = view.findViewById(R.id.mealImage);
         videoView = view.findViewById(R.id.video);
-
         getLifecycle().addObserver((LifecycleObserver) videoView);
-        String[] split = mealsItem.getStrYoutube().split("=");
 
-        videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = split[1];
-                youTubePlayer.loadVideo(videoId, 0);
-            }
-        });
+
+        if(!mealsItem.getStrYoutube().equals("")){
+
+            split = mealsItem.getStrYoutube().split("=");
+            youtubeURLisExists = true;
+            videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    if(youtubeURLisExists){
+                        String videoId = split[1];
+                        youTubePlayer.loadVideo(videoId, 0);
+                    }
+                }
+            });
+        }
+        else{
+            videoView.setVisibility(View.GONE);
+        }
 
         mealName.setText(mealsItem.getStrMeal());
         area.setText(mealsItem.getStrArea());
