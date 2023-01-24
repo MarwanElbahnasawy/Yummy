@@ -77,6 +77,12 @@
         <action
             android:id="@+id/action_nav_search_to_searchBYCountryFragment"
             app:destination="@id/searchBYCountryFragment" />
+        <action
+            android:id="@+id/action_nav_search_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_nav_search_to_searchByIngrdiantFragment"
+            app:destination="@id/searchByIngrdiantFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_favoriteMeals"
@@ -120,6 +126,41 @@
         tools:layout="@layout/fragment_meal_by_country" >
         <argument
             android:name="area"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_mealByCategoryFragment"
+            app:destination="@id/mealByCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealByCategoryFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealByCategoryFragment"
+        android:label="MealByCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchByIngrdiantFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SearchByIngrdiantFragment"
+        android:label="fragment_search_by_ingrdiant"
+        tools:layout="@layout/fragment_search_by_ingrdiant" >
+        <action
+            android:id="@+id/action_searchByIngrdiantFragment_to_mealByIngrediantFragment"
+            app:destination="@id/mealByIngrediantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealByIngrediantFragment"
+        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealByIngrediantFragment"
+        android:label="fragment_meal_by_ingrediant"
+        tools:layout="@layout/fragment_meal_by_ingrediant" >
+        <argument
+            android:name="Ingradiant"
             app:argType="string" />
     </fragment>
 

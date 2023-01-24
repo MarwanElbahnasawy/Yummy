@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.mealDeatailsFragment:
                                 Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.mealDeatailsFragment);
                                 return true;
+
                         }
                         return false;
                     }

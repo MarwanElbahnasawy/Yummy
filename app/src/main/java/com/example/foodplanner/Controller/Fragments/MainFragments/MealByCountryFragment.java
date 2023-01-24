@@ -42,34 +42,34 @@ public class MealByCountryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.rv_MealByCountry);
-        searchTextInput=view.findViewById(R.id.textInput_Meal_search);
-        String area = MealByCountryFragmentArgs.fromBundle(getArguments()).getArea();
+            searchTextInput=view.findViewById(R.id.textInput_Meal_search);
+            String area = MealByCountryFragmentArgs.fromBundle(getArguments()).getArea();
         RetrofitClient.getInstance().getMyApi()
                 .getRoot(area)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                                e->{
-                                    mealsItemList =  e.getMeals();
-                                    mealsByCountriesAdapter = new MealsByCountriesAdapter(mealsItemList);
-                                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-                                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                                    recyclerView.setLayoutManager(linearLayoutManager);
-                                    recyclerView.setAdapter(mealsByCountriesAdapter);
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                    e->{
+                mealsItemList =  e.getMeals();
+                mealsByCountriesAdapter = new MealsByCountriesAdapter(mealsItemList);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(mealsByCountriesAdapter);
 
-                                },
-                        error->{
-                            Log.i(TAG, "onViewCreated: " + error.getMessage());
-                        }
+            },
+            error->{
+                Log.i(TAG, "onViewCreated: " + error.getMessage());
+            }
                         );
         searchTextInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 mealsByCountriesAdapter = new MealsByCountriesAdapter(mealsItemList.stream().filter(
                         mealsItem -> mealsItem.getStrMeal().startsWith(s.toString())).collect(Collectors.toList()));

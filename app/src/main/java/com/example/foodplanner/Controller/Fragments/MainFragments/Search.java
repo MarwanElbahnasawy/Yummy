@@ -19,7 +19,8 @@ import com.example.foodplanner.R;
 
 public class Search extends Fragment {
 
-    CardView search;
+    CardView searchByCountry,searchByCategory,searchIngrediant;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,11 +41,28 @@ public class Search extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-     search=view.findViewById(R.id.card_country);
-     search.setOnClickListener(new View.OnClickListener() {
+     searchByCountry=view.findViewById(R.id.card_country);
+     searchByCategory=view.findViewById(R.id.CardView_category);
+     searchIngrediant=view.findViewById(R.id.cardView_ingrediant);
+     searchByCountry.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
              Navigation.findNavController(view).navigate(SearchDirections.actionNavSearchToSearchBYCountryFragment());
+
+         }
+     });
+
+     searchByCategory.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Navigation.findNavController(view).navigate(SearchDirections.actionNavSearchToCategoryFragment());
+
+         }
+     });
+     searchIngrediant.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Navigation.findNavController(view).navigate(SearchDirections.actionNavSearchToSearchByIngrdiantFragment());
 
          }
      });
