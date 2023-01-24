@@ -22,9 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    NavController navController;
-    BottomNavigationView bottomNavigationView;
+    public static NavController navController;
+    public static BottomNavigationView bottomNavigationView;
     ImageView img_lotOut;
+    public static Boolean isLoginAsGuest = false;
+
 
     Repository rep;
 
@@ -56,14 +58,22 @@ public class MainActivity extends AppCompatActivity {
                                 Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_search);
                                 return true;
                             case R.id.nav_favoriteMeals:
-                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_favoriteMeals);
-                                return true;
+                                if(isLoginAsGuest == true){
+                                    Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
+                                    return false;
+                                } else{
+                                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_favoriteMeals);
+                                    return true;
+                                }
+
                             case R.id.nav_weekPlanner:
-                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);
-                                return true;
-                            case R.id.mealDeatailsFragment:
-                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.mealDeatailsFragment);
-                                return true;
+                                if(isLoginAsGuest == true){
+                                    Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
+                                    return false;
+                                } else{
+                                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);
+                                    return true;
+                                }
                         }
                         return false;
                     }
@@ -94,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 if(FirebaseAuth.getInstance().getCurrentUser() == null){
+
+                    isLoginAsGuest = false;
 
                     rep=new Repository(MainActivity.this);
 

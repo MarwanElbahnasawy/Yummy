@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
@@ -49,6 +52,7 @@ public class SignIn extends Fragment {
     private ImageView img_eye;
     private TextView register;
     private View v;
+    private AppCompatButton btn_loginAsGuest;
 
     private static final String TAG = "SignIn";
 
@@ -84,6 +88,7 @@ public class SignIn extends Fragment {
         et_password = view.findViewById(R.id.et_password);
         btn_signInWithEmailAndPassword = view.findViewById(R.id.btn_signInWithEmailAndPassword);
         googeSignIn = view.findViewById(R.id.btn_signInWithGoogle);
+        btn_loginAsGuest = view.findViewById(R.id.btn_loginAsGuest);
         // img_eye = view.findViewById(R.id.img_eye);
 
         // sharedPreferences to save status of onBoarding
@@ -170,10 +175,19 @@ public class SignIn extends Fragment {
         googeSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("bbbbbbbb", "at sign in clicked in sign in: " + FirebaseAuth.getInstance().getCurrentUser());
+
                 signInGoogle();
             }
         });
+
+        btn_loginAsGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.isLoginAsGuest = true;
+                Navigation.findNavController(view).navigate(SignInDirections.actionNavSignInToNavHome());
+            }
+        });
+
 
 
     }
@@ -206,5 +220,10 @@ public class SignIn extends Fragment {
 
         }
     }
+
+
+
+
+
 }
 

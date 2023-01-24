@@ -50,6 +50,9 @@
             android:id="@+id/action_navSignIn_to_nav_home"
             app:destination="@id/nav_home"
             app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_nav_signIn_to_nav_search"
+            app:destination="@id/nav_search" />
     </fragment>
     <fragment
         android:id="@+id/nav_register"

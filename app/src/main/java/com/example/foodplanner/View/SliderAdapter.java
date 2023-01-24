@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.Controller.Activities.MainActivity;
 import com.example.foodplanner.Controller.Fragments.MainFragments.HomeDirections;
 import com.example.foodplanner.Model.MealsItem;
 import com.example.foodplanner.Model.Repository;
@@ -98,6 +99,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.tv_mealName.setText(mealsItem.getStrMeal());
 
 
+        if(MainActivity.isLoginAsGuest == false){
+
 
         /* Favorites Firestore part 1/4: Bookmark button */
         /*
@@ -133,8 +136,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             @Override
             public void onClick(View view) {
 
-                rep=new Repository(viewGroupOfMeal.getContext());
-                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail(), "NULL" ,mealsItem);
+                rep = new Repository(viewGroupOfMeal.getContext());
+                rep.insert(System.currentTimeMillis(), FirebaseAuth.getInstance().getCurrentUser().getEmail(), "NULL", mealsItem);
 
             }
         });
@@ -146,10 +149,31 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
-                rep=new Repository(viewGroupOfMeal.getContext());
-                rep.insert(System.currentTimeMillis() ,FirebaseAuth.getInstance().getCurrentUser().getEmail(),parent.getItemAtPosition(positionDay).toString() ,mealsItem);
+                rep = new Repository(viewGroupOfMeal.getContext());
+                rep.insert(System.currentTimeMillis(), FirebaseAuth.getInstance().getCurrentUser().getEmail(), parent.getItemAtPosition(positionDay).toString(), mealsItem);
             }
         });
+
+    }
+        else{
+            holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals as favorites.", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+
+            holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals in your week plan.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       }
 
 
 
