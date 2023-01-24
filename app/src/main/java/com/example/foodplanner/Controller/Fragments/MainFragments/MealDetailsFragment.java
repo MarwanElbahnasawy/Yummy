@@ -1,6 +1,7 @@
 package com.example.foodplanner.Controller.Fragments.MainFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class MealDetailsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv_ingrediant);
 
         getLifecycle().addObserver((LifecycleObserver) videoView);
-        if(!mealsItem.getStrYoutube().equals("")){
+        if(!mealsItem.getStrYoutube().isEmpty()){
 
             split = mealsItem.getStrYoutube().split("=");
             youtubeURLisExists = true;
@@ -86,7 +87,6 @@ public class MealDetailsFragment extends Fragment {
         getIngredient(mealsItem.getStrIngredient11());
         getIngredient(mealsItem.getStrIngredient12());
         getIngredient(mealsItem.getStrIngredient13());
-        getIngredient(mealsItem.getStrIngredient14());
         getIngredient(mealsItem.getStrIngredient15());
         getMegure(mealsItem.getStrMeasure1());
         getMegure(mealsItem.getStrMeasure2());
@@ -103,6 +103,9 @@ public class MealDetailsFragment extends Fragment {
         getMegure(mealsItem.getStrMeasure13());
         getMegure(mealsItem.getStrMeasure15());
 
+        Log.i("esraa", "onViewCreated: "+ingrediant.size());
+
+        Log.i("esraa", "onViewCreated: "+megure.size());
 
 
 

@@ -48,7 +48,10 @@ public class MealByIngrdiantAdapter extends RecyclerView.Adapter<MealByIngrdiant
     public void onBindViewHolder(@NonNull MealByIngrdiantAdapter.MyViewHolder holder, int position) {
         Glide.with(holder.itemView).load(meals.get(position).getStrMealThumb()).into(holder.mealImage);
         holder.mealName.setText(meals.get(position).getStrMeal());
-        RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(meals.get(position).getIdMeal()))
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(meals.get(position).getIdMeal()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Root>() {
@@ -74,6 +77,9 @@ public class MealByIngrdiantAdapter extends RecyclerView.Adapter<MealByIngrdiant
 
                     }
                 });
+
+            }
+        });
 
     }
 
