@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/home_gradiant_color"
     tools:context=".Controller.Fragments.MainFragments.WeekPlanner"
+    android:fillViewport="true"
     >
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutWeekPlanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
         android:orientation="vertical">
 
         <TextView
@@ -21,14 +24,19 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Saturday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayoutWeekPlanner" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsSaturday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Saturday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -39,14 +47,19 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Sunday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsSaturday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsSunday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Sunday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -57,14 +70,19 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Monday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsSunday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsMonday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Monday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -75,14 +93,19 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Tuesday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsMonday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsTueday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Tuesday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -93,14 +116,19 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Wednsday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsTueday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsWednsday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Wednsday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -111,14 +139,19 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Thursday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsWednsday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsThursday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Thursday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -129,15 +162,21 @@
             android:fontFamily="@font/amaranth_bold"
             android:text="Friday"
             android:textSize="34sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsThursday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsFriday"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Friday" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
