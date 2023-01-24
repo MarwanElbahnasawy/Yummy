@@ -49,14 +49,14 @@ public class MealDetailsFragment extends Fragment {
 
         getLifecycle().addObserver((LifecycleObserver) videoView);
         String[] split = mealsItem.getStrYoutube().split("=");
-
-        videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = split[1];
-                youTubePlayer.loadVideo(videoId, 0);
-            }
-        });
+//
+//        videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+//            @Override
+//            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+//                String videoId = split[1];
+//                youTubePlayer.loadVideo(videoId, 0);
+//            }
+//        });
 
         mealName.setText(mealsItem.getStrMeal());
         area.setText(mealsItem.getStrArea());
