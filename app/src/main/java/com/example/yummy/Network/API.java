@@ -6,6 +6,7 @@ import com.example.yummy.SearchByIngredient.Model.IngredientListModel;
 import com.example.yummy.SearchByIngredient.Model.IngredientMealListModel;
 import com.example.yummy.Model.Root;
 import com.example.yummy.Model.RootSingleMeal;
+import com.example.yummy.SearchGeneral.Model.RootMealsFromSingleLetter;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
@@ -26,6 +27,10 @@ public interface API {
 
     @GET("search.php")
     Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);
+
+    @GET("search.php")
+    Observable<RootMealsFromSingleLetter> getRootMealsBySingleLetter(@Query("f") String firstLetterOfMeal);
+
     @GET("list.php?a=list")
     Observable<AreaListModel> getCountry();
     @GET("list.php?c=list")

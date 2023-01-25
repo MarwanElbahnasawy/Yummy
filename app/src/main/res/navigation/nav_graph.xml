@@ -180,7 +180,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchByAllMealsFragment"
-        android:name="com.example.yummy.Controller.Fragments.MainFragments.SearchByAllMealsFragment"
+        android:name="com.example.yummy.SearchGeneral.View.SearchByAllMealsFragment"
         android:label="fragment_search_by_all_meals"
         tools:layout="@layout/fragment_search_by_all_meals" >
         <action

@@ -1,4 +1,4 @@
-package com.example.yummy.View;
+package com.example.yummy.View.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +10,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.yummy.Controller.Fragments.MainFragments.SearchByAllMealsFragmentDirections;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Model.Root;
 import com.example.yummy.Network.RetrofitClient;
 import com.example.yummy.R;
+import com.example.yummy.SearchGeneral.View.SearchByAllMealsFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +25,11 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyViewHolder> {
+public class SearchAllMealsAdapter extends RecyclerView.Adapter<SearchAllMealsAdapter.MyViewHolder> {
     List<MealsItem> mealsItems = new ArrayList<>();
     ViewGroup viewGroup;
 
-    public AllMealsAdapter(List<MealsItem> mealsItems) {
+    public SearchAllMealsAdapter(List<MealsItem> mealsItems) {
         this.mealsItems = mealsItems;
 
     }
@@ -39,7 +39,7 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         viewGroup = parent;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingrediant_item, parent, false);
-        return new AllMealsAdapter.MyViewHolder(view);
+        return new SearchAllMealsAdapter.MyViewHolder(view);
     }
 
     @Override
