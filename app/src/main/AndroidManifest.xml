@@ -19,7 +19,7 @@
         android:theme="@style/Theme.yummy"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.Activities.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             >

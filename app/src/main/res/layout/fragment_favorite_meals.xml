@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_gradiant_color"
-    tools:context=".Controller.Fragments.MainFragments.FavoriteMeals"
+    tools:context=".Favorites.FavoriteMeals"
     android:fillViewport="true"
     >
 

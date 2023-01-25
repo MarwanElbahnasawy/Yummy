@@ -1,9 +1,9 @@
 package com.example.yummy.Network;
 
-import com.example.yummy.Model.AreaListModel;
-import com.example.yummy.Model.CategoryListModel;
-import com.example.yummy.Model.GrediantListModel;
-import com.example.yummy.Model.IngrdiantMealListModel;
+import com.example.yummy.SearchByCountry.Model.AreaListModel;
+import com.example.yummy.SearchByCategory.View.CategoryListModel;
+import com.example.yummy.SearchByIngredient.Model.IngredientListModel;
+import com.example.yummy.SearchByIngredient.Model.IngredientMealListModel;
 import com.example.yummy.Model.Root;
 import com.example.yummy.Model.RootSingleMeal;
 
@@ -31,12 +31,12 @@ public interface API {
     @GET("list.php?c=list")
     Observable<CategoryListModel> getCategory();
     @GET("list.php?i=list")
-    Observable<GrediantListModel> getIngradiant();
+    Observable<IngredientListModel> getIngradiant();
 
     @GET("filter.php")
     Observable<Root> getCategoryMeal(@Query("c") String categoryMeal);
     @GET("filter.php")
-    Observable<IngrdiantMealListModel> getIngrdiantMeal(@Query("i") String ingrediantMeal);
+    Observable<IngredientMealListModel> getIngrdiantMeal(@Query("i") String ingrediantMeal);
 
    @GET("lookup.php")
     Observable<Root> getMealById(@Query("i") int parseInt);
