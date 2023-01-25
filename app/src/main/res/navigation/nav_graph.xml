@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_nav_search_to_searchByIngrdiantFragment"
             app:destination="@id/searchByIngrdiantFragment" />
+        <action
+            android:id="@+id/action_nav_search_to_searchByAllMealsFragment"
+            app:destination="@id/searchByAllMealsFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_favoriteMeals"
@@ -175,5 +178,10 @@
             android:id="@+id/action_mealByIngrediantFragment_to_mealDeatailsFragment"
             app:destination="@id/mealDeatailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchByAllMealsFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.SearchByAllMealsFragment"
+        android:label="fragment_search_by_all_meals"
+        tools:layout="@layout/fragment_search_by_all_meals" />
 
 </navigation>

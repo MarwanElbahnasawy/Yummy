@@ -18,7 +18,7 @@ import com.example.yummy.R;
 
 public class Search extends Fragment {
 
-    CardView searchByCountry,searchByCategory,searchIngrediant;
+    CardView searchByCountry,searchByCategory,searchIngrediant,searchByAllMeals;
 
 
     @Override
@@ -43,6 +43,7 @@ public class Search extends Fragment {
      searchByCountry=view.findViewById(R.id.card_country);
      searchByCategory=view.findViewById(R.id.CardView_category);
      searchIngrediant=view.findViewById(R.id.cardView_ingrediant);
+     searchByAllMeals=view.findViewById(R.id.card_AllMeals);
      searchByCountry.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
@@ -62,6 +63,14 @@ public class Search extends Fragment {
          @Override
          public void onClick(View v) {
              Navigation.findNavController(view).navigate(SearchDirections.actionNavSearchToSearchByIngrdiantFragment());
+
+         }
+     });
+
+     searchByAllMeals.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Navigation.findNavController(view).navigate(SearchDirections.actionNavSearchToSearchByAllMealsFragment());
 
          }
      });

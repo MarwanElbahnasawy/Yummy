@@ -40,4 +40,12 @@ public interface API {
 
    @GET("lookup.php")
     Observable<Root> getMealById(@Query("i") int parseInt);
+
+   //www.themealdb.com/api/json/v1/1/search.php?f=a
+
+    @GET("search.php")
+    Observable<RootSingleMeal> getAllMeal(@Query("f") String mealName);
+
+
+
 }
