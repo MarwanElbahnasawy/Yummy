@@ -57,7 +57,7 @@
 
 
                 android:gravity="center_vertical"
-                android:hint="Empty at first"
+                android:hint="@string/empty_at_first"
 
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="10dp"
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Add to Favorites"
+                android:text="@string/add_to_favorites"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/text_input_layout"
                 app:layout_constraintEnd_toEndOf="parent"

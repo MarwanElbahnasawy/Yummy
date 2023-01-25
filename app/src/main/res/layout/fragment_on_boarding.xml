@@ -25,7 +25,7 @@
         android:layout_height="60dp"
         android:layout_marginBottom="116dp"
         android:background="@drawable/background"
-        android:text="Get Start"
+        android:text="@string/get_start"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
