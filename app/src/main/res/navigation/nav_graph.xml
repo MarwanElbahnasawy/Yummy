@@ -182,6 +182,10 @@
         android:id="@+id/searchByAllMealsFragment"
         android:name="com.example.yummy.Controller.Fragments.MainFragments.SearchByAllMealsFragment"
         android:label="fragment_search_by_all_meals"
-        tools:layout="@layout/fragment_search_by_all_meals" />
+        tools:layout="@layout/fragment_search_by_all_meals" >
+        <action
+            android:id="@+id/action_searchByAllMealsFragment_to_mealDeatailsFragment"
+            app:destination="@id/mealDeatailsFragment" />
+    </fragment>
 
 </navigation>
