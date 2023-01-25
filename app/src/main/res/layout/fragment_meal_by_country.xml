@@ -17,7 +17,7 @@
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Search By Country"
+            android:hint="Search for a meal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_countrySelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_countrySelected"
             tools:listitem="@layout/search_meal_items"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

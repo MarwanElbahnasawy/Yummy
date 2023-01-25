@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_spashScreen"
-        android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.SplashScreen"
+        android:name="com.example.yummy.Controller.Fragments.InitialFragments.SplashScreen"
         android:label="Splash Screen"
         tools:layout="@layout/fragment_spash_screen">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_onBoarding"
-        android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.OnBoarding"
+        android:name="com.example.yummy.Controller.Fragments.InitialFragments.OnBoarding"
         android:label="On Boarding"
         tools:layout="@layout/fragment_on_boarding">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_signIn"
-        android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.SignIn"
+        android:name="com.example.yummy.Controller.Fragments.InitialFragments.SignIn"
         android:label="Sign In"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_register"
-        android:name="com.example.foodplanner.Controller.Fragments.InitialFragments.Register"
+        android:name="com.example.yummy.Controller.Fragments.InitialFragments.Register"
         android:label="Register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Home"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.Search"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_favoriteMeals"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.FavoriteMeals"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.FavoriteMeals"
         android:label="fragment_saved_meals"
         tools:layout="@layout/fragment_favorite_meals" >
         <action
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_weekPlanner"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.WeekPlanner"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.WeekPlanner"
         android:label="fragment_week_planner"
         tools:layout="@layout/fragment_week_planner" >
         <action
@@ -107,15 +107,15 @@
     </fragment>
     <fragment
         android:id="@+id/mealDeatailsFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealDetailsFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.MealDetailsFragment"
         android:label="MealDeatailsFragment" >
         <argument
             android:name="mealDetailsArgs"
-            app:argType="com.example.foodplanner.Model.MealsItem" />
+            app:argType="com.example.yummy.Model.MealsItem" />
     </fragment>
     <fragment
         android:id="@+id/searchBYCountryFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SearchBYCountryFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.SearchBYCountryFragment"
         android:label="fragment_search_b_y_country"
         tools:layout="@layout/fragment_search_b_y_country" >
         <action
@@ -124,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealByCountryFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealByCountryFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.MealByCountryFragment"
         android:label="fragment_meal_by_country"
         tools:layout="@layout/fragment_meal_by_country" >
         <argument
@@ -136,7 +136,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.CategoryFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.SearchByCategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" >
         <action
@@ -145,7 +145,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealByCategoryFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealByCategoryFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.MealByCategoryFragment"
         android:label="MealByCategoryFragment" >
         <argument
             android:name="category"
@@ -156,7 +156,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchByIngrdiantFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.SearchByIngrdiantFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.SearchByIngrdiantFragment"
         android:label="fragment_search_by_ingrdiant"
         tools:layout="@layout/fragment_search_by_ingrdiant" >
         <action
@@ -165,7 +165,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealByIngrediantFragment"
-        android:name="com.example.foodplanner.Controller.Fragments.MainFragments.MealByIngrediantFragment"
+        android:name="com.example.yummy.Controller.Fragments.MainFragments.MealByIngrediantFragment"
         android:label="fragment_meal_by_ingrediant"
         tools:layout="@layout/fragment_meal_by_ingrediant" >
         <argument

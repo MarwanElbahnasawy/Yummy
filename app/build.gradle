@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.foodplanner'
+    namespace 'com.example.yummy'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.foodplanner"
+        applicationId "com.example.yummy"
         minSdk 21
         targetSdk 32
         versionCode 1

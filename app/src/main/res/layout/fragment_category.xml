@@ -5,34 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_gradiant_color"
-    tools:context=".Controller.Fragments.MainFragments.CategoryFragment">
+    tools:context=".Controller.Fragments.MainFragments.SearchByCategoryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/customEditText"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="211dp"
-            android:hint="Search By Categories"
+            android:hint="Search by category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_baseline_search_24"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_search_24">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tinput_search_Categoreies"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/gray"
-                />
+                android:backgroundTint="@color/gray" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_countrySelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -52,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_countrySelected"
             tools:listitem="@layout/country_item"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

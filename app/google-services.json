@@ -14,11 +14,64 @@
       },
       "oauth_client": [
         {
+          "client_id": "86693954186-53fdi6744epbfn08urs4aug87lk0cp5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodplanner",
+            "certificate_hash": "280f75318a966f351c8d47484ea8e7f410d2df20"
+          }
+        },
+        {
           "client_id": "86693954186-rv147se8dct0t7kg1ece5kjjb20u1hd6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.foodplanner",
             "certificate_hash": "4ed3ab8509725d5eed8b0959b99f5016ccc39515"
+          }
+        },
+        {
+          "client_id": "86693954186-dqg19ueeebjmggpvi0bs13d576p6vjdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoHvHROYXdror-kBUNY2qNYKmoiliRZKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86693954186-dqg19ueeebjmggpvi0bs13d576p6vjdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86693954186:android:88298888fb9e8a95ebe373",
+        "android_client_info": {
+          "package_name": "com.example.yummy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86693954186-2ate25dnv65iacb7k2c2sumueogb4g8a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yummy",
+            "certificate_hash": "4ed3ab8509725d5eed8b0959b99f5016ccc39515"
+          }
+        },
+        {
+          "client_id": "86693954186-nr7drejudafpel3gt3n2cpu9umr3igvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yummy",
+            "certificate_hash": "280f75318a966f351c8d47484ea8e7f410d2df20"
           }
         },
         {
