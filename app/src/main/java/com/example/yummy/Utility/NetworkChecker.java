@@ -2,9 +2,9 @@ package com.example.yummy.Utility;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-
-
+import android.net.NetworkRequest;
 
 
 public class NetworkChecker {
@@ -30,6 +30,7 @@ public class NetworkChecker {
         }
         return instance;
     }
+
 
 
     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
