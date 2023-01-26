@@ -1,22 +1,14 @@
 package com.example.yummy.SearchByCategory.Presenter;
 
-import android.util.Log;
+
+import com.example.yummy.Repository.Model.RepositoryRemote;
 
 
-
-import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Network.RetrofitClient;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class PresenterMealFromSpecificCategory {
     InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory;
-    List<MealsItem> meals = new ArrayList<>();
     private static final String TAG = "PresenterSearchByCatego";
+    RepositoryRemote repositoryRemote;
 
     public PresenterMealFromSpecificCategory(InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory) {
         this.interfaceMealFromSpecificCategory = interfaceMealFromSpecificCategory;
@@ -24,25 +16,13 @@ public class PresenterMealFromSpecificCategory {
 
 
     public void getMealFromSpecificCategory(String categorySelected) {
-        RetrofitClient.getInstance().getMyApi()
-                .getMealsOfSelectedCategory(categorySelected)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        next -> {
-                            meals = next.getMeals();
 
+        repositoryRemote = new RepositoryRemote(interfaceMealFromSpecificCategory);
+        repositoryRemote.getMealFromSpecificCategory(categorySelected);
 
-                        },
-                        error -> {
-                            Log.i(TAG, "getCategoryMeal: " + error.getMessage());
-                        } ,
-                        () -> {
-                            interfaceMealFromSpecificCategory.responseOfDataOnSuccess(meals);
-
-                        }
-                );
     }
+
+
 
 
 }

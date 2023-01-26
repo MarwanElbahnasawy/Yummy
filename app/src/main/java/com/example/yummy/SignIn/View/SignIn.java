@@ -1,7 +1,5 @@
 package com.example.yummy.SignIn.View;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +23,6 @@ import androidx.navigation.Navigation;
 
 import com.example.yummy.MainActivity;
 import com.example.yummy.R;
-import com.example.yummy.Repository.Model.Repository;
-import com.example.yummy.Repository.Presenter.PresenterRepository;
 import com.example.yummy.SignIn.Presenter.InterfaceSignIn;
 import com.example.yummy.SignIn.Presenter.PresenterSignIn;
 import com.example.yummy.Utility.NetworkChecker;
@@ -55,7 +50,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     private View view;
     private AppCompatButton btn_loginAsGuest;
     private PresenterSignIn presenterSignIn;
-    private PresenterRepository presenterRepository;
     private NetworkChecker networkChecker;
 
     private static final String TAG = "SignIn";
@@ -209,8 +203,9 @@ public class SignIn extends Fragment implements InterfaceSignIn {
 
             Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show();
 
-            presenterRepository = new PresenterRepository(requireContext());
-            presenterRepository.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            presenterSignIn = new PresenterSignIn(requireContext());
+            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
         } else {
@@ -255,8 +250,9 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         if (task.isSuccessful()) {
             Toast.makeText(requireContext(), "Sign in with Google was successful", Toast.LENGTH_SHORT).show();
 
-            presenterRepository = new PresenterRepository(requireContext());
-            presenterRepository.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            presenterSignIn = new PresenterSignIn(requireContext());
+            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
 
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);

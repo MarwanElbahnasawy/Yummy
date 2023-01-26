@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yummy.MainActivity;
 import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Repository.Model.Repository;
+import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Model.RootSingleMeal;
 import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
@@ -38,7 +37,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
     private static final String TAG = "FavoriteMealsAdapter";
     Observable<RootSingleMeal> observableMealSelectedFromFavorites;
 
-    Repository rep;
+    RepositoryLocal rep;
 
     private ProgressDialog progressDialog;
 
@@ -111,7 +110,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
                                     Log.i(TAG, "DocumentSnapshot successfully deleted!");
                                     //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                                    rep=new Repository(viewGroup.getContext());
+                                    rep=new RepositoryLocal(viewGroup.getContext());
                                     rep.delete(mealsItem);
                                     mealsFavorite.remove(position);
                                     notifyDataSetChanged();

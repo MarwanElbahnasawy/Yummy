@@ -1,12 +1,11 @@
 package com.example.yummy.Register.Presenter;
 
-import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+
+import android.content.Context;
+
+import com.example.yummy.Repository.Model.RepositoryLocal;
+import com.example.yummy.Repository.Model.RepositoryRemote;
 
 
 
@@ -15,25 +14,29 @@ public class PresenterRegister {
     private static final String TAG = "PresenterFirebaseFirea";
 
     private InterfaceRegister interfaceRegister;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    RepositoryRemote repositoryRemote;
+    Context context;
+    RepositoryLocal repositoryLocal;
+
 
     public PresenterRegister(InterfaceRegister interfaceRegister) {
         this.interfaceRegister = interfaceRegister;
     }
 
-    public void createUserWithEmailAndPassword(String email, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                interfaceRegister.onCompleteRegisterWithEmailAndPassword(task , task.isSuccessful());
-            }
-        });
+    public PresenterRegister(Context context) {
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                interfaceRegister.onFailureRegisterWithEmailAndPassword(e);
-            }
-        });
+        this.context = context;
+        repositoryLocal = new RepositoryLocal(context);
+
+    }
+
+    public void createUserWithEmailAndPassword(String email, String password) {
+        repositoryRemote = new RepositoryRemote(interfaceRegister);
+        repositoryRemote.createUserWithEmailAndPassword(email, password);
+    }
+
+
+    public void loadRoomFromFirestore(String email) {
+        repositoryLocal.loadRoomFromFirestore(email);
     }
 }

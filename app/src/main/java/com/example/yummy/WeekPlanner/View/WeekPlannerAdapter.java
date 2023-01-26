@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yummy.MainActivity;
 import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Repository.Model.Repository;
+import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,7 +37,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
 
     Boolean firstTimeInTheView = true;
 
-    private Repository rep;
+    private RepositoryLocal rep;
 
     private ProgressDialog progressDialog;
 
@@ -113,7 +113,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
                                         Log.i(TAG, "DocumentSnapshot successfully deleted!");
                                         //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                                        rep=new Repository(context);
+                                        rep=new RepositoryLocal(context);
                                         rep.delete(mealsItem);
                                         mealsWeekPlanner.remove(position);
                                         notifyDataSetChanged();

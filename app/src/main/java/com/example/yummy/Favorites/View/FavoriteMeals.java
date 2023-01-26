@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.example.yummy.Favorites.Presenter.PresenterFavoriteMeals;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
-import com.example.yummy.Repository.Presenter.PresenterRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class FavoriteMeals extends Fragment {
     private RecyclerView recyclerView;
     FavoriteMealsAdapter favoriteMealsAdapter;
     private static final String TAG = "SavedMeals";
-    PresenterRepository presenterRepository;
+    PresenterFavoriteMeals presenterFavoriteMeals;
 
 
 
@@ -54,15 +53,17 @@ public class FavoriteMeals extends Fragment {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        presenterRepository = new PresenterRepository(requireContext());
+
+
+
 
         /* Favorites Firestore + Room part 2/4: Getting data */
 
         //--> no need to get from firestore when items are already saved in room.
 
 
-
-        List<MealsItem> returnStoredMealsItems = presenterRepository.returnStoredMealsItems().blockingFirst();
+        presenterFavoriteMeals = new PresenterFavoriteMeals(requireContext());
+        List<MealsItem> returnStoredMealsItems = presenterFavoriteMeals.returnStoredMealsItems().blockingFirst();
 
         List<MealsItem> returnStoredMealsItemsWithWeekDayNull = new ArrayList<>();
 

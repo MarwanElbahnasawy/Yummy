@@ -15,11 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.yummy.MainActivity;
-import com.example.yummy.Repository.Model.Repository;
 import com.example.yummy.Register.Presenter.InterfaceRegister;
 import com.example.yummy.Register.Presenter.PresenterRegister;
 import com.example.yummy.R;
-import com.example.yummy.Repository.Presenter.PresenterRepository;
+import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -37,7 +36,6 @@ public class Register extends Fragment implements InterfaceRegister {
     private NetworkChecker networkChecker;
     private ProgressDialog loadingBar;
     private PresenterRegister presenterRegister;
-    private PresenterRepository presenterRepository;
     private String email;
     private static final String TAG = "Register";
 
@@ -127,9 +125,9 @@ public class Register extends Fragment implements InterfaceRegister {
 
                 Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
 
-            presenterRepository = new PresenterRepository(requireContext());
-            presenterRepository.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
+            presenterRegister = new PresenterRegister(requireContext());
+            presenterRegister.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
                 Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
 

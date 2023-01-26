@@ -20,7 +20,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 
-public class Repository {
+public class RepositoryLocal {
     private static final String TAG = "Repository";
     private Context context;
     private MealDAO mealDAO;
@@ -28,7 +28,7 @@ public class Repository {
     private List<MealsItem> mealsItemsFromFirestore = new ArrayList<>();
     private List<MealsItem> mealsWeekPlanSaturday = new ArrayList<>() ,mealsWeekPlanSunday = new ArrayList<>(), mealsWeekPlanMonday = new ArrayList<>(), mealsWeekPlanTuesday = new ArrayList<>(), mealsWeekPlanWednesday = new ArrayList<>(), mealsWeekPlanThursday = new ArrayList<>(), mealsWeekPlanFriday= new ArrayList<>();
 
-    public Repository(Context context){
+    public RepositoryLocal(Context context){
         this.context=context;
 
         DB db= DB.getInstance(context);
