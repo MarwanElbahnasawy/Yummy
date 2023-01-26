@@ -84,7 +84,9 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="#B3FFFFFF"
                 android:inputType="textEmailAddress"
-                android:password="true" />
+                android:password="true"
+                android:imeOptions="actionDone"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
 

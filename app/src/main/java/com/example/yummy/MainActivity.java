@@ -8,7 +8,12 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,10 +35,12 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView bottomNavigationView;
     ImageView img_lotOut;
     public static Boolean isLoginAsGuest = false;
-    private NetworkChecker networkChecker ;
+    private NetworkChecker networkChecker;
     public static MainActivity mainActivity;
     TextView tv_internetConnection;
-    private int timerInternetIsConnected;
+    private static final String TAG = "MainActivity";
+    private Timer timer;
+    Boolean timerIsExists = false;
 
 
     RepositoryLocal rep;
@@ -62,30 +69,29 @@ public class MainActivity extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch(item.getItemId())
-                        {
+                        switch (item.getItemId()) {
 
                             case R.id.nav_dailyInspirations:
-                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_dailyInspirations);
+                                Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_dailyInspirations);
                                 return true;
                             case R.id.nav_search:
-                                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_search);
+                                Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_search);
                                 return true;
                             case R.id.nav_favoriteMeals:
-                                if(isLoginAsGuest == true){
+                                if (isLoginAsGuest == true) {
                                     Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
                                     return false;
-                                } else{
-                                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_favoriteMeals);
+                                } else {
+                                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_favoriteMeals);
                                     return true;
                                 }
 
                             case R.id.nav_weekPlanner:
-                                if(isLoginAsGuest == true){
+                                if (isLoginAsGuest == true) {
                                     Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
                                     return false;
-                                } else{
-                                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);
+                                } else {
+                                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);
                                     return true;
                                 }
                         }
@@ -96,20 +102,20 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-               switch (destination.getId()){
-                   case R.id.nav_spashScreen:
-                   case R.id.nav_onBoarding:
-                   case R.id.nav_signIn:
-                   case R.id.nav_register:
-                   case R.id.mealDeatailsFragment:
-                       bottomNavigationView.setVisibility(View.GONE);
-                       img_lotOut.setVisibility(View.GONE);
+                switch (destination.getId()) {
+                    case R.id.nav_spashScreen:
+                    case R.id.nav_onBoarding:
+                    case R.id.nav_signIn:
+                    case R.id.nav_register:
+                    case R.id.mealDeatailsFragment:
+                        bottomNavigationView.setVisibility(View.GONE);
+                        img_lotOut.setVisibility(View.GONE);
 
-                       break;
-                   default:
-                       bottomNavigationView.setVisibility(View.VISIBLE);
-                       img_lotOut.setVisibility(View.VISIBLE);
-               }
+                        break;
+                    default:
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+                        img_lotOut.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -117,60 +123,91 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                if(FirebaseAuth.getInstance().getCurrentUser() == null){
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
 
                     isLoginAsGuest = false;
 
-                    rep=new RepositoryLocal(MainActivity.this);
+                    rep = new RepositoryLocal(MainActivity.this);
 
                     new Thread(() -> rep.deleteTableRoom()).start();
 
-                    while (navController.popBackStack() == true){}
+                    while (navController.popBackStack() == true) {
+                    }
 
                     Toast.makeText(MainActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_signIn);
-                } else{
+                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_signIn);
+                } else {
                     Toast.makeText(MainActivity.this, "Logging out failed", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-        Timer t = new Timer( );
-        t.scheduleAtFixedRate(new TimerTask() {
+
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .build();
+
+        ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(@NonNull Network network) {
+                super.onAvailable(network);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!timerIsExists){
+                            timerIsExists = true;
+
+                            tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.green));
+                            tv_internetConnection.setText("Internet is back!");
+                            timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            tv_internetConnection.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                }
+                            }, 5000);
+                        }
+
+
+                    }
+                });
+
+            }
 
             @Override
-            public void run() {
-                if (!NetworkChecker.getInstance().checkIfInternetIsConnected()){
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+            public void onLost(@NonNull Network network) {
+                super.onLost(network);
+                if (timerIsExists){
+                    timerIsExists = false;
+                    timer.cancel();
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             tv_internetConnection.setVisibility(View.VISIBLE);
                             tv_internetConnection.setText("No Internet Connection");
                             tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
-                            timerInternetIsConnected = 5001;
                         }
                     });
-
-                } else{
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(timerInternetIsConnected > 0){
-                                timerInternetIsConnected = timerInternetIsConnected - 500;
-                                tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.green));
-                                tv_internetConnection.setText("Internet is back!");
-                            } else{
-                                tv_internetConnection.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-
                 }
 
-            }
-        }, 1000,500);
 
+            }
+
+
+        };
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(ConnectivityManager.class);
+        connectivityManager.requestNetwork(networkRequest, networkCallback);
 
 
     }

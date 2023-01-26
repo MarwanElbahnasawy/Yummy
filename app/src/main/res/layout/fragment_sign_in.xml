@@ -70,10 +70,10 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="#99FFFFFF"
                 android:inputType="textEmailAddress"
-
-
                 android:password="true"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:imeOptions="actionDone"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

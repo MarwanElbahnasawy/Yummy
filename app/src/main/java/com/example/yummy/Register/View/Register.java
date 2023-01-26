@@ -118,10 +118,10 @@ public class Register extends Fragment implements InterfaceRegister {
 
 
     @Override
-    public void onCompleteRegisterWithEmailAndPassword(Task<AuthResult> task, boolean taskIsSuccessful) {
+    public void onCompleteRegisterWithEmailAndPassword(Task<AuthResult> task) {
         loadingBar.dismiss();
 
-        if (taskIsSuccessful) {
+        if (task.isSuccessful()) {
 
                 Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
 

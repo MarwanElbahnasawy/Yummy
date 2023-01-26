@@ -156,7 +156,7 @@ public class RepositoryRemote {
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                interfaceRegister.onCompleteRegisterWithEmailAndPassword(task , task.isSuccessful());
+                interfaceRegister.onCompleteRegisterWithEmailAndPassword(task);
             }
         });
 
