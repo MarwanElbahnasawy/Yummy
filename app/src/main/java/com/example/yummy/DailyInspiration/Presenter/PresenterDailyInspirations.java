@@ -1,9 +1,8 @@
 package com.example.yummy.DailyInspiration.Presenter;
 
 import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Model.Root;
+import com.example.yummy.Model.RootMeal;
 import com.example.yummy.Network.RetrofitClient;
-import com.example.yummy.Model.SliderItemModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +16,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class PresenterDailyInspirations {
     InterfaceDailyInspirations interfaceDailyInspirations;
     List<MealsItem> meals = new ArrayList<>();
-    private List<SliderItemModel> sliderItemList;
 
     public PresenterDailyInspirations(InterfaceDailyInspirations interfaceDailyInspirations) {
         this.interfaceDailyInspirations = interfaceDailyInspirations;
@@ -29,15 +27,15 @@ public class PresenterDailyInspirations {
         String[] countriesList = {"Indian", "Italian", "Chinese", "French", "British"};
         String randomCountry = countriesList[(new Random()).nextInt(countriesList.length)];
 
-        Observable<Root> observableRandom1 = RetrofitClient.getInstance().getMyApi().getRootRandom();
-        Observable<Root> observableRandom2 = RetrofitClient.getInstance().getMyApi().getRootRandom();
-        Observable<Root> observableRandom3 = RetrofitClient.getInstance().getMyApi().getRootRandom();
-        Observable<Root> observableRandom4 = RetrofitClient.getInstance().getMyApi().getRootRandom();
-        Observable<Root> observableRandom5 = RetrofitClient.getInstance().getMyApi().getRootRandom();
+        Observable<RootMeal> observableRandom1 = RetrofitClient.getInstance().getMyApi().getRootRandom();
+        Observable<RootMeal> observableRandom2 = RetrofitClient.getInstance().getMyApi().getRootRandom();
+        Observable<RootMeal> observableRandom3 = RetrofitClient.getInstance().getMyApi().getRootRandom();
+        Observable<RootMeal> observableRandom4 = RetrofitClient.getInstance().getMyApi().getRootRandom();
+        Observable<RootMeal> observableRandom5 = RetrofitClient.getInstance().getMyApi().getRootRandom();
 
-        ArrayList<Observable<Root>> arrayListObservablesRandomMeal = new ArrayList<>(Arrays.asList(observableRandom1, observableRandom2, observableRandom3, observableRandom4, observableRandom5));
+        ArrayList<Observable<RootMeal>> arrayListObservablesRandomMeal = new ArrayList<>(Arrays.asList(observableRandom1, observableRandom2, observableRandom3, observableRandom4, observableRandom5));
 
-        Observable<Root> combinedObservable = Observable.merge(arrayListObservablesRandomMeal);
+        Observable<RootMeal> combinedObservable = Observable.merge(arrayListObservablesRandomMeal);
 
         combinedObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

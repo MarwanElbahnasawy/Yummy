@@ -34,7 +34,6 @@ public class Register extends Fragment implements InterfaceRegister {
     AppCompatButton register;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     View view;
-    Repository rep;
     private NetworkChecker networkChecker;
     private ProgressDialog loadingBar;
     private PresenterRegister presenterRegister;

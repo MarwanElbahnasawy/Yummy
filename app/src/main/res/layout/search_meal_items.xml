@@ -20,7 +20,7 @@
     android:weightSum="3">
 
     <ImageView
-        android:id="@+id/countryMeal_image"
+        android:id="@+id/areaMeal_image"
         android:layout_width="match_parent"
         android:layout_height="153dp"
         android:layout_weight="2"
@@ -28,7 +28,7 @@
         android:src="@drawable/country" />
 
     <TextView
-        android:id="@+id/country_meal"
+        android:id="@+id/area_meal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/yellow"

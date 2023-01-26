@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_gradiant_color"
-    tools:context=".Splash.SplashScreen">
+    tools:context=".Splash.View.SplashScreen">
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imageView3"-->

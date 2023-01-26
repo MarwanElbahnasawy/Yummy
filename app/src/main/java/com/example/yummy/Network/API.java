@@ -1,12 +1,11 @@
 package com.example.yummy.Network;
 
-import com.example.yummy.SearchByCountry.Model.AreaListModel;
-import com.example.yummy.SearchByCategory.View.CategoryListModel;
-import com.example.yummy.SearchByIngredient.Model.IngredientListModel;
-import com.example.yummy.SearchByIngredient.Model.IngredientMealListModel;
-import com.example.yummy.Model.Root;
+import com.example.yummy.SearchByArea.Model.RootAreasList;
+import com.example.yummy.SearchByCategory.Models.RootCategoriesList;
+import com.example.yummy.SearchByIngredient.Model.RootIngredientsList;
+import com.example.yummy.Model.RootMeal;
 import com.example.yummy.Model.RootSingleMeal;
-import com.example.yummy.SearchGeneral.Model.RootMealsFromSingleLetter;
+import com.example.yummy.SearchByMeal.Model.RootMealsFromSingleLetter;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
@@ -18,12 +17,7 @@ public interface API {
 
 
     @GET("random.php")
-    Observable<Root> getRootRandom();
-
-    @GET("filter.php")
-    Observable<Root> getRoot(@Query("a") String randomCountry);
-
-
+    Observable<RootMeal> getRootRandom();
 
     @GET("search.php")
     Observable<RootSingleMeal> getRootSingleMeal(@Query("s") String mealName);
@@ -32,19 +26,21 @@ public interface API {
     Observable<RootMealsFromSingleLetter> getRootMealsBySingleLetter(@Query("f") String firstLetterOfMeal);
 
     @GET("list.php?a=list")
-    Observable<AreaListModel> getCountry();
+    Observable<RootAreasList> getRootAreasList();
     @GET("list.php?c=list")
-    Observable<CategoryListModel> getCategory();
+    Observable<RootCategoriesList> getRootCategoriesList();
     @GET("list.php?i=list")
-    Observable<IngredientListModel> getIngradiant();
+    Observable<RootIngredientsList> getRootIngredientsList();
 
     @GET("filter.php")
-    Observable<Root> getCategoryMeal(@Query("c") String categoryMeal);
+    Observable<RootMeal> getMealsOfSelectedArea(@Query("a") String areaSelected);
     @GET("filter.php")
-    Observable<IngredientMealListModel> getIngrdiantMeal(@Query("i") String ingrediantMeal);
+    Observable<RootMeal> getMealsOfSelectedCategory(@Query("c") String categorySelected);
+    @GET("filter.php")
+    Observable<RootMeal> getMealsOfSelectedIngredient(@Query("i") String ingredientSelected);
 
-   @GET("lookup.php")
-    Observable<Root> getMealById(@Query("i") int parseInt);
+    @GET("lookup.php")
+    Observable<RootMeal> getMealById(@Query("i") int parseInt);
 
    //www.themealdb.com/api/json/v1/1/search.php?f=a
 

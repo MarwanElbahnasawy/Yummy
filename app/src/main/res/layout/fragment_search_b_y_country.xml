@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_gradiant_color"
-    tools:context=".SearchByCountry.View.SearchByCountryFragment">
+    tools:context=".SearchByArea.View.AllAreas">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:hint="@string/search_by_country"
+            android:hint="@string/search_by_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,12 +31,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_countrySelected"
+            android:id="@+id/tv_areaSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/amaranth_bold"
-            android:text="@string/countries"
+            android:text="@string/areas"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.068"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_countrySelected"
+            app:layout_constraintTop_toBottomOf="@+id/tv_areaSelected"
             tools:listitem="@layout/country_item"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

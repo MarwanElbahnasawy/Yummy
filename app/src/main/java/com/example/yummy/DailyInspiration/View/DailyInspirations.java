@@ -22,7 +22,6 @@ import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.DailyInspiration.Presenter.PresenterDailyInspirations;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
-import com.example.yummy.View.Adapters.SliderAdapter;
 import com.example.yummy.Model.SliderItemModel;
 import com.google.firebase.auth.FirebaseAuth;
 
