@@ -26,7 +26,7 @@ public class Repository {
     private MealDAO mealDAO;
     private Flowable<List<MealsItem>> storedMealsItems;
     private List<MealsItem> mealsItemsFromFirestore = new ArrayList<>();
-    private List<MealsItem> mealsWeekPlanSaturday = new ArrayList<>() ,mealsWeekPlanSunday = new ArrayList<>(), mealsWeekPlanMonday = new ArrayList<>(), mealsWeekPlanTuesday = new ArrayList<>(), mealsWeekPlanWednsday = new ArrayList<>(), mealsWeekPlanThursday = new ArrayList<>(), mealsWeekPlanFriday= new ArrayList<>();
+    private List<MealsItem> mealsWeekPlanSaturday = new ArrayList<>() ,mealsWeekPlanSunday = new ArrayList<>(), mealsWeekPlanMonday = new ArrayList<>(), mealsWeekPlanTuesday = new ArrayList<>(), mealsWeekPlanWednesday = new ArrayList<>(), mealsWeekPlanThursday = new ArrayList<>(), mealsWeekPlanFriday= new ArrayList<>();
 
     public Repository(Context context){
         this.context=context;
@@ -137,9 +137,9 @@ public class Repository {
                                                            mealsWeekPlanTuesday.add(new MealsItem(document.getId() ,document.get("strMeal").toString(),document.get("strArea").toString(), document.get("strMealThumb").toString(), document.get("strInstructions").toString(), document.get("strYoutube").toString(), document.get("weekDay").toString()));
                                                            insert(mealsWeekPlanTuesday.get((mealsWeekPlanTuesday.size()-1)), "Tuesday" , document.getId());
                                                        }
-                                                       else if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) & document.get("weekDay").toString().equals("Wednsday")){
-                                                           mealsWeekPlanWednsday.add(new MealsItem(document.getId() ,document.get("strMeal").toString(),document.get("strArea").toString(), document.get("strMealThumb").toString(), document.get("strInstructions").toString(), document.get("strYoutube").toString(), document.get("weekDay").toString()));
-                                                           insert(mealsWeekPlanWednsday.get((mealsWeekPlanWednsday.size()-1)), "Wednsday" , document.getId());
+                                                       else if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) & document.get("weekDay").toString().equals("Wednesday")){
+                                                           mealsWeekPlanWednesday.add(new MealsItem(document.getId() ,document.get("strMeal").toString(),document.get("strArea").toString(), document.get("strMealThumb").toString(), document.get("strInstructions").toString(), document.get("strYoutube").toString(), document.get("weekDay").toString()));
+                                                           insert(mealsWeekPlanWednesday.get((mealsWeekPlanWednesday.size()-1)), "Wednesday" , document.getId());
                                                        }
                                                        else if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) & document.get("weekDay").toString().equals("Thursday")){
                                                            mealsWeekPlanThursday.add(new MealsItem(document.getId() ,document.get("strMeal").toString(),document.get("strArea").toString(), document.get("strMealThumb").toString(), document.get("strInstructions").toString(), document.get("strYoutube").toString(), document.get("weekDay").toString()));

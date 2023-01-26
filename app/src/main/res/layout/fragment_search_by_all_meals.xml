@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SearchGeneral.View.SearchByAllMealsFragment">
+    tools:context=".SearchByMeal.View.AllMeals">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_countrySelected"
+            android:id="@+id/tv_areaSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -50,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_countrySelected"
+            app:layout_constraintTop_toBottomOf="@+id/tv_areaSelected"
             tools:listitem="@layout/ingrediant_item"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

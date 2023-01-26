@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_gradiant_color"
-    tools:context=".WeekPlanner.WeekPlanner"
+    tools:context=".WeekPlanner.View.WeekPlanner"
     android:fillViewport="true"
     >
 
@@ -110,11 +110,11 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
-            android:id="@+id/tv_Wednsday"
+            android:id="@+id/tv_Wednesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amaranth_bold"
-            android:text="Wednsday"
+            android:text="Wednesday"
             android:textSize="34sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -122,13 +122,13 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsTueday" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewFavoriteMealsWednsday"
+            android:id="@+id/recyclerViewFavoriteMealsWednesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="500dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Wednsday">
+            app:layout_constraintTop_toBottomOf="@+id/tv_Wednesday">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -142,7 +142,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsWednsday" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFavoriteMealsWednesday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMealsThursday"

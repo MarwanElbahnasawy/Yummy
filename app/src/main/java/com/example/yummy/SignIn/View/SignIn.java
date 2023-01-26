@@ -54,7 +54,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     private TextView register;
     private View view;
     private AppCompatButton btn_loginAsGuest;
-    Repository rep;
     private PresenterSignIn presenterSignIn;
     private PresenterRepository presenterRepository;
     private NetworkChecker networkChecker;

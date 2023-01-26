@@ -28,7 +28,7 @@
     <string name="search_by_category">Search by category</string>
     <string name="search_for_a_meal">Search for a meal</string>
     <string name="meals_filtered_by_category">Meals filtered by category</string>
-    <string name="meals_by_countries">Meals By Countries</string>
+    <string name="meals_by_areas">Meals By areas</string>
     <string name="meals_filtered_by_ingredient">Meals filtered by ingredient</string>
     <string name="steps">Steps</string>
     <string name="ingredient">Ingredient</string>
@@ -38,11 +38,11 @@
     <string name="register">Register</string>
     <string name="search_by_all_meals">Search by All Meals</string>
     <string name="all_meals">All Meals</string>
-    <string name="search_by_country">Search by country</string>
+    <string name="search_by_area">Search by area</string>
     <string name="search_by_ingrediant">Search by ingrediant</string>
     <string name="ingrediant">Ingrediant</string>
     <string name="category">Category</string>
-    <string name="countries">Countries</string>
+    <string name="areas">Areas</string>
     <string name="search_by_ingredient">Search by ingredient</string>
     <string name="login">Login</string>
     <string name="or_use">or use</string>
@@ -61,9 +61,10 @@
 
     <string name="daily_inspirations">Daily Inspirations</string>
 
-    <string name="country">Country</string>
-    <string name="don_t_have_an_account" >Don\'t have an account?</string>
+    <string name="area">Area</string>
+    <string name="don_t_have_an_account" >Don't have an account?</string>
     <string name="my_saved_recipes">My Saved Recipes</string>
+
 
 
 </resources>

@@ -7,10 +7,7 @@ import java.io.Serializable;
 
 @Entity (tableName = "MealsItem", primaryKeys = {"strMeal","weekDay"})
 public class MealsItem implements Serializable {
-
 	public String documentID;
-
-
 
 	private String currentUserEmail;
 
@@ -18,7 +15,6 @@ public class MealsItem implements Serializable {
 	private String strMeal;
 	@NonNull
 	private String weekDay;
-
 
 	public MealsItem(String documentID, String strMeal, String strArea, String strMealThumb, String strInstructions, String strYoutube, String weekDay) {
 		this.documentID = documentID;

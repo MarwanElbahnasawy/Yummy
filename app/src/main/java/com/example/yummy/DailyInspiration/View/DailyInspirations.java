@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -19,22 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.DailyInspiration.Presenter.PresenterDailyInspirations;
-import com.example.yummy.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
-import com.example.yummy.Repository.Model.Repository;
-import com.example.yummy.View.Adapters.SliderAdapter;
 import com.example.yummy.Model.SliderItemModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DailyInspirations extends Fragment implements InterfaceDailyInspirations {
 
@@ -46,9 +38,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     private Handler sliderHandler = new Handler();
     List<MealsItem> meals = new ArrayList<>();
     private PresenterDailyInspirations presenterDailyInspirations;
-    CircleImageView logout;
-    Repository rep;
-    public static NavController navController;
+
 
 
     @Override
@@ -80,34 +70,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         presenterDailyInspirations = new PresenterDailyInspirations(this);
 
         presenterDailyInspirations.getDailyInspirations();
-
-        logout=view.findViewById(R.id.logout_icon);
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                if(FirebaseAuth.getInstance().getCurrentUser() == null){
-
-
-                    rep=new Repository(requireContext());
-
-
-                    new Thread(() -> rep.deleteTableRoom()).start();
-
-                    while (navController.popBackStack() == true){}
-
-                    Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_signIn);
-                } else{
-                    Toast.makeText(requireContext(), "Logging out failed", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-
 
     }
 
