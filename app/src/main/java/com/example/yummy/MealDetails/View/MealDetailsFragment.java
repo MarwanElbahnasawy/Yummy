@@ -43,7 +43,7 @@ public class MealDetailsFragment extends Fragment {
         MealsItem mealsItem = MealDetailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArgs();
 
         mealName = view.findViewById(R.id.tv_mealName);
-        area = view.findViewById(R.id.tv_meal_area);
+       area = view.findViewById(R.id.tv_meal_area);
         instructions = view.findViewById(R.id.tv_Meal_instructions);
         mealImage = view.findViewById(R.id.mealImage);
         videoView = view.findViewById(R.id.video);

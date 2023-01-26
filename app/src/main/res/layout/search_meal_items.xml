@@ -4,35 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/row_fav"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="150dp"
     android:layout_margin="10dp"
     android:background="@drawable/fav">
-
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/fav_tv_mealArea"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="20dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:fontFamily="@font/andika_new_basic"-->
-    <!--        android:text=""-->
-    <!--        android:textSize="15dp"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/fav_img_mealImg"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/fav_tv_mealName" />-->
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/areaMeal_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="8dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/imageback"
         android:padding="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.516"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
@@ -42,21 +29,20 @@
         android:layout_marginStart="10dp"
         android:fontFamily="@font/andika_new_basic"
         android:text=""
-
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/areaMeal_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toEndOf="@+id/areaMeal_image"
         app:layout_constraintTop_toTopOf="@+id/areaMeal_image"
-        app:layout_constraintVertical_bias="0.589" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
-        android:id="@+id/btn_removeFav"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/btn_add_favourite_search"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/background2"
         android:scaleType="center"
         android:src="@drawable/ic_baseline_favorite_24"
@@ -68,7 +54,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:hint="Add to week plan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,8 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

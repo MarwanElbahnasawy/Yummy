@@ -3,6 +3,8 @@ package com.example.yummy.SearchByArea.View;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -85,12 +87,15 @@ public class MealFromSpecificAreaAdapter extends RecyclerView.Adapter<MealFromSp
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
                 TextView mealName;
-                 CircleImageView mealImage;
+                CircleImageView mealImage;
+                ImageButton btn_addToFavorites;
+                AutoCompleteTextView autoCompleteTextView;
         public MyViewHolder(@NonNull View itemView) {
         super(itemView);
             mealName=itemView.findViewById(R.id.area_meal);
             mealImage=itemView.findViewById(R.id.areaMeal_image);
-
+            btn_addToFavorites=itemView.findViewById(R.id.btn_add_favourite_search);
+            autoCompleteTextView=itemView.findViewById(R.id.auto_complete_textview_search);
         }
     }
 }

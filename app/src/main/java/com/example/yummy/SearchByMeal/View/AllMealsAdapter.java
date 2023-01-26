@@ -3,6 +3,8 @@ package com.example.yummy.SearchByMeal.View;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,16 +39,16 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         viewGroup = parent;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingrediant_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_meal_items, parent, false);
         return new AllMealsAdapter.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(mealsItems.get(position).getStrMeal());
+        holder.mealName.setText(mealsItems.get(position).getStrMeal());
         Glide.with(viewGroup).load(mealsItems.get(position).getStrMealThumb())
                 .placeholder(R.drawable.ic_launcher_foreground)
-                .into(holder.circleImageView);
+                .into(holder.mealImage);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,13 +91,17 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView circleImageView;
-        TextView textView;
+        TextView mealName;
+        CircleImageView mealImage;
+        ImageButton btn_addToFavorites;
+        AutoCompleteTextView autoCompleteTextView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            circleImageView = itemView.findViewById(R.id.ingrediant_image);
-            textView = itemView.findViewById(R.id.ingrediant_text);
+            mealName=itemView.findViewById(R.id.area_meal);
+            mealImage=itemView.findViewById(R.id.areaMeal_image);
+            btn_addToFavorites=itemView.findViewById(R.id.btn_add_favourite_search);
+            autoCompleteTextView=itemView.findViewById(R.id.auto_complete_textview_search);
 
         }
     }
