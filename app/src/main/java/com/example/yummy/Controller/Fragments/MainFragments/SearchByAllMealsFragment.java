@@ -3,26 +3,21 @@ package com.example.yummy.Controller.Fragments.MainFragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yummy.Model.AreaListModel;
 import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Model.Root;
 import com.example.yummy.Model.RootSingleMeal;
 import com.example.yummy.Network.RetrofitClient;
 import com.example.yummy.R;
 import com.example.yummy.View.AllMealsAdapter;
-import com.example.yummy.View.CountryAdapter;
-import com.example.yummy.View.MealsByCountriesAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;

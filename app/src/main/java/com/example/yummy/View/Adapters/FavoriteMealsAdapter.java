@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -159,7 +160,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         public TextView fav_tv_mealName;
         public TextView fav_tv_mealArea;
         public ImageView fav_img_mealImg;
-        public Button btn_removeFromFavorites;
+        public ImageButton btn_removeFromFavorites;
 
 
 

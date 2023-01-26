@@ -1,7 +1,11 @@
 package com.example.yummy.SignIn.View;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +25,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.yummy.MainActivity;
+import com.example.yummy.R;
 import com.example.yummy.Repository.Model.Repository;
+import com.example.yummy.Repository.Presenter.PresenterRepository;
 import com.example.yummy.SignIn.Presenter.InterfaceSignIn;
 import com.example.yummy.SignIn.Presenter.PresenterSignIn;
-import com.example.yummy.R;
-import com.example.yummy.Repository.Presenter.PresenterRepository;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.Task;
@@ -42,7 +47,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     private TextInputEditText et_password;
     private AppCompatButton btn_signInWithEmailAndPassword;
     private ProgressDialog loadingBar;
-//    private GoogleSignInOptions gso;
+    //    private GoogleSignInOptions gso;
 //    private GoogleSignInClient gsc;
     private SignInButton googeSignIn;
     private ImageView img_eye;
@@ -52,7 +57,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     Repository rep;
     private PresenterSignIn presenterSignIn;
     private PresenterRepository presenterRepository;
-    private NetworkChecker networkChecker ;
+    private NetworkChecker networkChecker;
 
     private static final String TAG = "SignIn";
 
@@ -75,8 +80,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-
         this.view = view;
 
         loadingBar = new ProgressDialog(requireContext());
@@ -97,7 +100,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         presenterSignIn = new PresenterSignIn(this, requireContext());
 
 
-
         //Signing in with email and password
         btn_signInWithEmailAndPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +108,10 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                 String email = et_email.getText().toString();
                 String password = et_password.getText().toString();
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to sign in.", Toast.LENGTH_SHORT).show();
 
-                }else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
                     loadingBar.setTitle("Signing in");
                     loadingBar.setMessage("Please wait while signing in");
                     loadingBar.setCanceledOnTouchOutside(false);
@@ -119,7 +121,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
 
                         loadingBar.show();
 
-                        presenterSignIn.signIn(email,password);
+                        presenterSignIn.signIn(email, password);
 
                     } else {
                         if (email.isEmpty()) {
@@ -130,9 +132,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                     }
 
                 }
-
-
-
 
 
             }
@@ -154,15 +153,12 @@ public class SignIn extends Fragment implements InterfaceSignIn {
             @Override
             public void onClick(View view) {
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to sign in.", Toast.LENGTH_SHORT).show();
 
-                }else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
                     presenterSignIn.signInGoogle();
                 }
-
-
-
 
 
             }
@@ -172,19 +168,34 @@ public class SignIn extends Fragment implements InterfaceSignIn {
             @Override
             public void onClick(View v) {
 
-                if(!networkChecker.checkIfInternetIsConnected()){
-                    Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to log in.", Toast.LENGTH_SHORT).show();
 
-                }else if (networkChecker.checkIfInternetIsConnected()){
-                    MainActivity.isLoginAsGuest = true;
-                    Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).navigate(SignInDirections.actionNavSignInToNavHome());
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setMessage("You 'll miss out on personalized content and saving our delicious recipes");
+                builder.setTitle("Wait! Are You Sure?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to log in.", Toast.LENGTH_SHORT).show();
+
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.isLoginAsGuest = true;
+                        Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(SignInDirections.actionNavSignInToNavHome());
+                    }
+
+                });
+
+                builder.setNegativeButton("NO,Go BACK", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+                    dialog.cancel();
+                });
+                AlertDialog alertDialog = builder.create();
+
+                alertDialog.show();
 
 
             }
         });
-
 
 
     }
@@ -229,7 +240,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     public void onCompleteSignInIntent(Intent signInIntent, int i) {
         startActivityForResult(signInIntent, 1000);
     }
-
 
 
     //callback of sign in with google request (for google sign in)
