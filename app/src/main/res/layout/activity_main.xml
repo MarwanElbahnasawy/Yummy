@@ -31,17 +31,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/nav_menu" />
 
-    <ImageView
-        android:id="@+id/img_logOut"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:elevation="20dp"
-        android:scaleX="-1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_logout_24" />
+<!--    <ImageView-->
+<!--        android:id="@+id/img_logOut"-->
+<!--        android:layout_width="25dp"-->
+<!--        android:layout_height="25dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:elevation="20dp"-->
+<!--        android:scaleX="-1"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_baseline_logout_24" />-->
 
     <TextView
         android:id="@+id/tv_internetConnection"

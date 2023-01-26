@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -359,7 +360,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     class SliderViewHolder extends RecyclerView.ViewHolder {
         private RoundedImageView imageView;
         private TextView tv_mealName;
-        private Button btn_addToFavorites;
+        private ImageButton btn_addToFavorites;
         //For drop down weekdays: part 2/3
         AutoCompleteTextView autoCompleteTextView;
         TextInputLayout textInputLayout;
