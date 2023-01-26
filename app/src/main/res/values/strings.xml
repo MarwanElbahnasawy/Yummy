@@ -20,7 +20,7 @@
     <string name="desrpition3">Plan Your Meals</string>
     <string name="desrpition4">Calculate Nutritional Requirements</string>
 
-    <string name="registerUnderLine"><u>Register</u></string>
+
 
     <string name="cliendIDForGoogle">86693954186-dqg19ueeebjmggpvi0bs13d576p6vjdt.apps.googleusercontent.com</string>
 
@@ -62,7 +62,8 @@
     <string name="daily_inspirations">Daily Inspirations</string>
 
     <string name="area">Area</string>
-    <string name="don_t_have_an_account" >Don't have an account?</string>
+    <string name="registerUnderLine"><u>Register</u></string>
+    <string name="don_t_have_an_account" >Don\'t have an account?</string>
     <string name="my_saved_recipes">My Saved Recipes</string>
 
 
