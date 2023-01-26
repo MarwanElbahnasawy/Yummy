@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
-import com.example.yummy.Repository.Presenter.PresenterRepository;
+import com.example.yummy.WeekPlanner.Presenter.PresenterWeekPlanner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +34,8 @@ public class WeekPlanner extends Fragment {
 
     private static final String TAG = "WeekPlanner";
 
-    PresenterRepository presenterRepository;
+    PresenterWeekPlanner presenterWeekPlanner;
+
 
 
     @Override
@@ -90,9 +91,8 @@ public class WeekPlanner extends Fragment {
 
         //--> no need to get from firestore when items are already saved in room.
 
-        presenterRepository = new PresenterRepository(requireContext());
-
-        List<MealsItem> mealsItemsArrayList = presenterRepository.returnStoredMealsItems().blockingFirst();
+        presenterWeekPlanner = new PresenterWeekPlanner(requireContext());
+        List<MealsItem> mealsItemsArrayList = presenterWeekPlanner.returnStoredMealsItems().blockingFirst();
 
         List<MealsItem> returnStoredMealsItemsWithWeekDayNotNull = new ArrayList<>();
 

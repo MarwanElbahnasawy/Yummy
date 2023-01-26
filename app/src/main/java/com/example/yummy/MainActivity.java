@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yummy.Repository.Model.Repository;
+import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int timerInternetIsConnected;
 
 
-    Repository rep;
+    RepositoryLocal rep;
 
 
     @Override
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         networkChecker = NetworkChecker.getInstance(this);
 
-//        img_lotOut = findViewById(R.id.img_logOut);
+        img_lotOut = findViewById(R.id.img_logOut);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -103,38 +103,38 @@ public class MainActivity extends AppCompatActivity {
                    case R.id.nav_register:
                    case R.id.mealDeatailsFragment:
                        bottomNavigationView.setVisibility(View.GONE);
-                      // img_lotOut.setVisibility(View.GONE);
+                       img_lotOut.setVisibility(View.GONE);
 
                        break;
                    default:
                        bottomNavigationView.setVisibility(View.VISIBLE);
-                     //  img_lotOut.setVisibility(View.VISIBLE);
+                       img_lotOut.setVisibility(View.VISIBLE);
                }
             }
         });
 
-//        img_lotOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseAuth.getInstance().signOut();
-//                if(FirebaseAuth.getInstance().getCurrentUser() == null){
-//
-//                    isLoginAsGuest = false;
-//
-//                    rep=new Repository(MainActivity.this);
-//
-//                    new Thread(() -> rep.deleteTableRoom()).start();
-//
-//                    while (navController.popBackStack() == true){}
-//
-//                    Toast.makeText(MainActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-//                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_signIn);
-//                } else{
-//                    Toast.makeText(MainActivity.this, "Logging out failed", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        });
+        img_lotOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                if(FirebaseAuth.getInstance().getCurrentUser() == null){
+
+                    isLoginAsGuest = false;
+
+                    rep=new RepositoryLocal(MainActivity.this);
+
+                    new Thread(() -> rep.deleteTableRoom()).start();
+
+                    while (navController.popBackStack() == true){}
+
+                    Toast.makeText(MainActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_signIn);
+                } else{
+                    Toast.makeText(MainActivity.this, "Logging out failed", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         Timer t = new Timer( );
         t.scheduleAtFixedRate(new TimerTask() {

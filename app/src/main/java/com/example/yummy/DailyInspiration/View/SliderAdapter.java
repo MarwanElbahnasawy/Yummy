@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +21,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.example.yummy.MainActivity;
 import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Repository.Model.Repository;
+import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,7 +52,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     Boolean isAlreadyInFavorites;
 
-    Repository rep;
+    RepositoryLocal rep;
 
     //For drop down weekdays:  part 1/3
     String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
@@ -248,7 +247,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     public void onSuccess(DocumentReference documentReference) {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        rep = new Repository(viewGroupOfMeal.getContext());
+                        rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                         rep.insert(mealsItem, "NULL",  documentReference.getId());
 
                         progressDialog.dismiss();
@@ -331,7 +330,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     public void onSuccess(DocumentReference documentReference) {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        rep = new Repository(viewGroupOfMeal.getContext());
+                        rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                         rep.insert(mealsItem , weekDay, documentReference.getId());
 
                         progressDialog.dismiss();
