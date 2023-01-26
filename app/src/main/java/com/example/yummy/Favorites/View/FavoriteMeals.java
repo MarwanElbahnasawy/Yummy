@@ -55,7 +55,6 @@ public class FavoriteMeals extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         presenterRepository = new PresenterRepository(requireContext());
-
         /* Favorites Firestore + Room part 2/4: Getting data */
 
         //--> no need to get from firestore when items are already saved in room.

@@ -122,6 +122,8 @@ public class SignIn extends Fragment implements InterfaceSignIn {
 
                         presenterSignIn.signIn(email, password);
 
+
+
                     } else {
                         if (email.isEmpty()) {
                             Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();

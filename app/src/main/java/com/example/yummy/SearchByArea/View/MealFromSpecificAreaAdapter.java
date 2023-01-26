@@ -18,6 +18,7 @@ import com.example.yummy.R;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -84,7 +85,7 @@ public class MealFromSpecificAreaAdapter extends RecyclerView.Adapter<MealFromSp
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
                 TextView mealName;
-                ImageView mealImage;
+                 CircleImageView mealImage;
         public MyViewHolder(@NonNull View itemView) {
         super(itemView);
             mealName=itemView.findViewById(R.id.area_meal);

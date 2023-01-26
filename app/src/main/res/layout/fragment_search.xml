@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".SearchByMeal.View.SearchMainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,28 +20,31 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_AllMeals"
-                android:layout_width="300dp"
-                android:layout_height="130dp"
-                android:background="#99C4C4C4"
+                android:layout_width="355dp"
+                android:layout_height="110dp"
                 android:layout_marginTop="80dp"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@color/gray"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fav">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/country"
-                        android:layout_marginEnd="190dp"
-                        />
+                        android:id="@+id/fav_img_mealImg"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/imageback"
+                        android:padding="3dp"
+                        android:src="@drawable/donut"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_launcher_foreground" />
 
                     <TextView
                         android:id="@+id/tv_allMeals"
@@ -52,23 +54,27 @@
                         android:text="@string/all_meals"
                         android:textAlignment="center"
                         android:textColor="@color/yellow"
-                        android:textSize="30sp"
+                        android:textSize="25dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.78"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/amaranth_bold"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/aclonica"
             android:text="@string/search_by_all_meals"
-            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.147"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,26 +91,33 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_country"
-                android:layout_width="300dp"
-                android:layout_height="130dp"
-                android:background="@color/gray2"
-                android:layout_marginTop="270dp"
-                app:cardCornerRadius="50dp"
+                android:layout_width="355dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="250dp"
+                android:background="#1AC4C4C4"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fav"
+                    >
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/country"
-                        android:layout_marginEnd="190dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/imageback"
+                        android:padding="3dp"
+                        android:src="@drawable/watermelon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_launcher_foreground"
                         />
 
                     <TextView
@@ -114,11 +127,11 @@
                         android:fontFamily="@font/aclonica"
                         android:text="@string/area"
                         android:textAlignment="center"
+                        android:textSize="25dp"
                         android:textColor="@color/yellow"
-                        android:textSize="30sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.78"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,12 +139,14 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"
-                android:fontFamily="@font/amaranth_bold"
+                android:fontFamily="@font/aclonica"
                 android:text="@string/search_by_area"
-                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.147"
                 app:layout_constraintStart_toStartOf="parent"
@@ -140,61 +155,67 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
             android:id="@+id/con2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Con1">
 
             <TextView
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:fontFamily="@font/amaranth_bold"
+                android:fontFamily="@font/aclonica"
                 android:text="@string/search_by_ingrediant"
-                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.147"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_ingrediant"
-                android:layout_width="320dp"
-                android:layout_height="130dp"
-                android:layout_marginTop="90dp"
-                app:cardCornerRadius="50dp"
+                android:layout_width="355dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="70dp"
+                android:background="#1AC4C4C4"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fav">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ingrdiant"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/imageback"
+                        android:padding="3dp"
+                        android:src="@drawable/radish"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_launcher_foreground" />
 
                     <TextView
                         android:id="@+id/tv_Ingrediant"
-                        android:layout_width="199dp"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="88dp"
+                        android:layout_width="156dp"
+                        android:layout_height="44dp"
                         android:fontFamily="@font/aclonica"
                         android:text="@string/ingrediant"
                         android:textAlignment="center"
                         android:textColor="@color/yellow"
-                        android:textSize="30sp"
+                        android:textSize="25dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.78"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -212,53 +233,60 @@
             app:layout_constraintTop_toBottomOf="@+id/con2">
 
             <TextView
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:fontFamily="@font/amaranth_bold"
+                android:fontFamily="@font/aclonica"
                 android:text="@string/search_by_category"
-                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.147"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_category"
-                android:layout_width="320dp"
-                android:layout_height="130dp"
-                android:layout_marginTop="90dp"
-                app:cardCornerRadius="50dp"
+                android:layout_width="355dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="70dp"
+                android:background="#1AC4C4C4"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fav">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ingrdiant"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/imageback"
+                        android:padding="3dp"
+                        android:src="@drawable/garlic"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_launcher_foreground"
+                        />
 
                     <TextView
                         android:id="@+id/tv_category"
-                        android:layout_width="199dp"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="88dp"
+                        android:layout_width="156dp"
+                        android:layout_height="44dp"
                         android:fontFamily="@font/aclonica"
                         android:text="@string/category"
                         android:textAlignment="center"
+                        android:textSize="25dp"
                         android:textColor="@color/yellow"
-                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.78"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
