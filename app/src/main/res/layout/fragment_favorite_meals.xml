@@ -7,6 +7,7 @@
     tools:context=".Favorites.View.FavoriteMeals"
     android:background="@color/white"
     android:fillViewport="true"
+    android:layout_margin="25dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,19 +31,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/fav_img_mealImg"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="8dp"
-            android:foregroundGravity="center"
-            android:padding="3dp"
-            android:src="@drawable/bread"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteMeals"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.069"
-            app:layout_constraintStart_toEndOf="@+id/textView5" />
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:id="@+id/fav_img_mealImg"-->
+<!--            android:layout_width="55dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:foregroundGravity="center"-->
+<!--            android:padding="3dp"-->
+<!--            android:src="@drawable/bread"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteMeals"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.069"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/textView5" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteMeals"

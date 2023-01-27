@@ -64,7 +64,7 @@
     <string name="area">Area</string>
     <string name="registerUnderLine"><u>Register</u></string>
     <string name="don_t_have_an_account" >Don\'t have an account?</string>
-    <string name="my_saved_recipes">My Saved Recipes</string>
+    <string name="my_saved_recipes">My Saved Meals</string>
     <string name="skip">Skip</string>
     <string name="my_week_plan">My Week Plan</string>
     <string name="saturday">Saturday</string>
@@ -75,5 +75,6 @@
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
     <string name="tv_planned_today">Meals planned for today</string>
+    <string name="add_to_week_plan">Add to week plan</string>
 
 </resources>

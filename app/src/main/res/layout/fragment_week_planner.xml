@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".WeekPlanner.View.WeekPlanner"
     android:fillViewport="true"
+    android:layout_margin="25dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +25,8 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/my_week_plan"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_marginBottom="20dp"
+            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.039"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="300dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Saturday">
@@ -65,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/aclonica"
+            android:layout_marginTop="20dp"
             android:text="@string/sunday"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -78,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Sunday">
 
@@ -92,6 +95,7 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/monday"
             android:textColor="@color/black"
+            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +107,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Monday">
 
@@ -117,6 +121,7 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/tuesday"
             android:textColor="@color/black"
+            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +133,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Tuesday">
 
@@ -142,6 +147,7 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/wednesday"
             android:textColor="@color/black"
+            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,7 +159,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Wednesday">
 
@@ -167,6 +173,7 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/thursday"
             android:textColor="@color/black"
+            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -178,7 +185,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="3000dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Thursday">
 
@@ -192,6 +199,7 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/friday"
             android:textColor="@color/black"
+            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +212,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="500dp"
+            app:layout_constraintHeight_max="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Friday" />
 
