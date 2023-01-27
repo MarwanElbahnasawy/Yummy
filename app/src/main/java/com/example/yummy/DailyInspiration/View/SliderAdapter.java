@@ -39,6 +39,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,8 +164,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
 
 
-    }
-        else if(MainActivity.isLoginAsGuest == true){
+    } else if(MainActivity.isLoginAsGuest == true){
             holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -443,6 +443,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
                         rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                         rep.insert(mealsItem , weekDay, documentReference.getId());
+
+                        if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                        PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
 
                         progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Item added successfully", Toast.LENGTH_SHORT).show();

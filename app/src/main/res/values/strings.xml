@@ -65,7 +65,7 @@
     <string name="registerUnderLine"><u>Register</u></string>
     <string name="don_t_have_an_account" >Don\'t have an account?</string>
     <string name="my_saved_recipes">My Saved Recipes</string>
-
+    <string name="tv_planned_today">Meals planned for today</string>
 
 
 </resources>

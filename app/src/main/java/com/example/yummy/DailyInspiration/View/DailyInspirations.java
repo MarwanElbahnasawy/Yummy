@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -22,22 +23,25 @@ import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.DailyInspiration.Presenter.PresenterDailyInspirations;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
-import com.example.yummy.Model.SliderItemModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DailyInspirations extends Fragment implements InterfaceDailyInspirations {
 
-    private static final String TAG = "Home";
+    private static final String TAG = "DailyInspirations";
 
     //for the slider
     private ViewPager2 viewPager2;
-    private List<SliderItemModel> sliderItemList;
     private Handler sliderHandler = new Handler();
-    List<MealsItem> meals = new ArrayList<>();
     private PresenterDailyInspirations presenterDailyInspirations;
+    private RecyclerView recyclerViewPlanToday;
+    private PlannedTodayAdapter plannedTodayAdapter;
+    private List<MealsItem> allSavedMeals = new ArrayList<>();
+    private List<MealsItem> mealsWeekPlannedToday = new ArrayList<>();
+
 
 
 
@@ -58,7 +62,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_daily_inspirations, container, false);
     }
 
     @Override
@@ -66,12 +70,21 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         super.onViewCreated(view, savedInstanceState);
 
         viewPager2 = view.findViewById(R.id.viewPagerImageSlider);
+        recyclerViewPlanToday = view.findViewById(R.id.recyclerViewPlannedTodayDailyInspirations);
 
-        presenterDailyInspirations = new PresenterDailyInspirations(this);
+        presenterDailyInspirations = new PresenterDailyInspirations(this, requireContext());
 
         presenterDailyInspirations.getDailyInspirations();
 
+        allSavedMeals = presenterDailyInspirations.returnStoredMealsItems().blockingFirst();
+
+        getMealsPlannedForToday();
+
+
+
     }
+
+
 
     //for auto sliding part 2/2
     private Runnable sliderRunnable = new Runnable() {
@@ -83,19 +96,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     };
 
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        //to handle sliding at onPause
-        sliderHandler.removeCallbacks(sliderRunnable);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //to handle sliding at onResume
-        sliderHandler.postDelayed(sliderRunnable, 5000);
-    }
 
 
     @Override
@@ -134,4 +135,46 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     public void responseOfDataOnFailure(Throwable error) {
         error.printStackTrace();
     }
+
+    private void getMealsPlannedForToday() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewPlanToday.setHasFixedSize(true);
+        recyclerViewPlanToday.setLayoutManager(linearLayoutManager);
+        List<MealsItem> returnStoredMealsItemsWithWeekDayNotNull = new ArrayList<>();
+
+        for(MealsItem mealsItem: allSavedMeals){
+            if(!mealsItem.getWeekDay().equals("NULL")){
+                returnStoredMealsItemsWithWeekDayNotNull.add(mealsItem);
+            }
+        }
+
+
+
+        for(MealsItem mealsItem: returnStoredMealsItemsWithWeekDayNotNull){
+            Log.i(TAG, "onViewCreated: " + mealsItem.getStrMeal() );
+            if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase())){
+                mealsWeekPlannedToday.add(mealsItem);
+            }
+        }
+
+
+        plannedTodayAdapter= PlannedTodayAdapter.getInstanceProvidingMeals(mealsWeekPlannedToday);
+        recyclerViewPlanToday.setAdapter(plannedTodayAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //to handle sliding at onPause
+        sliderHandler.removeCallbacks(sliderRunnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //to handle sliding at onResume
+        sliderHandler.postDelayed(sliderRunnable, 5000);
+    }
+
 }

@@ -18,7 +18,9 @@
         app:cardCornerRadius="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardUseCompatPadding="true"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutInsideCardView"
@@ -43,7 +45,7 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageSlide"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
@@ -52,7 +54,6 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 app:riv_corner_radius="12dp">
                 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 
@@ -63,8 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
 
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="5dp"
                 android:drawableLeft="@drawable/food_icon"
 
                 android:drawablePadding="5dp"
@@ -94,18 +96,16 @@
                 android:hint="Add to week plan"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
 
-                >
+                app:layout_constraintStart_toStartOf="parent">
 
                 <AutoCompleteTextView
                     android:id="@+id/auto_complete_textview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"
-                    android:textSize="14sp"
 
-                    />
+                    android:textSize="14sp" />
 
 
             </com.google.android.material.textfield.TextInputLayout>

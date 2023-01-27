@@ -155,47 +155,65 @@ public class MealDetailsFragment extends Fragment {
 
         mealDeatailIngrediantAdapter = new MealDeatailIngrediantAdapter(ingrediant,megure);
         recyclerView.setAdapter(mealDeatailIngrediantAdapter);
-        
-        btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                if(!networkChecker.checkIfInternetIsConnected()){
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+        if(MainActivity.isLoginAsGuest == false) {
+            btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                } else if (networkChecker.checkIfInternetIsConnected()){
-                    checkIfItemAlreadyExistsInFavoritesOfFirestore(mealsItem);
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        checkIfItemAlreadyExistsInFavoritesOfFirestore(mealsItem);
+                    }
                 }
-            }
-        });
+            });
 
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
 
-                NetworkChecker networkChecker = NetworkChecker.getInstance();
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                if(!networkChecker.checkIfInternetIsConnected()){
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else if (networkChecker.checkIfInternetIsConnected()){
-                    String daySelected = parent.getItemAtPosition(positionDay).toString();
-                    checkIfItemAlreadyExistsInWeekPlan(mealsItem,daySelected);
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        String daySelected = parent.getItemAtPosition(positionDay).toString();
+                        checkIfItemAlreadyExistsInWeekPlan(mealsItem, daySelected);
+
+                    }
 
                 }
+            });
+        } else if(MainActivity.isLoginAsGuest == true){
+            btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(requireContext(), "You need to log in to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
+
+            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                    Toast.makeText(requireContext(), "You need to log in to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
 
 
     }
