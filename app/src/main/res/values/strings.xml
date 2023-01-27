@@ -74,6 +74,6 @@
     <string name="wednesday">Wednesday</string>
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
-
+    <string name="tv_planned_today">Meals planned for today</string>
 
 </resources>

@@ -180,7 +180,6 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
         public TextView week_planner_tv_mealArea;
         public ImageView week_planner_img_mealImg;
         public ImageButton btn_removeWeekPlannerItem;
-        public TextView tv_Saturday;
 
 
         public ViewHolder(@NonNull View itemView) {

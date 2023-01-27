@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                             timerIsExists = true;
 
                             tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.green));
-                            tv_internetConnection.setText("Internet is back!");
+                            tv_internetConnection.setText("Internet is back !");
                             timer = new Timer();
                             timer.schedule(new TimerTask() {
                                 @Override
@@ -225,6 +225,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenterMainActivity = new PresenterMainActivity(MainActivity.this);
+        presenterMainActivity.deleteTableRoom();
+    }
+
 
 
 }
