@@ -157,6 +157,8 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
         return mealsWeekPlanner.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView week_planner_tv_mealName;
@@ -177,6 +179,14 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
 
     public void mealAddedFromDailyInspirations(MealsItem meal){
         mealsWeekPlanner.add(meal);
+        notifyDataSetChanged();
+    }
+
+    public void mealRemovedFromDailyInspirations(MealsItem meal) {
+        for(int i = 0 ; i<mealsWeekPlanner.size() ;i++){
+            if(meal.getStrMeal().equals(mealsWeekPlanner.get(i).getStrMeal()))
+                mealsWeekPlanner.remove(i);
+        }
         notifyDataSetChanged();
     }
 

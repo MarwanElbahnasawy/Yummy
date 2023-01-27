@@ -228,8 +228,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
 
             Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show();
 
-            presenterSignIn = new PresenterSignIn(requireContext());
-            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
 
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
@@ -275,8 +274,8 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         if (task.isSuccessful()) {
             Toast.makeText(requireContext(), "Sign in with Google was successful", Toast.LENGTH_SHORT).show();
 
-            presenterSignIn = new PresenterSignIn(requireContext());
-            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+//            presenterSignIn = new PresenterSignIn(requireContext());
+//            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
 
 

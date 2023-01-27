@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.yummy.DailyInspiration.View.PlannedTodayAdapter;
 import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryLocal;
@@ -26,6 +27,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,8 +118,17 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
 
                                         rep=new RepositoryLocal(context);
                                         rep.delete(mealsItem);
+
+                                        if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                            PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItem);
+
+
+
                                         mealsWeekPlanner.remove(position);
                                         notifyDataSetChanged();
+
+
+
 
                                         progressDialog.dismiss();
 

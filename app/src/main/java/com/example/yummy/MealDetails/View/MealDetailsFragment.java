@@ -3,6 +3,7 @@ package com.example.yummy.MealDetails.View;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +31,7 @@ import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
 import com.example.yummy.Repository.Model.RepositoryLocal;
+import com.example.yummy.SearchMain.View.SearchMainFragmentDirections;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +48,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +74,7 @@ public class MealDetailsFragment extends Fragment {
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
     String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     ArrayAdapter<String> arrayAdapter;
+    private Button btn_addToCalendar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -86,6 +91,7 @@ public class MealDetailsFragment extends Fragment {
         btn_addToFavorites_meal_details = view.findViewById(R.id.btn_addToFavorites_meal_details);
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
         textInputLayout = view.findViewById(R.id.textInputLayout);
+        btn_addToCalendar = view.findViewById(R.id.btn_addToCalendar);
 
         arrayAdapter = new ArrayAdapter<String>(requireContext(), R.layout.list_weekdays  , weekDays);
         autoCompleteTextView.setAdapter(arrayAdapter);
@@ -143,9 +149,7 @@ public class MealDetailsFragment extends Fragment {
         getMegure(mealsItem.getStrMeasure13());
         getMegure(mealsItem.getStrMeasure15());
 
-        Log.i("esraa", "onViewCreated: "+ingrediant.size());
 
-        Log.i("esraa", "onViewCreated: "+megure.size());
 
 
 
@@ -197,6 +201,29 @@ public class MealDetailsFragment extends Fragment {
 
                 }
             });
+
+            btn_addToCalendar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
+
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        Navigation.findNavController(view).navigate(MealDetailsFragmentDirections.actionMealDeatailsFragmentToNavCalendar(mealsItem.getStrMeal()));
+
+                    }
+
+
+                }
+            });
+
         } else if(MainActivity.isLoginAsGuest == true){
             btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -213,7 +240,17 @@ public class MealDetailsFragment extends Fragment {
                 }
             });
 
+            btn_addToCalendar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(requireContext(), "You need to log in to be able to add meals to your calendar.", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
         }
+
 
 
     }

@@ -12,7 +12,7 @@
         android:id="@+id/constraintLayoutWeekPlanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
         <!--      android:layout_marginRight="60dp"-->
 
@@ -39,8 +39,8 @@
             android:fontFamily="@font/aclonica"
             android:text="@string/saturday"
             android:textColor="@color/black"
-            android:visibility="gone"
             android:textSize="15sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

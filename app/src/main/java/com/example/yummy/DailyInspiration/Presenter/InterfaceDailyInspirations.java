@@ -7,4 +7,5 @@ import java.util.List;
 public interface InterfaceDailyInspirations {
     public void responseOfDataOnSuccess(List<MealsItem> mealsList);
     public void responseOfDataOnFailure(Throwable error);
+    public void responseOfLoadingDataFromFirestoreToRoom();
 }

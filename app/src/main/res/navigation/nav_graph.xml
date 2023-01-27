@@ -115,6 +115,9 @@
         <argument
             android:name="mealDetailsArgs"
             app:argType="com.example.yummy.Model.MealsItem" />
+        <action
+            android:id="@+id/action_mealDeatailsFragment_to_nav_calendar"
+            app:destination="@id/nav_calendar" />
     </fragment>
     <fragment
         android:id="@+id/searchBYCountryFragment"
@@ -186,6 +189,15 @@
         <action
             android:id="@+id/action_searchByAllMealsFragment_to_mealDeatailsFragment"
             app:destination="@id/mealDeatailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.example.yummy.MealDetails.View.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" >
+        <argument
+            android:name="mealName"
+            app:argType="string" />
     </fragment>
 
 </navigation>

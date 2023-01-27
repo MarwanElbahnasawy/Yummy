@@ -71,9 +71,13 @@ public class MainActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.nav_dailyInspirations:
+                                while (MainActivity.navController.popBackStack() == true) {
+                                }
                                 Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_dailyInspirations);
                                 return true;
                             case R.id.nav_search:
+                                while (MainActivity.navController.popBackStack() == true) {
+                                }
                                 Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_search);
                                 return true;
                             case R.id.nav_favoriteMeals:
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
                                     return false;
                                 } else {
+                                    while (MainActivity.navController.popBackStack() == true) {
+                                    }
                                     Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_favoriteMeals);
                                     return true;
                                 }
@@ -90,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
                                     return false;
                                 } else {
+                                    while (MainActivity.navController.popBackStack() == true) {
+                                    }
                                     Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_weekPlanner);
                                     return true;
                                 }
@@ -226,12 +234,12 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        presenterMainActivity = new PresenterMainActivity(MainActivity.this);
-        presenterMainActivity.deleteTableRoom();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        presenterMainActivity = new PresenterMainActivity(MainActivity.this);
+//        presenterMainActivity.deleteTableRoom();
+//    }
 
 
 
