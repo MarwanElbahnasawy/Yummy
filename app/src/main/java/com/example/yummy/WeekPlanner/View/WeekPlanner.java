@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
 import com.example.yummy.WeekPlanner.Presenter.PresenterWeekPlanner;
@@ -57,6 +58,8 @@ public class WeekPlanner extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         recyclerViewSaturday = view.findViewById(R.id.recyclerViewFavoriteMealsSaturday);
         recyclerViewSunday = view.findViewById(R.id.recyclerViewFavoriteMealsSunday);

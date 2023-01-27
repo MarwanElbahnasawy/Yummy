@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 
 import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.DailyInspiration.Presenter.PresenterDailyInspirations;
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +53,8 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         Log.i(TAG, "at home " + FirebaseAuth.getInstance().getCurrentUser());
 
 
+
+
     }
 
 
@@ -69,6 +72,8 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         viewPager2 = view.findViewById(R.id.viewPagerImageSlider);
         recyclerViewPlanToday = view.findViewById(R.id.recyclerViewPlannedTodayDailyInspirations);
 
@@ -76,9 +81,12 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         presenterDailyInspirations.getDailyInspirations();
 
-        allSavedMeals = presenterDailyInspirations.returnStoredMealsItems().blockingFirst();
+        if (!MainActivity.isLoginAsGuest){
+            presenterDailyInspirations.loadRoomFromFirestore();
+        }
 
-        getMealsPlannedForToday();
+
+
 
 
 
@@ -136,6 +144,14 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         error.printStackTrace();
     }
 
+    @Override
+    public void responseOfLoadingDataFromFirestoreToRoom() {
+        allSavedMeals = presenterDailyInspirations.returnStoredMealsItems().blockingFirst();
+        Log.i(TAG, "responseOfLoadingDataFromFirestoreToRoom: " + allSavedMeals.get(0).getStrMeal());
+
+        getMealsPlannedForToday();
+    }
+
     private void getMealsPlannedForToday() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -148,11 +164,10 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
                 returnStoredMealsItemsWithWeekDayNotNull.add(mealsItem);
             }
         }
-
+        Log.i(TAG, "2222222222222222222: " + returnStoredMealsItemsWithWeekDayNotNull.get(0).getStrMeal());
 
 
         for(MealsItem mealsItem: returnStoredMealsItemsWithWeekDayNotNull){
-            Log.i(TAG, "onViewCreated: " + mealsItem.getStrMeal() );
             if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase())){
                 mealsWeekPlannedToday.add(mealsItem);
             }

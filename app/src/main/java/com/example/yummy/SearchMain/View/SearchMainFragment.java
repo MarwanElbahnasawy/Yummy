@@ -36,6 +36,8 @@ public class SearchMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         // Inflate the layout for this fragment
@@ -44,6 +46,10 @@ public class SearchMainFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+
 
      searchByCountry=view.findViewById(R.id.card_country);
      searchByCategory=view.findViewById(R.id.CardView_category);
@@ -137,6 +143,6 @@ public class SearchMainFragment extends Fragment {
 
          }
      });
-        super.onViewCreated(view, savedInstanceState);
+
     }
 }

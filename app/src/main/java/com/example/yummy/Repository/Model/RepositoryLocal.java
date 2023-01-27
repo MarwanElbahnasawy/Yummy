@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.Database.DB;
 import com.example.yummy.Database.MealDAO;
 import com.example.yummy.Model.MealsItem;
@@ -27,6 +28,7 @@ public class RepositoryLocal {
     private Flowable<List<MealsItem>> storedMealsItems;
     private List<MealsItem> mealsItemsFromFirestore = new ArrayList<>();
     private List<MealsItem> mealsWeekPlanSaturday = new ArrayList<>() ,mealsWeekPlanSunday = new ArrayList<>(), mealsWeekPlanMonday = new ArrayList<>(), mealsWeekPlanTuesday = new ArrayList<>(), mealsWeekPlanWednesday = new ArrayList<>(), mealsWeekPlanThursday = new ArrayList<>(), mealsWeekPlanFriday= new ArrayList<>();
+    private InterfaceDailyInspirations interfaceDailyInspirations;
 
     public RepositoryLocal(Context context){
         this.context=context;
@@ -35,6 +37,17 @@ public class RepositoryLocal {
         mealDAO=db.mealDAO();
 
         storedMealsItems= mealDAO.getStoredMealsItems();
+    }
+
+    public RepositoryLocal(InterfaceDailyInspirations interfaceDailyInspirations , Context context) {
+        this.context=context;
+
+        DB db= DB.getInstance(context);
+        mealDAO=db.mealDAO();
+
+        storedMealsItems= mealDAO.getStoredMealsItems();
+
+        this.interfaceDailyInspirations = interfaceDailyInspirations;
     }
 
     public Flowable<List<MealsItem>> returnStoredMealsItems(){
@@ -64,10 +77,11 @@ public class RepositoryLocal {
         return mealDAO.findMealByName(mealName, weekDayString);
     }
 
-    public void loadRoomFromFirestore(String email){
+    public void loadRoomFromFirestore(){
         getFavoriteMealsUsingFirestore();
         getWeekPlanMealsUsingFirestore();
     }
+
 
     public void deleteTableRoom(){
         mealDAO.deleteTableRoom();
@@ -151,12 +165,15 @@ public class RepositoryLocal {
                                                        }
 
                                                    }
+                                                   interfaceDailyInspirations.responseOfLoadingDataFromFirestoreToRoom();
                                                } else {
                                                    Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
                                                }
                                            }
                                        }
                 );
+
     }
+
 
 }

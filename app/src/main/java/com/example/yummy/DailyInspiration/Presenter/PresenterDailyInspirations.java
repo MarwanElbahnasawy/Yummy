@@ -26,12 +26,17 @@ public class PresenterDailyInspirations {
 
     public void getDailyInspirations() {
         repositoryRemote = new RepositoryRemote(interfaceDailyInspirations);
-        repositoryLocal = new RepositoryLocal(context);
         repositoryRemote.getDailyInspirations();
     }
 
     public Flowable<List<MealsItem>> returnStoredMealsItems() {
+        repositoryLocal = new RepositoryLocal(context);
         return repositoryLocal.returnStoredMealsItems();
+    }
+
+    public void loadRoomFromFirestore() {
+        repositoryLocal = new RepositoryLocal(interfaceDailyInspirations,context);
+        repositoryLocal.loadRoomFromFirestore();
     }
 
 

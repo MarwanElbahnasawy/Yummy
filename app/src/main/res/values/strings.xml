@@ -76,5 +76,6 @@
     <string name="friday">Friday</string>
     <string name="tv_planned_today">Meals planned for today</string>
     <string name="add_to_week_plan">Add to week plan</string>
+    <string name="btn_addToCalendar">Add to calendar</string>
 
 </resources>

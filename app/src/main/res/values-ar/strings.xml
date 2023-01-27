@@ -73,4 +73,6 @@
     <string name="thursday">الخميس</string>
     <string name="friday">الجمعة</string>
     <string name="tv_planned_today">الوجبات المخطط لها اليوم</string>
+    <string name="add_to_week_plan">أضف الي خطتك الاسبوعية</string>
+    <string name="btn_addToCalendar">أضف الي التقويم</string>
 </resources>

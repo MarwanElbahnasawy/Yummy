@@ -379,6 +379,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                                                                rep=new RepositoryLocal(viewGroupOfMeal.getContext());
                                                                                rep.delete(mealsItemSelected);
 
+                                                                               if(mealsItemSelected.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                                                                   PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItemSelected);
+
 
                                                                            }
                                                                        })

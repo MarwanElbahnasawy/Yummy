@@ -122,10 +122,6 @@ public class Register extends Fragment implements InterfaceRegister {
 
                 Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
 
-
-            presenterRegister = new PresenterRegister(requireContext());
-            presenterRegister.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
                 Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
 
 

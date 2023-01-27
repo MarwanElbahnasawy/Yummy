@@ -36,7 +36,5 @@ public class PresenterRegister {
     }
 
 
-    public void loadRoomFromFirestore(String email) {
-        repositoryLocal.loadRoomFromFirestore(email);
-    }
+
 }
