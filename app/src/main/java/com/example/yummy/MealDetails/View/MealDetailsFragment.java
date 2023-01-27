@@ -74,7 +74,7 @@ public class MealDetailsFragment extends Fragment {
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
     String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     ArrayAdapter<String> arrayAdapter;
-    private Button btn_addToCalendar;
+    private ImageButton btn_addToCalendar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

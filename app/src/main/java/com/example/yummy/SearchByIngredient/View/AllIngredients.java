@@ -107,7 +107,7 @@ public class AllIngredients extends Fragment implements InterfaceAllIngredients 
         hideProgress();
     }
 
-  public void hideProgress() {
+  private void hideProgress() {
         progressBar.setVisibility(View.GONE);
     }
 }

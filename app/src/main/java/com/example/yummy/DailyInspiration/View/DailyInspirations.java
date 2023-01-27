@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.DailyInspiration.Presenter.PresenterDailyInspirations;
@@ -42,6 +43,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     private PlannedTodayAdapter plannedTodayAdapter;
     private List<MealsItem> allSavedMeals = new ArrayList<>();
     private List<MealsItem> mealsWeekPlannedToday = new ArrayList<>();
+    ProgressBar progressBar;
 
 
 
@@ -75,6 +77,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
 
         viewPager2 = view.findViewById(R.id.viewPagerImageSlider);
+        progressBar = view.findViewById(R.id.loading);
         recyclerViewPlanToday = view.findViewById(R.id.recyclerViewPlannedTodayDailyInspirations);
 
         presenterDailyInspirations = new PresenterDailyInspirations(this, requireContext());
@@ -110,6 +113,8 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     @Override
     public void responseOfDataOnSuccess(List<MealsItem> mealsList) {
         viewPager2.setAdapter(new SliderAdapter(mealsList, viewPager2));
+
+        hideProgress() ;
 
         //for slider to show 3 cards next to each other
         viewPager2.setClipToPadding(false);
@@ -190,6 +195,9 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         super.onResume();
         //to handle sliding at onResume
         sliderHandler.postDelayed(sliderRunnable, 5000);
+    }
+    private void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 
 }
