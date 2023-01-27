@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeekPlanner.View.WeekPlanner"
+    android:layout_marginTop="50dp"
+    android:layout_marginBottom="25dp"
     android:fillViewport="true"
-    android:layout_margin="25dp"
-    >
+    tools:context=".WeekPlanner.View.WeekPlanner">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutWeekPlanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
         android:orientation="vertical">
         <!--      android:layout_marginRight="60dp"-->
 
@@ -21,11 +21,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:fontFamily="@font/aclonica"
             android:text="@string/my_week_plan"
             android:textColor="@color/black"
-            android:layout_marginBottom="20dp"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.039"
@@ -66,8 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/aclonica"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/aclonica"
             android:text="@string/sunday"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -92,10 +90,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/aclonica"
             android:text="@string/monday"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -118,10 +116,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/aclonica"
             android:text="@string/tuesday"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -144,10 +142,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/aclonica"
             android:text="@string/wednesday"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -170,10 +168,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/aclonica"
             android:text="@string/thursday"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -196,10 +194,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/aclonica"
             android:text="@string/friday"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -218,4 +216,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+</ScrollView>

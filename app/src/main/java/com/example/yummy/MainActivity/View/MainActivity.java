@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                     case R.id.nav_signIn:
                     case R.id.nav_register:
                     case R.id.mealDeatailsFragment:
+                    case R.id.calendar:
                         bottomNavigationView.setVisibility(View.GONE);
                         img_logOut.setVisibility(View.GONE);
 
