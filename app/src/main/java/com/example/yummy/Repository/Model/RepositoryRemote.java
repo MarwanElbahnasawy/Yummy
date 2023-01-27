@@ -3,11 +3,12 @@ package com.example.yummy.Repository.Model;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
+import com.example.yummy.MainActivity.Presenter.InterfaceMain;
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Register.Presenter.InterfaceRegister;
 import com.example.yummy.SearchByArea.Model.EachAreaModel;
 import com.example.yummy.SearchByArea.Model.RootAreasList;
@@ -27,17 +28,20 @@ import com.example.yummy.SignIn.Presenter.InterfaceSignIn;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Model.RootMeal;
 import com.example.yummy.Network.RetrofitClient;
-import com.example.yummy.Repository.Model.RepositoryRemote;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +63,7 @@ public class RepositoryRemote {
     InterfaceMealFromSpecificIngredient interfaceMealFromSpecificIngredient;
     private InterfaceAllMeals interfaceAllMeals;
     InterfaceSignIn interfaceSignIn;
+    InterfaceMain interfaceMain;
 
     Context context;
 
@@ -114,6 +119,14 @@ public class RepositoryRemote {
     public RepositoryRemote(InterfaceSignIn interfaceSignIn, Context context) {
         this.interfaceSignIn = interfaceSignIn;
         this.context = context;
+    }
+
+    public RepositoryRemote() {
+
+    }
+
+    public RepositoryRemote(InterfaceMain interfaceMain) {
+        this.interfaceMain = interfaceMain;
     }
 
     public void getDailyInspirations() {
@@ -368,5 +381,62 @@ public class RepositoryRemote {
     }
 
 
+    public void changeHeaderTitle() {
+        MainActivity.tv_headerDrawer.setText(firebaseAuth.getCurrentUser().getEmail().split("@")[0]);
+    }
 
+    public void deleteDataForThisUser() {
+        getMealsToBeDeleted();
+
+
+    }
+
+    private void getMealsToBeDeleted() {
+        List<String> documentIDs = new ArrayList<>();
+        FirebaseFirestore.getInstance().collection("userFavorites")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                           @Override
+                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                               if (task.isSuccessful()) {
+                                                   for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                           documentIDs.add(document.getId());
+                                                       }
+                                                   }
+                                                   deleteMeals(documentIDs);
+                                               } else {
+                                                   Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
+                                               }
+                                           }
+                                       }
+                );
+    }
+
+    private void deleteMeals(List<String> documentIDs) {
+        for (String documentid : documentIDs){
+            FirebaseFirestore.getInstance().collection("userFavorites").document(documentid)
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i(TAG, "DocumentSnapshot successfully deleted!");
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i(TAG, "Error deleting document", e);
+                        }
+                    });
+        }
+        interfaceMain.onFinishedDeletingItemsOfThisAccount();
+
+    }
+
+    public void deleteAccount() {
+        firebaseAuth.getCurrentUser().delete();
+    }
 }

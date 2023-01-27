@@ -2,6 +2,7 @@ package com.example.yummy.DailyInspiration.Presenter;
 
 import android.content.Context;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Repository.Model.RepositoryRemote;
@@ -40,4 +41,8 @@ public class PresenterDailyInspirations {
     }
 
 
+    public void loadHeaderTitle() {
+        repositoryRemote = new RepositoryRemote();
+        repositoryRemote.changeHeaderTitle();
+    }
 }

@@ -77,5 +77,10 @@
     <string name="tv_planned_today">Meals planned for today</string>
     <string name="add_to_week_plan">Add to week plan</string>
     <string name="btn_addToCalendar">Add to calendar</string>
+    <string name="drawer_language">Change language </string>
+    <string name="drawer_logout">Log out </string>
+    <string name="drawer_delete">Delete account </string>
+
+
 
 </resources>

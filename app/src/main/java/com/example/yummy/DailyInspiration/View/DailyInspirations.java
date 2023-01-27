@@ -50,10 +50,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(TAG, "at home " + FirebaseAuth.getInstance().getCurrentUser());
-
-
-
 
     }
 
@@ -63,7 +59,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_daily_inspirations, container, false);
     }
@@ -72,10 +67,9 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         viewPager2 = view.findViewById(R.id.viewPagerImageSlider);
         recyclerViewPlanToday = view.findViewById(R.id.recyclerViewPlannedTodayDailyInspirations);
+
 
         presenterDailyInspirations = new PresenterDailyInspirations(this, requireContext());
 
@@ -83,6 +77,10 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         if (!MainActivity.isLoginAsGuest){
             presenterDailyInspirations.loadRoomFromFirestore();
+        }
+
+        if (!MainActivity.isLoginAsGuest){
+            presenterDailyInspirations.loadHeaderTitle();
         }
 
 
@@ -147,7 +145,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     @Override
     public void responseOfLoadingDataFromFirestoreToRoom() {
         allSavedMeals = presenterDailyInspirations.returnStoredMealsItems().blockingFirst();
-        Log.i(TAG, "responseOfLoadingDataFromFirestoreToRoom: " + allSavedMeals.get(0).getStrMeal());
 
         getMealsPlannedForToday();
     }
@@ -164,7 +161,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
                 returnStoredMealsItemsWithWeekDayNotNull.add(mealsItem);
             }
         }
-        Log.i(TAG, "2222222222222222222: " + returnStoredMealsItemsWithWeekDayNotNull.get(0).getStrMeal());
 
 
         for(MealsItem mealsItem: returnStoredMealsItemsWithWeekDayNotNull){
@@ -183,6 +179,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         super.onPause();
         //to handle sliding at onPause
         sliderHandler.removeCallbacks(sliderRunnable);
+        Log.i(TAG, "onPause: ");
     }
 
     @Override
@@ -190,6 +187,8 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         super.onResume();
         //to handle sliding at onResume
         sliderHandler.postDelayed(sliderRunnable, 5000);
+        mealsWeekPlannedToday.clear();
+        Log.i(TAG, "onResume: ");
     }
 
 }
