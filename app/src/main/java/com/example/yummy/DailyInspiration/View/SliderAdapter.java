@@ -98,16 +98,19 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //holder.imageView.setImageResource(sliderItemList.get(position).getImage());
+        MealsItem mealsItem = meals.get(position);
+        Glide.with(viewGroupOfMeal.getContext()).load(mealsItem.getStrMealThumb()).into(holder.imageView);
+        holder.tv_mealName.setText(mealsItem.getStrMeal());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //DailyInspirations.mealsWeekPlannedToday.clear();
                 Navigation.findNavController(viewGroupOfMeal).navigate(DailyInspirationsDirections.actionNavHomeToMealDeatailsFragment(meals.get(position)));
 
             }
         });
-        MealsItem mealsItem = meals.get(position);
-        Glide.with(viewGroupOfMeal.getContext()).load(mealsItem.getStrMealThumb()).into(holder.imageView);
-        holder.tv_mealName.setText(mealsItem.getStrMeal());
+
 
 
         if(MainActivity.isLoginAsGuest == false){

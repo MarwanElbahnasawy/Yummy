@@ -42,8 +42,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     private TextInputEditText et_password;
     private AppCompatButton btn_signInWithEmailAndPassword;
     private ProgressDialog loadingBar;
-    //    private GoogleSignInOptions gso;
-//    private GoogleSignInClient gsc;
     private SignInButton googeSignIn;
     private ImageView img_eye;
     private TextView register;
