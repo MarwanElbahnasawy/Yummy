@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -178,7 +179,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
         public TextView week_planner_tv_mealName;
         public TextView week_planner_tv_mealArea;
         public ImageView week_planner_img_mealImg;
-        public Button btn_removeWeekPlannerItem;
+        public ImageButton btn_removeWeekPlannerItem;
         public TextView tv_Saturday;
 
 

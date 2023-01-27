@@ -9,10 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.yummy.SearchByIngredient.Model.EachIngredientModel;
 import com.example.yummy.R;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AllIngredientsAdapter extends RecyclerView.Adapter<AllIngredientsAdapter.MyViewHolder>{
     ViewGroup CountryView;
@@ -35,6 +38,9 @@ public class AllIngredientsAdapter extends RecyclerView.Adapter<AllIngredientsAd
     public void onBindViewHolder(@NonNull AllIngredientsAdapter.MyViewHolder holder, int position) {
         EachIngredientModel eachIngredientModel =ingrediance.get(position);
         holder.country.setText(eachIngredientModel.getStrIngredient());
+Glide.with(CountryView).load(String.format("https://www.themealdb.com/images/ingredients/%s-Small.png", ingrediance.get(position).getStrIngredient()))
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(holder.circleImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,9 +58,11 @@ public class AllIngredientsAdapter extends RecyclerView.Adapter<AllIngredientsAd
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView country;
+        CircleImageView circleImageView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             country=itemView.findViewById(R.id.item_country);
+            circleImageView=itemView.findViewById(R.id.country_image);
         }
     }
 }

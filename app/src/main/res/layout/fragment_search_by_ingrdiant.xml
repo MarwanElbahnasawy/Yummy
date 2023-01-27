@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_gradiant_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SearchByIngredient.View.AllIngredients">
 
@@ -35,9 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/amaranth_bold"
             android:text="@string/ingredients"
-            android:textSize="25sp"
+            android:fontFamily="@font/aclonica"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.068"
             app:layout_constraintStart_toStartOf="parent"
