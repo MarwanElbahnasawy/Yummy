@@ -11,16 +11,16 @@
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search"/>
+        android:title="@string/search"/>
 
     <item
         android:id="@+id/nav_favoriteMeals"
         android:icon="@drawable/ic_baseline_bookmark_24"
-        android:title="Saved"/>
+        android:title="@string/saved"/>
 
     <item
         android:id="@+id/nav_weekPlanner"
         android:icon="@drawable/ic_baseline_calendar_month_24"
-        android:title="Week Plan"/>
+        android:title="@string/week_plan"/>
 
 </menu>

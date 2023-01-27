@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/drawerChangeAppLanguage"
-        android:title="Change app language" />
+        android:title="@string/change_app_language" />
 
     <item
         android:id="@+id/drawerLogout"
-        android:title="Log out" />
+        android:title="@string/log_out" />
 
     <item
         android:id="@+id/drawerDeleteAcount"
-        android:title="Delete Account" />
+        android:title="@string/delete_account" />
 
 </menu>

@@ -1,5 +1,8 @@
 package com.example.yummy.MainActivity.View;
 
+import static com.example.yummy.R.string.deleteAcount;
+import static com.example.yummy.R.string.turnOnInternent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                                 return true;
                             case R.id.nav_favoriteMeals:
                                 if (isLoginAsGuest == true) {
-                                    Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.access, Toast.LENGTH_SHORT).show();
                                     return false;
                                 } else {
                                     while (MainActivity.navController.popBackStack() == true) {
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
                             case R.id.nav_weekPlanner:
                                 if (isLoginAsGuest == true) {
-                                    Toast.makeText(MainActivity.this, "You must log in to access this feature", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.must_login, Toast.LENGTH_SHORT).show();
                                     return false;
                                 } else {
                                     while (MainActivity.navController.popBackStack() == true) {
@@ -169,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 if (!networkChecker.checkIfInternetIsConnected()) {
-                    Toast.makeText(MainActivity.this, "Turn on internet to be able to check the navigation drawer.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.check_nav_drawer, Toast.LENGTH_SHORT).show();
                 } else{
                     switch (item.getItemId()) {
                         case R.id.drawerChangeAppLanguage:
@@ -184,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
                         case R.id.drawerDeleteAcount:
                             if(isLoginAsGuest){
-                                Toast.makeText(MainActivity.this, "You need to have an account to delete it.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.needAcount, Toast.LENGTH_SHORT).show();
                             } else{
                                 navigationView.setVisibility(View.GONE);
                                 drawerDeleteAccount();
@@ -238,27 +241,27 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             }
             
             toastLogOut = new Toast(this);
-            toastLogOut.makeText(MainActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+            toastLogOut.makeText(MainActivity.this, R.string.logout, Toast.LENGTH_SHORT).show();
             
             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_signIn);
         } else {
-            Toast.makeText(MainActivity.this, "Logging out failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.loggingOut, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void drawerDeleteAccount() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete Account");
-        builder.setTitle("Wait! Are You Sure?");
+        builder.setMessage(R.string.DeleteAccount);
+        builder.setTitle(R.string.WaitAreYouSure);
         builder.setCancelable(true);
 
 
-        builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener) (dialog, which) -> {
+        builder.setPositiveButton(R.string.sure, (DialogInterface.OnClickListener) (dialog, which) -> {
             if (!networkChecker.checkIfInternetIsConnected()) {
                 MainActivity.mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to delete this account.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.mainActivity, R.string.turnOnInternent, Toast.LENGTH_SHORT).show();
                     }
                 });
             } else{
@@ -267,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             }
         });
 
-        builder.setNegativeButton("KEEP THE ACCOUNT", (DialogInterface.OnClickListener) (dialog, which) -> {
+        builder.setNegativeButton(R.string.keep, (DialogInterface.OnClickListener) (dialog, which) -> {
             dialog.cancel();
         });
 
@@ -279,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
     private void checkNetwork() {
         if (!networkChecker.checkIfInternetIsConnected()) {
             tv_internetConnection.setVisibility(View.VISIBLE);
-            tv_internetConnection.setText("No Internet Connection");
+            tv_internetConnection.setText(R.string.noInternent);
             tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
         }
 
@@ -301,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                             timerIsExists = true;
 
                             tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.green));
-                            tv_internetConnection.setText("Internet is back !");
+                            tv_internetConnection.setText(R.string.backInternet);
                             timer = new Timer();
                             timer.schedule(new TimerTask() {
                                 @Override
@@ -335,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                     @Override
                     public void run() {
                         tv_internetConnection.setVisibility(View.VISIBLE);
-                        tv_internetConnection.setText("No Internet Connection");
+                        tv_internetConnection.setText(R.string.noInternet);
                         tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
                     }
                 });
@@ -361,6 +364,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         presenterMainActivity.deleteAccount();
         drawerLogOut();
         toastLogOut.cancel();
-        Toast.makeText(mainActivity, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, R.string.deleteAcount, Toast.LENGTH_SHORT).show();
     }
 }

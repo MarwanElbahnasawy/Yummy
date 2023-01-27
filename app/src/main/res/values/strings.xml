@@ -80,7 +80,28 @@
     <string name="drawer_language">Change language </string>
     <string name="drawer_logout">Log out </string>
     <string name="drawer_delete">Delete account </string>
-
+    <string name="sure">YES,I\'M SURE</string>
+    <string name="turnOnInternent">Turn internet on to be able to delete this account.</string>
+    <string name="keep">KEEP THE ACCOUNT</string>
+    <string name="noInternet">No Internet Connection</string>
+    <string name="deleteAcount">Account deleted successfully.</string>
+    <string name="access">You must log in to access this feature</string>
+    <string name="must_login">You must log in to access this feature</string>
+    <string name="check_nav_drawer">Turn on internet to be able to check the navigation drawer.</string>
+    <string name="needAcount">You need to have an account to delete it.</string>
+    <string name="logout">Logged out successfully</string>
+    <string name="loggingOut">Logging out failed</string>
+    <string name="DeleteAccount">Delete Account</string>
+    <string name="WaitAreYouSure">Wait! Are You Sure?</string>
+    <string name="noInternent">No Internet Connection</string>
+    <string name="backInternet">Internet is back !</string>
+    <string name="change_app_language">Change app language</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="search">Search</string>
+    <string name="saved">Saved</string>
+    <string name="week_plan">Week Plan</string>
+    <string name="add_to_weekplan">Add to week plan</string>
 
 
 </resources>

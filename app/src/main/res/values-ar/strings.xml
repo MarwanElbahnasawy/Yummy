@@ -78,5 +78,27 @@
     <string name="drawer_language">غير اللغة</string>
     <string name="drawer_logout">سجل الخروج</string>
     <string name="drawer_delete">امسح الحساب</string>
+    <string name="sure">نعم أنا متأكد</string>
+    <string name="turnOnInternent">قم بتشغيل الإنترنت لتتمكن من حذف هذا الحساب.</string>
+    <string name="keep">احتفظ بالحساب</string>
+    <string name="noInternet">لا يوجد اتصال بالإنترنت</string>
+    <string name="deleteAcount">تم حذف الحساب بنجاح.</string>
+    <string name="access">يجب عليك تسجيل الدخول للوصول إلى هذه الميزة</string>
+    <string name="must_login">يجب عليك تسجيل الدخول للوصول إلى هذه الميزة</string>
+    <string name="check_nav_drawer">قم بتشغيل الإنترنت لتتمكن من التحقق من درج التنقل.</string>
+    <string name="needAcount">يجب أن يكون لديك حساب لحذفه.</string>
+    <string name="logout">تم تسجيل الخروج بنجاح</string>
+    <string name="loggingOut">فشل تسجيل الخروج</string>
+    <string name="DeleteAccount">حذف الحساب</string>
+    <string name="WaitAreYouSure">انتظر! هل أنت واثق؟</string>
+    <string name="noInternent">لا يوجد اتصال بالإنترنت</string>
+    <string name="backInternet">الإنترنت عاد!</string>
+    <string name="change_app_language">تغيير لغه البرنامج</string>
+    <string name="log_out">تسجيل خروج</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="search">بحث</string>
+    <string name="saved">المفضلة</string>
+    <string name="week_plan">خطه الاسبوع</string>
+    <string name="add_to_weekplan">اضف لخطه الاسبوع</string>
 
 </resources>
