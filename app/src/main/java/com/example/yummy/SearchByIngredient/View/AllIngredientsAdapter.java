@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.SearchByIngredient.Model.EachIngredientModel;
 import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
