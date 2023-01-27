@@ -69,11 +69,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="#99FFFFFF"
+                android:imeOptions="actionDone"
                 android:inputType="textEmailAddress"
                 android:password="true"
-                android:selectAllOnFocus="true"
-                android:imeOptions="actionDone"
-                />
+                android:selectAllOnFocus="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,8 +84,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/background"
             android:text="@string/login"
-            android:textAllCaps="false"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -186,17 +185,17 @@
             android:id="@+id/btn_loginAsGuest"
             android:layout_width="159dp"
             android:layout_height="38dp"
-            android:layout_marginTop="712dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/card2"
             android:drawableStart="@drawable/ic_baseline_person_outline_24"
             android:shadowRadius="@integer/material_motion_duration_long_1"
-            android:text="Skip"
+            android:text="@string/skip"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/btn_signInWithGoogle"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="@+id/btn_signInWithGoogle"
+            app:layout_constraintTop_toBottomOf="@+id/btn_signInWithGoogle" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group"

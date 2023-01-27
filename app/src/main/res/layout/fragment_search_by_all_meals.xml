@@ -29,20 +29,6 @@
                 android:backgroundTint="#4DC4C4C4" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_areaSelected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/meals"
-            android:fontFamily="@font/aclonica"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.068"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_allMeals"
             android:layout_width="match_parent"
@@ -51,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_areaSelected"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
             tools:listitem="@layout/ingrediant_item"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

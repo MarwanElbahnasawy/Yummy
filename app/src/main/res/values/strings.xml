@@ -65,7 +65,15 @@
     <string name="registerUnderLine"><u>Register</u></string>
     <string name="don_t_have_an_account" >Don\'t have an account?</string>
     <string name="my_saved_recipes">My Saved Recipes</string>
-
+    <string name="skip">Skip</string>
+    <string name="my_week_plan">My Week Plan</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
 
 
 </resources>

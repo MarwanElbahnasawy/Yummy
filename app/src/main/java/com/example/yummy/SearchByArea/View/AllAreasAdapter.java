@@ -113,7 +113,7 @@ public class AllAreasAdapter extends RecyclerView.Adapter<AllAreasAdapter.MyView
              holder.circleImageView.setImageResource(R.drawable.turcia);
          }
          else if(area.equals("Unknown")){
-             holder.circleImageView.setImageResource(R.drawable.img_1);
+             holder.circleImageView.setImageResource(R.drawable.unknown);
          }
          else if(area.equals("Vietnamese")){
              holder.circleImageView.setImageResource(R.drawable.vietname);
