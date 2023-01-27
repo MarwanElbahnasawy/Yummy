@@ -4,13 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.SearchByArea.Model.EachAreaModel;
 import com.example.yummy.R;
+import com.example.yummy.Utility.NetworkChecker;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AllAreasAdapter extends RecyclerView.Adapter<AllAreasAdapter.MyViewHolder>{
     ViewGroup CountryView;
     List<EachAreaModel>  countries;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     public AllAreasAdapter(List<EachAreaModel>  countries) {
         this.countries = countries;
@@ -123,8 +127,21 @@ public class AllAreasAdapter extends RecyclerView.Adapter<AllAreasAdapter.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AllAreas.textInputEditText.setText("");
-               Navigation.findNavController(CountryView).navigate(AllAreasDirections.actionSearchBYCountryFragmentToMealByCountryFragment(countries.get(position).getStrArea()));
+
+                if(!networkChecker.checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to view meals related to this area.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()){
+                    AllAreas.textInputEditText.setText("");
+                    Navigation.findNavController(CountryView).navigate(AllAreasDirections.actionSearchBYCountryFragmentToMealByCountryFragment(countries.get(position).getStrArea()));
+
+                }
+
 
             }
         });

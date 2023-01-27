@@ -17,7 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.yummy.MainActivity;
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.R;

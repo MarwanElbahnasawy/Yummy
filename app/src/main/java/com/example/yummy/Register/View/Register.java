@@ -14,11 +14,10 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.yummy.MainActivity;
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Register.Presenter.InterfaceRegister;
 import com.example.yummy.Register.Presenter.PresenterRegister;
 import com.example.yummy.R;
-import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -113,9 +112,7 @@ public class Register extends Fragment implements InterfaceRegister {
 
 
         });
-
     }
-
 
     @Override
     public void onCompleteRegisterWithEmailAndPassword(Task<AuthResult> task) {

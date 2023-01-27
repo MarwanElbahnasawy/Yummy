@@ -1,9 +1,8 @@
-package com.example.yummy.MealDetails.View;
+package com.example.yummy.SearchByIngredient.View;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,22 +10,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
+import com.example.yummy.Model.RootMeal;
+import com.example.yummy.Network.RetrofitClient;
 import com.example.yummy.R;
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Utility.NetworkChecker;
@@ -40,125 +36,99 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MealDetailsFragment extends Fragment {
-    TextView mealName, area, instructions;
-    ImageView mealImage;
-    YouTubePlayerView videoView;
-    RecyclerView recyclerView;
-    List<String> ingrediant = new ArrayList<>();
-    List<String> megure = new ArrayList<>();
-    MealDeatailIngrediantAdapter mealDeatailIngrediantAdapter;
-    String[] split;
-    Boolean youtubeURLisExists = false;
-    ImageButton btn_addToFavorites_meal_details;
-    AutoCompleteTextView autoCompleteTextView;
-    TextInputLayout textInputLayout;
-    private ProgressDialog progressDialog;
-    Boolean isAlreadyInFavorites;
-    RepositoryLocal rep;
-    private static final String TAG = "MealDetailsFragment";
-    private MealsItem mealsItem;
+import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<MealsFromSpecificIngredientAdapter.MyViewHolder> {
+    List<MealsItem> meals;
+    ViewGroup viewGroup;
+    NavController navController;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
     String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     ArrayAdapter<String> arrayAdapter;
+    private static final String TAG = "MealsFromSpecificIngred";
+    private ProgressDialog progressDialog;
+    Boolean isAlreadyInFavorites;
+    RepositoryLocal rep;
+
+    public MealsFromSpecificIngredientAdapter(List<MealsItem> meals, NavController navController) {
+        this.meals = meals;
+        this.navController =navController;
+
+    }
+
+    @NonNull
+    @Override
+    public MealsFromSpecificIngredientAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        viewGroup =parent;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_meal_items, parent, false);
+        return new MealsFromSpecificIngredientAdapter.MyViewHolder(view);
+    }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onBindViewHolder(@NonNull MealsFromSpecificIngredientAdapter.MyViewHolder holder, int position) {
+        Glide.with(holder.itemView).load(meals.get(position).getStrMealThumb()).into(holder.mealImage);
+        holder.mealName.setText(meals.get(position).getStrMeal());
 
-        mealsItem = MealDetailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArgs();
-
-        mealName = view.findViewById(R.id.tv_mealName);
-       area = view.findViewById(R.id.tv_meal_area);
-        instructions = view.findViewById(R.id.tv_Meal_instructions);
-        mealImage = view.findViewById(R.id.mealImage);
-        videoView = view.findViewById(R.id.video);
-        recyclerView = view.findViewById(R.id.rv_ingrediant);
-        btn_addToFavorites_meal_details = view.findViewById(R.id.btn_addToFavorites_meal_details);
-        autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
-        textInputLayout = view.findViewById(R.id.textInputLayout);
-
-        arrayAdapter = new ArrayAdapter<String>(requireContext(), R.layout.list_weekdays  , weekDays);
-        autoCompleteTextView.setAdapter(arrayAdapter);
-
-        getLifecycle().addObserver((LifecycleObserver) videoView);
-        if(!mealsItem.getStrYoutube().isEmpty()){
-
-            split = mealsItem.getStrYoutube().split("=");
-            youtubeURLisExists = true;
-            videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                    if(youtubeURLisExists){
-                        String videoId = split[1];
-                        youTubePlayer.loadVideo(videoId, 0);
-                    }
-                }
-            });
-        }
-        else{
-            videoView.setVisibility(View.GONE);
-        }
-
-        mealName.setText(mealsItem.getStrMeal());
-        area.setText(mealsItem.getStrArea());
-        Glide.with(view.getContext()).load(mealsItem.getStrMealThumb()).into(mealImage);
-        instructions.setText(mealsItem.getStrInstructions());
-
-        getIngredient(mealsItem.getStrIngredient1());
-        getIngredient(mealsItem.getStrIngredient2());
-        getIngredient(mealsItem.getStrIngredient3());
-        getIngredient(mealsItem.getStrIngredient4());
-        getIngredient(mealsItem.getStrIngredient5());
-        getIngredient(mealsItem.getStrIngredient6());
-        getIngredient(mealsItem.getStrIngredient7());
-        getIngredient(mealsItem.getStrIngredient8());
-        getIngredient(mealsItem.getStrIngredient9());
-        getIngredient(mealsItem.getStrIngredient10());
-        getIngredient(mealsItem.getStrIngredient11());
-        getIngredient(mealsItem.getStrIngredient12());
-        getIngredient(mealsItem.getStrIngredient13());
-        getIngredient(mealsItem.getStrIngredient15());
-        getMegure(mealsItem.getStrMeasure1());
-        getMegure(mealsItem.getStrMeasure2());
-        getMegure(mealsItem.getStrMeasure3());
-        getMegure(mealsItem.getStrMeasure4());
-        getMegure(mealsItem.getStrMeasure5());
-        getMegure(mealsItem.getStrMeasure6());
-        getMegure(mealsItem.getStrMeasure7());
-        getMegure(mealsItem.getStrMeasure8());
-        getMegure(mealsItem.getStrMeasure9());
-        getMegure(mealsItem.getStrMeasure10());
-        getMegure(mealsItem.getStrMeasure11());
-        getMegure(mealsItem.getStrMeasure12());
-        getMegure(mealsItem.getStrMeasure13());
-        getMegure(mealsItem.getStrMeasure15());
-
-        Log.i("esraa", "onViewCreated: "+ingrediant.size());
-
-        Log.i("esraa", "onViewCreated: "+megure.size());
-
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-
-        mealDeatailIngrediantAdapter = new MealDeatailIngrediantAdapter(ingrediant,megure);
-        recyclerView.setAdapter(mealDeatailIngrediantAdapter);
-        
-        btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!networkChecker.checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to view this item.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()){
+                    RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(meals.get(position).getIdMeal()))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<RootMeal>() {
+                                @Override
+                                public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                                    // loading ui
+                                }
+
+                                @Override
+                                public void onNext(@io.reactivex.rxjava3.annotations.NonNull RootMeal rootMeal) {
+                                    MealsFromSpecificIngredient.searchTextInput.setText("");
+                                    navController
+                                            .navigate(MealsFromSpecificIngredientDirections.
+                                                    actionMealByIngrediantFragmentToMealDeatailsFragment(rootMeal.getMeals().get(0)));
+                                }
+
+                                @Override
+                                public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+                }
+
+
+
+            }
+        });
+
+        holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
                 NetworkChecker networkChecker = NetworkChecker.getInstance();
 
                 if(!networkChecker.checkIfInternetIsConnected()){
@@ -170,12 +140,17 @@ public class MealDetailsFragment extends Fragment {
                     });
 
                 } else if (networkChecker.checkIfInternetIsConnected()){
-                    checkIfItemAlreadyExistsInFavoritesOfFirestore(mealsItem);
+                    checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
                 }
+
+
             }
         });
 
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //For drop down weekdays: part 3/3
+        /* WeekPlanner Firestore+Room part 1/4: Add button  */
+
+        holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
 
@@ -190,37 +165,13 @@ public class MealDetailsFragment extends Fragment {
                     });
                 }else if (networkChecker.checkIfInternetIsConnected()){
                     String daySelected = parent.getItemAtPosition(positionDay).toString();
-                    checkIfItemAlreadyExistsInWeekPlan(mealsItem,daySelected);
+                    checkIfItemAlreadyExistsInWeekPlan(meals.get(position),daySelected);
 
                 }
 
             }
         });
 
-
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_meal_details, container, false);
-    }
-
-    public MealDetailsFragment() {
-
-    }
-
-    private List<String> getIngredient(String ingredientName) {
-        if (ingredientName != null && !ingredientName.isEmpty())
-            ingrediant.add(ingredientName);
-        return ingrediant;
-    }
-    private List<String> getMegure(String ingredientName) {
-        if (ingredientName != null && !ingredientName.isEmpty())
-            megure.add(ingredientName);
-        return megure;
     }
 
     private void checkIfItemAlreadyExistsInFavoritesOfFirestore(MealsItem mealsItemSelected) {
@@ -239,7 +190,7 @@ public class MealDetailsFragment extends Fragment {
                                                    if(!isAlreadyInFavorites){
                                                        uploadDataToFireStoreInFavorites(mealsItemSelected);
                                                    } else{
-                                                       AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                                                       AlertDialog.Builder builder = new AlertDialog.Builder(viewGroup.getContext());
                                                        builder.setTitle("This item is already in your favorite meals list.");
                                                        builder.setMessage("Would you like to remove it?");
                                                        builder.setCancelable(true);
@@ -254,7 +205,7 @@ public class MealDetailsFragment extends Fragment {
                                                                });
 
                                                            } else if (networkChecker.checkIfInternetIsConnected()){
-                                                               progressDialog = new ProgressDialog(requireContext());
+                                                               progressDialog = new ProgressDialog(viewGroup.getContext());
                                                                progressDialog.setTitle("Removing favorites");
                                                                progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
                                                                progressDialog.setCanceledOnTouchOutside(true);
@@ -265,10 +216,10 @@ public class MealDetailsFragment extends Fragment {
                                                                            @Override
                                                                            public void onSuccess(Void aVoid) {
                                                                                progressDialog.dismiss();
-                                                                               Toast.makeText(requireContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
+                                                                               Toast.makeText(viewGroup.getContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
                                                                                Log.i(TAG, "DocumentSnapshot successfully deleted!");
 
-                                                                               rep=new RepositoryLocal(requireContext());
+                                                                               rep=new RepositoryLocal(viewGroup.getContext());
                                                                                rep.delete(mealsItemSelected);
 
                                                                            }
@@ -277,7 +228,7 @@ public class MealDetailsFragment extends Fragment {
                                                                            @Override
                                                                            public void onFailure(@NonNull Exception e) {
                                                                                progressDialog.dismiss();
-                                                                               Toast.makeText(requireContext(), "Item removal failed", Toast.LENGTH_SHORT).show();
+                                                                               Toast.makeText(viewGroup.getContext(), "Item removal failed", Toast.LENGTH_SHORT).show();
                                                                                Log.i(TAG, "Error deleting document", e);
                                                                            }
                                                                        });
@@ -302,7 +253,7 @@ public class MealDetailsFragment extends Fragment {
     }
 
     private void uploadDataToFireStoreInFavorites(MealsItem mealsItem) {
-        progressDialog = new ProgressDialog(requireContext());
+        progressDialog = new ProgressDialog(viewGroup.getContext());
         progressDialog.setTitle("Adding to favorites");
         progressDialog.setMessage("Please wait while adding the selected item to your favorite meals.");
         progressDialog.setCanceledOnTouchOutside(true);
@@ -330,11 +281,11 @@ public class MealDetailsFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        rep = new RepositoryLocal(requireContext());
+                        rep = new RepositoryLocal(viewGroup.getContext());
                         rep.insert(mealsItem, "NULL",  documentReference.getId());
 
                         progressDialog.dismiss();
-                        Toast.makeText(requireContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(viewGroup.getContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -342,7 +293,7 @@ public class MealDetailsFragment extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
                         progressDialog.dismiss();
-                        Toast.makeText(requireContext(), "Error adding the item", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(viewGroup.getContext(), "Error adding the item", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -372,7 +323,7 @@ public class MealDetailsFragment extends Fragment {
                                                    if(!isAlreadyInFavorites){
                                                        uploadDataToFireStoreInWeekPlan(mealsItemSelected, weekDay);
                                                    } else{
-                                                       AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                                                       AlertDialog.Builder builder = new AlertDialog.Builder(viewGroup.getContext());
                                                        builder.setTitle("This item is already in your week plan on this day.");
                                                        builder.setMessage("Would you like to remove it?");
                                                        builder.setCancelable(true);
@@ -386,7 +337,7 @@ public class MealDetailsFragment extends Fragment {
                                                                });
 
                                                            } else if (networkChecker.checkIfInternetIsConnected()){
-                                                               progressDialog = new ProgressDialog(requireContext());
+                                                               progressDialog = new ProgressDialog(viewGroup.getContext());
                                                                progressDialog.setTitle("Removing favorites");
                                                                progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
                                                                progressDialog.setCanceledOnTouchOutside(true);
@@ -398,11 +349,11 @@ public class MealDetailsFragment extends Fragment {
                                                                            @Override
                                                                            public void onSuccess(Void aVoid) {
                                                                                progressDialog.dismiss();
-                                                                               Toast.makeText(requireContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
+                                                                               Toast.makeText(viewGroup.getContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
                                                                                Log.i(TAG, "DocumentSnapshot successfully deleted!");
                                                                                //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                                                                               rep=new RepositoryLocal(requireContext());
+                                                                               rep=new RepositoryLocal(viewGroup.getContext());
                                                                                rep.delete(mealsItemSelected);
 
 
@@ -412,7 +363,7 @@ public class MealDetailsFragment extends Fragment {
                                                                            @Override
                                                                            public void onFailure(@NonNull Exception e) {
                                                                                progressDialog.dismiss();
-                                                                               Toast.makeText(requireContext(), "Item removal failed", Toast.LENGTH_SHORT).show();
+                                                                               Toast.makeText(viewGroup.getContext(), "Item removal failed", Toast.LENGTH_SHORT).show();
                                                                                Log.i(TAG, "Error deleting document", e);
                                                                            }
                                                                        });
@@ -439,7 +390,7 @@ public class MealDetailsFragment extends Fragment {
     }
 
     private void uploadDataToFireStoreInWeekPlan(MealsItem mealsItem, String weekDay) {
-        progressDialog = new ProgressDialog(requireContext());
+        progressDialog = new ProgressDialog(viewGroup.getContext());
         progressDialog.setTitle("Adding to week plan");
         progressDialog.setMessage("Please wait while adding the selected item to your week plan.");
         progressDialog.setCanceledOnTouchOutside(true);
@@ -467,11 +418,11 @@ public class MealDetailsFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        rep = new RepositoryLocal(requireContext());
+                        rep = new RepositoryLocal(viewGroup.getContext());
                         rep.insert(mealsItem , weekDay, documentReference.getId());
 
                         progressDialog.dismiss();
-                        Toast.makeText(requireContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(viewGroup.getContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -479,12 +430,38 @@ public class MealDetailsFragment extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
                         progressDialog.dismiss();
-                        Toast.makeText(requireContext(), "Error while adding the item" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(viewGroup.getContext(), "Error while adding the item" , Toast.LENGTH_SHORT).show();
 
                     }
                 });
 
 
+    }
+
+    @Override
+    public int getItemCount() {
+        return meals.size();
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView mealName;
+        CircleImageView mealImage;
+        ImageButton btn_addToFavorites;
+        AutoCompleteTextView autoCompleteTextView;
+        TextInputLayout textInputLayout;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mealName=itemView.findViewById(R.id.area_meal);
+            mealImage=itemView.findViewById(R.id.areaMeal_image);
+            btn_addToFavorites=itemView.findViewById(R.id.btn_add_favourite_search);
+            autoCompleteTextView=itemView.findViewById(R.id.auto_complete_textview_search);
+            textInputLayout = itemView.findViewById(R.id.text_input_layout);
+
+            arrayAdapter = new ArrayAdapter<String>(viewGroup.getContext(), R.layout.list_weekdays  , weekDays);
+            autoCompleteTextView.setAdapter(arrayAdapter);
+
+        }
     }
 
 }

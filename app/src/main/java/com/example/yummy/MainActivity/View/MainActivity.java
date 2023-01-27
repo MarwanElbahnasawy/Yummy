@@ -1,4 +1,4 @@
-package com.example.yummy;
+package com.example.yummy.MainActivity.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,14 +13,14 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yummy.Repository.Model.RepositoryLocal;
+import com.example.yummy.MainActivity.Presenter.PresenterMainActivity;
+import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,9 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private Timer timer;
     Boolean timerIsExists = false;
+    PresenterMainActivity presenterMainActivity;
 
-
-    RepositoryLocal rep;
 
 
     @Override
@@ -127,9 +126,8 @@ public class MainActivity extends AppCompatActivity {
 
                     isLoginAsGuest = false;
 
-                    rep = new RepositoryLocal(MainActivity.this);
-
-                    new Thread(() -> rep.deleteTableRoom()).start();
+                    presenterMainActivity = new PresenterMainActivity(MainActivity.this);
+                    presenterMainActivity.deleteTableRoom();
 
                     while (navController.popBackStack() == true) {
                     }
@@ -142,6 +140,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        checkNetwork();
+
+
+
+
+    }
+
+    private void checkNetwork() {
+        if(!networkChecker.checkIfInternetIsConnected()){
+            tv_internetConnection.setVisibility(View.VISIBLE);
+            tv_internetConnection.setText("No Internet Connection");
+            tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
+        }
 
 
         NetworkRequest networkRequest = new NetworkRequest.Builder()
@@ -190,16 +202,15 @@ public class MainActivity extends AppCompatActivity {
                 if (timerIsExists){
                     timerIsExists = false;
                     timer.cancel();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tv_internetConnection.setVisibility(View.VISIBLE);
-                            tv_internetConnection.setText("No Internet Connection");
-                            tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
-                        }
-                    });
                 }
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_internetConnection.setVisibility(View.VISIBLE);
+                        tv_internetConnection.setText("No Internet Connection");
+                        tv_internetConnection.setBackgroundColor(getResources().getColor(R.color.red));
+                    }
+                });
 
             }
 
@@ -208,8 +219,6 @@ public class MainActivity extends AppCompatActivity {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(ConnectivityManager.class);
         connectivityManager.requestNetwork(networkRequest, networkCallback);
-
-
     }
 
     @Override

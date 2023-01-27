@@ -14,7 +14,7 @@ public class PresenterAllMeals {
         this.interfaceAllMeals = interfaceAllMeals;
     }
 
-    public void getAllMeals(CharSequence s){
+    public void getAllMeals(Character s){
 
         repositoryRemote = new RepositoryRemote(interfaceAllMeals);
         repositoryRemote.getAllMeals(s);
