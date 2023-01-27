@@ -4,18 +4,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.SearchByCategory.Models.EachCategoryModel;
 import com.example.yummy.R;
+import com.example.yummy.Utility.NetworkChecker;
 
 import java.util.List;
 
 public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdapter.MyViewHolder>{
     ViewGroup CountryView;
     List<EachCategoryModel> categories;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     public AllCategoriesAdapter(List<EachCategoryModel>  categories) {
         this.categories = categories;
@@ -37,8 +42,21 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AllCategories.textInputEditText.setText("");
-                Navigation.findNavController(CountryView).navigate(AllCategoriesDirections.actionCategoryFragmentToMealByCategoryFragment(categories.get(position).getStrCategory()));
+
+                if(!networkChecker.checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to view meals related to this category.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()){
+                    AllCategories.textInputEditText.setText("");
+                    Navigation.findNavController(CountryView).navigate(AllCategoriesDirections.actionCategoryFragmentToMealByCategoryFragment(categories.get(position).getStrCategory()));
+
+                }
+
 
             }
         });

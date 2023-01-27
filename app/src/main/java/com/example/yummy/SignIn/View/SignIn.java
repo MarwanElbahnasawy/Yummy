@@ -21,7 +21,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.yummy.MainActivity;
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.R;
 import com.example.yummy.SignIn.Presenter.InterfaceSignIn;
 import com.example.yummy.SignIn.Presenter.PresenterSignIn;
@@ -163,30 +163,53 @@ public class SignIn extends Fragment implements InterfaceSignIn {
             @Override
             public void onClick(View v) {
 
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to skip.", Toast.LENGTH_SHORT).show();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-                builder.setMessage("You 'll miss out on personalized content and saving our delicious recipes");
-                builder.setTitle("Wait! Are You Sure?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    if (!networkChecker.checkIfInternetIsConnected()) {
-                        Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to log in.", Toast.LENGTH_SHORT).show();
+                } else if (networkChecker.checkIfInternetIsConnected()) {
 
-                    } else if (networkChecker.checkIfInternetIsConnected()) {
-                        MainActivity.isLoginAsGuest = true;
-                        Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(SignInDirections.actionNavSignInToNavHome());
-                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                    builder.setMessage("You 'll miss out on personalized content and saving our delicious recipes");
+                    builder.setTitle("Wait! Are You Sure?");
+                    builder.setCancelable(true);
 
-                });
 
-                builder.setNegativeButton("NO,Go BACK", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        if(!networkChecker.checkIfInternetIsConnected()){
+                            MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to skip.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                    dialog.cancel();
-                });
-                AlertDialog alertDialog = builder.create();
+                        } else if (networkChecker.checkIfInternetIsConnected()){
+                            MainActivity.isLoginAsGuest = true;
+                            Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(view).navigate(SignInDirections.actionNavSignInToNavHome());
+                        }
 
-                alertDialog.show();
+
+                    });
+
+                    builder.setNegativeButton("NO,Go BACK", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+                        dialog.cancel();
+                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+
+                }
+
+
+
+
+
+
+
+
 
 
             }

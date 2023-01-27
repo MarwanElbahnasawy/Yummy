@@ -4,19 +4,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.SearchByIngredient.Model.EachIngredientModel;
 import com.example.yummy.R;
+import com.example.yummy.Utility.NetworkChecker;
 
 import java.util.List;
 
 public class AllIngredientsAdapter extends RecyclerView.Adapter<AllIngredientsAdapter.MyViewHolder>{
     ViewGroup CountryView;
     List<EachIngredientModel> ingrediance;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     public AllIngredientsAdapter(List<EachIngredientModel>  ingrediance) {
         this.ingrediance =ingrediance ;
@@ -38,8 +42,21 @@ public class AllIngredientsAdapter extends RecyclerView.Adapter<AllIngredientsAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AllIngredients.textInputEditText.setText("");
-            Navigation.findNavController(CountryView).navigate(AllIngredientsDirections.actionSearchByIngrdiantFragmentToMealByIngrediantFragment(ingrediance.get(position).getStrIngredient()));
+
+                if(!networkChecker.checkIfInternetIsConnected()){
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to view meals related to this ingredient.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()){
+                    AllIngredients.textInputEditText.setText("");
+                    Navigation.findNavController(CountryView).navigate(AllIngredientsDirections.actionSearchByIngrdiantFragmentToMealByIngrediantFragment(ingrediance.get(position).getStrIngredient()));
+
+                }
+
 
             }
         });

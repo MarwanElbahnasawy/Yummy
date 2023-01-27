@@ -3,7 +3,6 @@ package com.example.yummy.SearchByArea.View;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,34 +15,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yummy.Model.MealsItem;
-import com.example.yummy.Network.RetrofitClient;
 import com.example.yummy.R;
 import com.example.yummy.SearchByArea.Presenter.InterfaceMealFromSpecificArea;
 import com.example.yummy.SearchByArea.Presenter.PresenterMealFromSpecificArea;
+import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+public class MealsFromSpecificArea extends Fragment implements InterfaceMealFromSpecificArea {
 
-public class MealFromSpecificArea extends Fragment implements InterfaceMealFromSpecificArea {
-
-    MealFromSpecificAreaAdapter mealFromSpecificAreaAdapter;
+    MealsFromSpecificAreaAdapter mealsFromSpecificAreaAdapter;
     RecyclerView recyclerView;
     public static TextInputEditText searchTextInput;
     List<MealsItem> mealsItemList = new ArrayList<>();
     private static final String TAG = "MealFromSpecificArea";
     TextView tv_areaSelected;
     private PresenterMealFromSpecificArea presenterMealFromSpecificArea;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.rv_MealByArea);
             searchTextInput=view.findViewById(R.id.textInput_Meal_search);
-            String areaSelected = MealFromSpecificAreaArgs.fromBundle(getArguments()).getArea();
+            String areaSelected = MealsFromSpecificAreaArgs.fromBundle(getArguments()).getArea();
 
         tv_areaSelected = view.findViewById(R.id.tv_areaSelected);
         tv_areaSelected.setText(areaSelected);
@@ -62,12 +59,14 @@ public class MealFromSpecificArea extends Fragment implements InterfaceMealFromS
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                mealFromSpecificAreaAdapter = new MealFromSpecificAreaAdapter(mealsItemList.stream().filter(
-                        mealsItem -> mealsItem.getStrMeal().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setAdapter(mealFromSpecificAreaAdapter);
+                    mealsFromSpecificAreaAdapter = new MealsFromSpecificAreaAdapter(mealsItemList.stream().filter(
+                            mealsItem -> mealsItem.getStrMeal().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(mealsFromSpecificAreaAdapter);
+
+
             }
 
             @Override
@@ -99,8 +98,8 @@ public class MealFromSpecificArea extends Fragment implements InterfaceMealFromS
         mealsItemList = mealsListReceived;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mealFromSpecificAreaAdapter = new MealFromSpecificAreaAdapter(mealsItemList);
+        mealsFromSpecificAreaAdapter = new MealsFromSpecificAreaAdapter(mealsItemList);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(mealFromSpecificAreaAdapter);
+        recyclerView.setAdapter(mealsFromSpecificAreaAdapter);
     }
 }

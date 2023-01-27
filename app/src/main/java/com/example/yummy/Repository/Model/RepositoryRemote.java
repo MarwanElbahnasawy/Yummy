@@ -293,7 +293,7 @@ public class RepositoryRemote {
                 );
     }
 
-    public void getAllMeals(CharSequence s) {
+    public void getAllMeals(Character s) {
         Observable<RootMealsFromSingleLetter> observable = RetrofitClient.getInstance().getMyApi().getRootMealsBySingleLetter(s.toString());
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 response -> {

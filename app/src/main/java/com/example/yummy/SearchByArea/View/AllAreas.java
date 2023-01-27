@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.SearchByArea.Model.EachAreaModel;
 import com.example.yummy.R;
 import com.example.yummy.SearchByArea.Presenter.InterfaceAllAreas;
 import com.example.yummy.SearchByArea.Presenter.PresenterAllAreas;
+import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
@@ -28,6 +31,7 @@ public class AllAreas extends Fragment implements InterfaceAllAreas {
     RecyclerView recyclerView;
     public static TextInputEditText textInputEditText;
     private PresenterAllAreas presenterAllAreas;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -57,6 +61,10 @@ public class AllAreas extends Fragment implements InterfaceAllAreas {
                 linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(allAreasAdapter);
+
+
+
+
             }
 
             @Override

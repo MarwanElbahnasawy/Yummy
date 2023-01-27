@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.yummy.SearchByMeal.View.SearchMainFragment"
+        android:name="com.example.yummy.SearchMain.View.SearchMainFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -127,7 +127,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealByCountryFragment"
-        android:name="com.example.yummy.SearchByArea.View.MealFromSpecificArea"
+        android:name="com.example.yummy.SearchByArea.View.MealsFromSpecificArea"
         android:label="fragment_meal_by_country"
         tools:layout="@layout/fragment_meal_by_country" >
         <argument
@@ -148,7 +148,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealByCategoryFragment"
-        android:name="com.example.yummy.SearchByCategory.View.MealFromSpecificCategory"
+        android:name="com.example.yummy.SearchByCategory.View.MealsFromSpecificCategory"
         android:label="MealByCategoryFragment" >
         <argument
             android:name="category"
@@ -168,7 +168,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealByIngrediantFragment"
-        android:name="com.example.yummy.SearchByIngredient.View.MealFromSpecificIngredient"
+        android:name="com.example.yummy.SearchByIngredient.View.MealsFromSpecificIngredient"
         android:label="fragment_meal_by_ingrediant"
         tools:layout="@layout/fragment_meal_by_ingrediant" >
         <argument

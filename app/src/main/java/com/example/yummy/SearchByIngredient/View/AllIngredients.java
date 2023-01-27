@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +15,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.SearchByIngredient.Model.RootIngredientsList;
 import com.example.yummy.SearchByIngredient.Model.EachIngredientModel;
 import com.example.yummy.Network.RetrofitClient;
 import com.example.yummy.R;
 import com.example.yummy.SearchByIngredient.Presenter.InterfaceAllIngredients;
 import com.example.yummy.SearchByIngredient.Presenter.PresenterAllIngredients;
+import com.example.yummy.Utility.NetworkChecker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
@@ -36,6 +39,7 @@ public class AllIngredients extends Fragment implements InterfaceAllIngredients 
     AllIngredientsAdapter allIngredientsAdapter;
     RecyclerView recyclerView;
     private PresenterAllIngredients presenterAllIngredients;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
 
     @Override
@@ -59,12 +63,16 @@ public class AllIngredients extends Fragment implements InterfaceAllIngredients 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                allIngredientsAdapter = new AllIngredientsAdapter(ingredients.stream().filter(
-                        AreaModel -> AreaModel.getStrIngredient().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setAdapter(allIngredientsAdapter);
+
+                    allIngredientsAdapter = new AllIngredientsAdapter(ingredients.stream().filter(
+                            AreaModel -> AreaModel.getStrIngredient().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(allIngredientsAdapter);
+
+
+
             }
 
             @Override
