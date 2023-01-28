@@ -52,11 +52,7 @@
 <hr>
 splash 
 
-![splash](https://user-images.githubusercontent.com/86933863/215290971-72375e87-6023-4633-b766-34a368175908.jpg)
-
-register
-
-![register](https://user-images.githubusercontent.com/86933863/215290975-814e4722-496b-4c59-8095-ffe6e3527ef8.jpg)
+![splash](https://user-images.githubusercontent.com/86933863/215290971-72375e87-6023-4633-b766-34a368175908.jpg)   ![register](https://user-images.githubusercontent.com/86933863/215290975-814e4722-496b-4c59-8095-ffe6e3527ef8.jpg)
 
 login
 
