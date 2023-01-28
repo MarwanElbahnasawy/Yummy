@@ -87,7 +87,6 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                     }
                     else if (isInternetDisconnectedWhileTyping == true & s.length() > 1){
                         shouldFilterAfterInternetWasOff = true;
-                        Toast.makeText(requireContext(), "here", Toast.LENGTH_SHORT).show();
                         isInternetDisconnectedWhileTyping = false;
                         presenterAllMeals.getAllMeals(s.charAt(0));
                         if(mealsItemList.size() != 0){
@@ -96,7 +95,7 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                             observable
                                     .filter
                                             (mealsItem->
-                                                    mealsItem.getStrMeal().toLowerCase().startsWith(searchTextInput.getText().toString().toLowerCase()))
+                                                    mealsItem.getStrMeal().toLowerCase().contains(searchTextInput.getText().toString().toLowerCase()))
                                     .subscribe(
                                             mealsItem ->{
                                                 filteredMealsItemList.add(mealsItem);
@@ -138,7 +137,7 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                                 observable
                                         .filter
                                                 (mealsItem->
-                                                        mealsItem.getStrMeal().toLowerCase().startsWith(searchTextInput.getText().toString().toLowerCase()))
+                                                        mealsItem.getStrMeal().toLowerCase().contains(searchTextInput.getText().toString().toLowerCase()))
                                         .subscribe(
                                                 mealsItem ->{
                                                     filteredMealsItemList.add(mealsItem);
@@ -205,7 +204,7 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                 observable
                         .filter
                                 (mealsItem->
-                                        mealsItem.getStrMeal().toLowerCase().startsWith(searchTextInput.getText().toString().toLowerCase()))
+                                        mealsItem.getStrMeal().toLowerCase().contains(searchTextInput.getText().toString().toLowerCase()))
                         .subscribe(
                                 mealsItem ->{
                                     filteredMealsItemList.add(mealsItem);

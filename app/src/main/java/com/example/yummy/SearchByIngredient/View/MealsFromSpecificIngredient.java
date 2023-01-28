@@ -70,7 +70,7 @@ public class MealsFromSpecificIngredient extends Fragment implements InterfaceMe
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 mealsFromSpecificIngredientAdapter = new MealsFromSpecificIngredientAdapter(mealsItemList.stream().filter(
-                        mealsItem -> mealsItem.getStrMeal().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()), NavHostFragment.findNavController(MealsFromSpecificIngredient.this));
+                        mealsItem -> mealsItem.getStrMeal().toLowerCase().contains(s.toString().toLowerCase())).collect(Collectors.toList()), NavHostFragment.findNavController(MealsFromSpecificIngredient.this));
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                 linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
