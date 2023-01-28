@@ -24,19 +24,31 @@
 - May work locally 
 <hr>
 <h2>Permissions</h2>
+
 - Network Permission.
+
 <hr>
 <h2>Tools </h2>
+
 - Retrofit rx 
+
 - TheMealDB Api
+
 - room rx 
+
 - firestore 
+
 - mvp 
+
 - trello
+
 <hr>
 <h2>Contributers:</h2>
+
 - Marwan Mahmoud Elbahnasawy
+
 - Esraa AbdElfatah Mahmoud
+
 <hr>
 
 
