@@ -92,7 +92,7 @@
     <string name="DeleteAccount">حذف الحساب</string>
     <string name="WaitAreYouSure">انتظر! هل أنت واثق؟</string>
     <string name="noInternent">لا يوجد اتصال بالإنترنت</string>
-    <string name="backInternet">الإنترنت عاد!</string>
+    <string name="backInternet">تم الاتصال بالانترنت بنجاح</string>
     <string name="change_app_language">تغيير لغه البرنامج الي الانجليزية</string>
     <string name="log_out">تسجيل خروج</string>
     <string name="delete_account">حذف الحساب</string>
@@ -100,5 +100,6 @@
     <string name="saved">المفضلة</string>
     <string name="week_plan">خطه الاسبوع</string>
     <string name="add_to_weekplan">اضف لخطه الاسبوع</string>
+    <string name="calendar_question">متي تود ان تسجلها؟</string>
 
 </resources>

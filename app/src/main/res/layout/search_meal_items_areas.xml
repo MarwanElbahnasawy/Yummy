@@ -67,7 +67,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="5dp"
         android:elevation="0dp"
-        android:hint="Add to week plan"
+        android:hint="@string/add_to_weekplan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 

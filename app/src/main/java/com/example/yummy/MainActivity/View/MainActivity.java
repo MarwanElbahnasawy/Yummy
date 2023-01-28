@@ -131,19 +131,19 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 switch (destination.getId()) {
-                    case R.id.nav_spashScreen:
-                    case R.id.nav_onBoarding:
-                    case R.id.nav_signIn:
-                    case R.id.nav_register:
-                    case R.id.mealDeatailsFragment:
-                    case R.id.calendar:
-                        bottomNavigationView.setVisibility(View.GONE);
-                        img_logOut.setVisibility(View.GONE);
+                    case R.id.nav_dailyInspirations:
+                    case R.id.nav_search:
+                    case R.id.nav_favoriteMeals:
+                    case R.id.nav_weekPlanner:
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+                        img_logOut.setVisibility(View.VISIBLE);
+
 
                         break;
                     default:
-                        bottomNavigationView.setVisibility(View.VISIBLE);
-                        img_logOut.setVisibility(View.VISIBLE);
+                        bottomNavigationView.setVisibility(View.GONE);
+                        img_logOut.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -171,9 +171,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                if (!networkChecker.checkIfInternetIsConnected()) {
-                    Toast.makeText(MainActivity.this, R.string.check_nav_drawer, Toast.LENGTH_SHORT).show();
-                } else{
+
                     switch (item.getItemId()) {
                         case R.id.drawerChangeAppLanguage:
                             navigationView.setVisibility(View.GONE);
@@ -189,13 +187,18 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                             if(isLoginAsGuest){
                                 Toast.makeText(MainActivity.this, R.string.needAcount, Toast.LENGTH_SHORT).show();
                             } else{
-                                navigationView.setVisibility(View.GONE);
-                                drawerDeleteAccount();
+                                if (!networkChecker.checkIfInternetIsConnected()) {
+                                    Toast.makeText(MainActivity.this, R.string.needAcount, Toast.LENGTH_SHORT).show();
+                                } else{
+                                    navigationView.setVisibility(View.GONE);
+                                    drawerDeleteAccount();
+                                }
+
                             }
                             
                             break;
                     }
-                }
+
                 return false;
             }
         });
@@ -217,12 +220,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         }
 
         recreate();
-//        presenterMainActivity = new PresenterMainActivity();
-//        presenterMainActivity.loadHeaderTitle();
-//
-//        String s = FirebaseAuth.getInstance().getCurrentUser().getEmail().split("@")[0];
-//        Toast.makeText(mainActivity, s , Toast.LENGTH_SHORT).show();
-        MainActivity.tv_headerDrawer.setText("aaaaaaa");
+
     }
     public void setLocale(String lang) {
         Locale locale = new Locale(lang);

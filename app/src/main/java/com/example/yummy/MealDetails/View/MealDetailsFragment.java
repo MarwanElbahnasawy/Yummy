@@ -215,17 +215,7 @@ public class MealDetailsFragment extends Fragment {
 
                     NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                    if (!networkChecker.checkIfInternetIsConnected()) {
-                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else if (networkChecker.checkIfInternetIsConnected()) {
-                        Navigation.findNavController(view).navigate(MealDetailsFragmentDirections.actionMealDeatailsFragmentToNavCalendar(mealsItem.getStrMeal()));
-
-                    }
+                    Navigation.findNavController(view).navigate(MealDetailsFragmentDirections.actionMealDeatailsFragmentToNavCalendar(mealsItem.getStrMeal()));
 
 
                 }

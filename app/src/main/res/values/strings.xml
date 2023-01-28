@@ -55,7 +55,7 @@
 
     <string name="meals">Meals</string>
 
-    <string name="ingredients">ingredients</string>
+    <string name="ingredients">Ingredients</string>
 
     <string name="title_home">Home</string>
 
@@ -102,6 +102,7 @@
     <string name="saved">Saved</string>
     <string name="week_plan">Week Plan</string>
     <string name="add_to_weekplan">Add to week plan</string>
+    <string name="calendar_question">When would you like to add this item?</string>
 
 
 </resources>
