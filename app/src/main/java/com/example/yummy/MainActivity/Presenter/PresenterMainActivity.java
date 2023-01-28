@@ -38,4 +38,9 @@ public class PresenterMainActivity {
         repositoryRemote = new RepositoryRemote();
         repositoryRemote.deleteAccount();
     }
+
+    public void loadHeaderTitle() {
+        repositoryRemote = new RepositoryRemote();
+        repositoryRemote.changeHeaderTitle();
+    }
 }

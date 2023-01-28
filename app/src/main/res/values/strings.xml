@@ -95,7 +95,7 @@
     <string name="WaitAreYouSure">Wait! Are You Sure?</string>
     <string name="noInternent">No Internet Connection</string>
     <string name="backInternet">Internet is back !</string>
-    <string name="change_app_language">Change app language</string>
+    <string name="change_app_language">Change app language to arabic</string>
     <string name="log_out">Log out</string>
     <string name="delete_account">Delete Account</string>
     <string name="search">Search</string>

@@ -26,7 +26,6 @@ import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
-import com.example.yummy.WeekPlanner.View.WeekPlanner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -42,9 +42,9 @@
 
     <ImageView
         android:id="@+id/img_logOut"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="10dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:elevation="20dp"
         android:scaleX="-1"

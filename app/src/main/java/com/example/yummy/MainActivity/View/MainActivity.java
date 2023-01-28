@@ -217,7 +217,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         }
 
         recreate();
-
+//        presenterMainActivity = new PresenterMainActivity();
+//        presenterMainActivity.loadHeaderTitle();
+//
+//        String s = FirebaseAuth.getInstance().getCurrentUser().getEmail().split("@")[0];
+//        Toast.makeText(mainActivity, s , Toast.LENGTH_SHORT).show();
+        MainActivity.tv_headerDrawer.setText("aaaaaaa");
     }
     public void setLocale(String lang) {
         Locale locale = new Locale(lang);
