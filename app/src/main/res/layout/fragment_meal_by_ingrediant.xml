@@ -53,7 +53,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_ingredientSelected"
-            tools:listitem="@layout/search_meal_items"/>
+            tools:listitem="@layout/search_meal_items_all"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

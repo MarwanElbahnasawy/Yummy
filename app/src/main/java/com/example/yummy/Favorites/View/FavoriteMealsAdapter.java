@@ -168,7 +168,6 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
             fav_tv_mealArea = itemView.findViewById(R.id.fav_tv_mealArea);
             fav_img_mealImg = itemView.findViewById(R.id.fav_img_mealImg);
             btn_removeFromFavorites = itemView.findViewById(R.id.btn_removeFav);
-
         }
     }
 }

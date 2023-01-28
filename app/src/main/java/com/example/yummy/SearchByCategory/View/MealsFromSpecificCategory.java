@@ -70,7 +70,7 @@ public class MealsFromSpecificCategory extends Fragment implements InterfaceMeal
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 mealsFromSpecificCategoryAdapter = new MealsFromSpecificCategoryAdapter(mealsItemList.stream().filter(
-                        mealsItem -> mealsItem.getStrMeal().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
+                        mealsItem -> mealsItem.getStrMeal().toLowerCase().contains(s.toString().toLowerCase())).collect(Collectors.toList()));
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                 linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);

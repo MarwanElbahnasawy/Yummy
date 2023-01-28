@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         setContentView(R.layout.activity_main);
 
         networkChecker = NetworkChecker.getInstance(this);
-        checkNetwork();
+
 
         tv_internetConnection = findViewById(R.id.tv_internetConnection);
 
@@ -365,5 +365,11 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         drawerLogOut();
         toastLogOut.cancel();
         Toast.makeText(mainActivity, R.string.deleteAcount, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkNetwork();
     }
 }

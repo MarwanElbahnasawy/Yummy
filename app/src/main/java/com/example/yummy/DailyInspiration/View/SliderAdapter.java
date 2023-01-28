@@ -69,6 +69,10 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     List<MealsItem> meals = new ArrayList<>();
 
 
+
+
+
+
     public SliderAdapter(List<MealsItem> meals, ViewPager2 viewPager2) {
 
         this.meals = meals;
@@ -82,7 +86,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     @Override
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         viewGroupOfMeal = parent;
-
 
 
         return new SliderViewHolder(
@@ -102,7 +105,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         Glide.with(viewGroupOfMeal.getContext()).load(mealsItem.getStrMealThumb()).into(holder.imageView);
         holder.tv_mealName.setText(mealsItem.getStrMeal());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //DailyInspirations.mealsWeekPlannedToday.clear();
@@ -112,62 +116,63 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         });
 
 
-
-        if(MainActivity.isLoginAsGuest == false){
-
-
-        /* Favorites Firestore+Room part 1/4: Bookmark button */
-
-        holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                NetworkChecker networkChecker = NetworkChecker.getInstance();
-
-                if(!networkChecker.checkIfInternetIsConnected()){
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                } else if (networkChecker.checkIfInternetIsConnected()){
-                    checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
-                }
+        if (MainActivity.isLoginAsGuest == false) {
 
 
-            }
-        });
+            /* Favorites Firestore+Room part 1/4: Bookmark button */
 
-        //For drop down weekdays: part 3/3
-        /* WeekPlanner Firestore+Room part 1/4: Add button  */
+            holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                NetworkChecker networkChecker = NetworkChecker.getInstance();
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                if(!networkChecker.checkIfInternetIsConnected()){
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else if (networkChecker.checkIfInternetIsConnected()){
-                    String daySelected = parent.getItemAtPosition(positionDay).toString();
-                    checkIfItemAlreadyExistsInWeekPlan(meals.get(position),daySelected);
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
+                    }
+
 
                 }
+            });
 
-            }
-        });
+            //For drop down weekdays: part 3/3
+            /* WeekPlanner Firestore+Room part 1/4: Add button  */
+
+            holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
+
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        String daySelected = parent.getItemAtPosition(positionDay).toString();
+                        checkIfItemAlreadyExistsInWeekPlan(meals.get(position), daySelected);
 
 
 
-    } else if(MainActivity.isLoginAsGuest == true){
+
+                    }
+
+                }
+            });
+
+
+        } else if (MainActivity.isLoginAsGuest == true) {
             holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -177,16 +182,13 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             });
 
             holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
-                Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                    Toast.makeText(viewGroupOfMeal.getContext(), "You need to log in to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-       }
-
-
-
+        }
 
 
         // to make scrolling infinite part 2/2
@@ -195,81 +197,87 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         }
 
 
-
-
     }
 
 
     private void checkIfItemAlreadyExistsInFavoritesOfFirestore(MealsItem mealsItemSelected) {
+
         isAlreadyInFavorites = false;
         FirebaseFirestore.getInstance().collection("userFavorites")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                            @Override
                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                               mealsItemSelected.setWeekDay("NULL");
+
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                         if(document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                                                             isAlreadyInFavorites = true;
-                                                        }
+                                                       if (document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                                                           isAlreadyInFavorites = true;
+                                                           mealsItemSelected.documentID = document.getId();
+                                                       }
                                                    }
-                                                   if(!isAlreadyInFavorites){
+                                                   if (!isAlreadyInFavorites) {
+
                                                        uploadDataToFireStoreInFavorites(mealsItemSelected);
-                                                   } else{
+                                                   } else {
                                                        AlertDialog.Builder builder = new AlertDialog.Builder(viewGroupOfMeal.getContext());
                                                        builder.setTitle("This item is already in your favorite meals list.");
                                                        builder.setMessage("Would you like to remove it?");
                                                        builder.setCancelable(true);
 
-                                                           builder.setPositiveButton("Remove it.", (DialogInterface.OnClickListener) (dialog, which) -> {
-                                                               if(!networkChecker.checkIfInternetIsConnected()){
-                                                                   MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                                                                       @Override
-                                                                       public void run() {
-                                                                           Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to remove meals from your favorites.", Toast.LENGTH_SHORT).show();
-                                                                       }
-                                                                   });
+                                                       builder.setPositiveButton("Remove it.", (DialogInterface.OnClickListener) (dialog, which) -> {
+                                                           if (!networkChecker.checkIfInternetIsConnected()) {
+                                                               MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                                                                   @Override
+                                                                   public void run() {
+                                                                       Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to remove meals from your favorites.", Toast.LENGTH_SHORT).show();
+                                                                   }
+                                                               });
 
-                                                               } else if (networkChecker.checkIfInternetIsConnected()){
-                                                                   progressDialog = new ProgressDialog(viewGroupOfMeal.getContext());
-                                                                   progressDialog.setTitle("Removing favorites");
-                                                                   progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
-                                                                   progressDialog.setCanceledOnTouchOutside(true);
-                                                                   progressDialog.show();
-                                                                   FirebaseFirestore.getInstance().collection("userFavorites").document(mealsItemSelected.documentID)
-                                                                           .delete()
-                                                                           .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                               @Override
-                                                                               public void onSuccess(Void aVoid) {
-                                                                                   progressDialog.dismiss();
-                                                                                   Toast.makeText(viewGroupOfMeal.getContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
-                                                                                   Log.i(TAG, "DocumentSnapshot successfully deleted!");
+                                                           } else if (networkChecker.checkIfInternetIsConnected()) {
+                                                               progressDialog = new ProgressDialog(viewGroupOfMeal.getContext());
+                                                               progressDialog.setTitle("Removing favorites");
+                                                               progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
+                                                               progressDialog.setCanceledOnTouchOutside(true);
+                                                               progressDialog.show();
 
-                                                                                   rep=new RepositoryLocal(viewGroupOfMeal.getContext());
-                                                                                   rep.delete(mealsItemSelected);
+                                                               FirebaseFirestore.getInstance().collection("userFavorites").document(mealsItemSelected.documentID)
+                                                                       .delete()
+                                                                       .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                           @Override
+                                                                           public void onSuccess(Void aVoid) {
+                                                                               progressDialog.dismiss();
 
-                                                                               }
-                                                                           })
-                                                                           .addOnFailureListener(new OnFailureListener() {
-                                                                               @Override
-                                                                               public void onFailure(@NonNull Exception e) {
-                                                                                   progressDialog.dismiss();
-                                                                                   Toast.makeText(viewGroupOfMeal.getContext(), "Item removal failed", Toast.LENGTH_SHORT).show();
-                                                                                   Log.i(TAG, "Error deleting document", e);
-                                                                               }
-                                                                           });
-                                                               }
+                                                                               Toast.makeText(viewGroupOfMeal.getContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
+                                                                               Log.i(TAG, "DocumentSnapshot successfully deleted!");
 
-                                                           });
-                                                           builder.setNegativeButton("Keep it.", (DialogInterface.OnClickListener) (dialog, which) -> {
+                                                                               rep = new RepositoryLocal(viewGroupOfMeal.getContext());
+                                                                               rep.delete(mealsItemSelected);
 
-                                                           });
+                                                                           }
+                                                                       })
+                                                                       .addOnFailureListener(new OnFailureListener() {
+                                                                           @Override
+                                                                           public void onFailure(@NonNull Exception e) {
+                                                                               progressDialog.dismiss();
+                                                                               Toast.makeText(viewGroupOfMeal.getContext(), "Item removal failed", Toast.LENGTH_SHORT).show();
+                                                                               Log.i(TAG, "Error deleting document", e);
+                                                                           }
+                                                                       });
+                                                           }
+
+                                                       });
+                                                       builder.setNegativeButton("Keep it.", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+                                                       });
 
 
                                                        AlertDialog alertDialog = builder.create();
                                                        alertDialog.show();
 
-                                                       }
+                                                   }
                                                } else {
                                                    Log.i(TAG, "Error getting documents.", task.getException());
                                                }
@@ -286,7 +294,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         progressDialog.show();
 
 
-
         Map<String, Object> userFavorites = new HashMap<>();
 
         userFavorites.put("userID", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -297,7 +304,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         userFavorites.put("strMealThumb", mealsItem.getStrMealThumb());
         userFavorites.put("strYoutube", mealsItem.getStrYoutube());
         userFavorites.put("strInstructions", mealsItem.getStrInstructions());
-
+        userFavorites.put("weekDay", "NULL");
 
 
         FirebaseFirestore.getInstance().collection("userFavorites")
@@ -308,7 +315,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
                         rep = new RepositoryLocal(viewGroupOfMeal.getContext());
-                        rep.insert(mealsItem, "NULL",  documentReference.getId());
+                        rep.insert(mealsItem, "NULL", documentReference.getId());
 
                         progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
@@ -328,7 +335,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     }
 
 
-
     private void checkIfItemAlreadyExistsInWeekPlan(MealsItem mealsItemSelected, String weekDay) {
         isAlreadyInFavorites = false;
         FirebaseFirestore.getInstance().collection("userWeekPlan")
@@ -336,25 +342,30 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                            @Override
                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                               mealsItemSelected.setWeekDay(weekDay);
+
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                       mealsItemSelected.setWeekDay(weekDay);
-                                                       mealsItemSelected.setCurrentUserEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-                                                        if(document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) & document.get("weekDay").equals(weekDay)){
+
+                                                       if (document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) & document.get("weekDay").equals(weekDay)) {
                                                            Log.i(TAG, "onComplete: here i am!!");
                                                            isAlreadyInFavorites = true;
+                                                           mealsItemSelected.documentID = document.getId();
                                                        }
                                                    }
-                                                   if(!isAlreadyInFavorites){
+
+                                                   if (!isAlreadyInFavorites) {
+
                                                        uploadDataToFireStoreInWeekPlan(mealsItemSelected, weekDay);
-                                                   } else{
+                                                   } else {
                                                        AlertDialog.Builder builder = new AlertDialog.Builder(viewGroupOfMeal.getContext());
                                                        builder.setTitle("This item is already in your week plan on this day.");
                                                        builder.setMessage("Would you like to remove it?");
                                                        builder.setCancelable(true);
                                                        builder.setPositiveButton("Remove it.", (DialogInterface.OnClickListener) (dialog, which) -> {
-                                                           if(!networkChecker.checkIfInternetIsConnected()){
+                                                           if (!networkChecker.checkIfInternetIsConnected()) {
                                                                MainActivity.mainActivity.runOnUiThread(new Runnable() {
                                                                    @Override
                                                                    public void run() {
@@ -362,7 +373,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                                                    }
                                                                });
 
-                                                           } else if (networkChecker.checkIfInternetIsConnected()){
+                                                           } else if (networkChecker.checkIfInternetIsConnected()) {
                                                                progressDialog = new ProgressDialog(viewGroupOfMeal.getContext());
                                                                progressDialog.setTitle("Removing favorites");
                                                                progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
@@ -379,10 +390,10 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                                                                Log.i(TAG, "DocumentSnapshot successfully deleted!");
                                                                                //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                                                                               rep=new RepositoryLocal(viewGroupOfMeal.getContext());
+                                                                               rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                                                                                rep.delete(mealsItemSelected);
 
-                                                                               if(mealsItemSelected.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                                                               if (weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                                                                                    PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItemSelected);
 
 
@@ -397,8 +408,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                                                                            }
                                                                        });
                                                            }
-
-
 
 
                                                        });
@@ -439,7 +448,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         userWeekPlan.put("weekDay", weekDay);
 
 
-
         FirebaseFirestore.getInstance().collection("userWeekPlan")
                 .add(userWeekPlan)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -448,10 +456,12 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
                         rep = new RepositoryLocal(viewGroupOfMeal.getContext());
-                        rep.insert(mealsItem , weekDay, documentReference.getId());
+                        rep.insert(mealsItem, weekDay, documentReference.getId());
 
-                        if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
-                        PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
+                        //Log.i(TAG, "onSuccess: " + LocalDate.now().getDayOfWeek().name().toLowerCase());
+
+                        if (weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                            PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
 
                         progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
@@ -462,7 +472,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
                         progressDialog.dismiss();
-                        Toast.makeText(viewGroupOfMeal.getContext(), "Error while adding the item" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(viewGroupOfMeal.getContext(), "Error while adding the item", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -482,6 +492,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         //For drop down weekdays: part 2/3
         AutoCompleteTextView autoCompleteTextView;
         TextInputLayout textInputLayout;
+        //View viewSlider;
 
         SliderViewHolder(@NonNull View itemView) {
 
@@ -490,11 +501,13 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             tv_mealName = itemView.findViewById(R.id.tv_mealName);
             btn_addToFavorites = itemView.findViewById(R.id.btn_addToFavorites);
 
+            //viewSlider = itemView.findViewById(R.id.viewSlider);
+
 
             //For drop down weekdays: part 2/3
             autoCompleteTextView = itemView.findViewById(R.id.auto_complete_textview);
             textInputLayout = itemView.findViewById(R.id.text_input_layout);
-            arrayAdapter = new ArrayAdapter<String>(viewGroupOfMeal.getContext(), R.layout.list_weekdays  , weekDays);
+            arrayAdapter = new ArrayAdapter<String>(viewGroupOfMeal.getContext(), R.layout.list_weekdays, weekDays);
             autoCompleteTextView.setAdapter(arrayAdapter);
 
         }
