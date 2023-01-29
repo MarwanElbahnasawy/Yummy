@@ -190,4 +190,10 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        int size = mealsWeekPlanner.size();
+        mealsWeekPlanner.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
 }

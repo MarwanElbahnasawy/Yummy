@@ -44,6 +44,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     private List<MealsItem> allSavedMeals = new ArrayList<>();
     private List<MealsItem> mealsWeekPlannedToday = new ArrayList<>();
     ProgressBar progressBar;
+    Boolean isPlannedTodayAdapterInstanceCreated = false;
 
 
 
@@ -51,7 +52,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -155,6 +155,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     }
 
     private void getMealsPlannedForToday() {
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewPlanToday.setHasFixedSize(true);
@@ -177,6 +178,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         plannedTodayAdapter= PlannedTodayAdapter.getInstanceProvidingMeals(mealsWeekPlannedToday);
         recyclerViewPlanToday.setAdapter(plannedTodayAdapter);
+        isPlannedTodayAdapterInstanceCreated = true;
     }
 
     @Override
@@ -193,6 +195,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         //to handle sliding at onResume
         sliderHandler.postDelayed(sliderRunnable, 5000);
         mealsWeekPlannedToday.clear();
+
         Log.i(TAG, "onResume: ");
     }
     private void hideProgress() {

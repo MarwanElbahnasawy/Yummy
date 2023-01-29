@@ -386,13 +386,12 @@ public class RepositoryRemote {
     }
 
     public void deleteDataForThisUser() {
-        getMealsToBeDeleted();
-
-
+        List<String> documentIDs = new ArrayList<>();
+        getMealsToBeDeletedFromFavorites(documentIDs);
     }
 
-    private void getMealsToBeDeleted() {
-        List<String> documentIDs = new ArrayList<>();
+    private void getMealsToBeDeletedFromFavorites(List<String> documentIDs) {
+
         FirebaseFirestore.getInstance().collection("userFavorites")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -402,41 +401,118 @@ public class RepositoryRemote {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
 
                                                        if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                                                           documentIDs.add(document.getId());
+                                                           //documentIDs.add(document.getId());
+                                                           FirebaseFirestore.getInstance().collection("userFavorites").document(document.getId())
+                                                                   .delete();
                                                        }
                                                    }
-                                                   deleteMeals(documentIDs);
+                                                   //getMealsToBeDeletedFromWeekPlan(documentIDs);
                                                } else {
                                                    Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
                                                }
                                            }
                                        }
                 );
+
+        FirebaseFirestore.getInstance().collection("userWeekPlan")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                           @Override
+                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                               if (task.isSuccessful()) {
+                                                   for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                           FirebaseFirestore.getInstance().collection("userWeekPlan").document(document.getId())
+                                                                   .delete();
+                                                       }
+                                                   }
+                                                   //deleteMealsFromFavorites(documentIDs);
+                                                   interfaceMain.onFinishedDeletingItemsOfThisAccount();
+                                               } else {
+                                                   Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
+                                               }
+                                           }
+                                       }
+                );
+
+
+
     }
 
-    private void deleteMeals(List<String> documentIDs) {
-        for (String documentid : documentIDs){
-            FirebaseFirestore.getInstance().collection("userFavorites").document(documentid)
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.i(TAG, "DocumentSnapshot successfully deleted!");
+//    private void getMealsToBeDeletedFromWeekPlan(List<String> documentIDs) {
+//        FirebaseFirestore.getInstance().collection("userWeekPlan")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                           @Override
+//                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                               if (task.isSuccessful()) {
+//                                                   for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+//                                                           documentIDs.add(document.getId());
+//                                                       }
+//                                                   }
+//                                                   deleteMealsFromFavorites(documentIDs);
+//                                               } else {
+//                                                   Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
+//                                               }
+//                                           }
+//                                       }
+//                );
+//    }
+//
+//    private void deleteMealsFromFavorites(List<String> documentIDs) {
+//        List<String> documentIDsAfterDeletionFromFavorites = new ArrayList<>();
+//        documentIDsAfterDeletionFromFavorites = documentIDs;
+//        for (int i = 0 ; i<documentIDs.size() ; i++) {
+//            FirebaseFirestore.getInstance().collection("userFavorites").document(documentIDs.get(i))
+//                    .delete()
+//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Log.i(TAG, "DocumentSnapshot successfully deleted!");
+//                            documentIDsAfterDeletionFromFavorites.remove(i);
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.i(TAG, "Error deleting document", e);
+//                        }
+//                    });
+//
+//
+//
+//        }
+//        deleteMealsFromWeekPlanner(documentIDsAfterDeletionFromFavorites);
+//    }
+//
+//    private void deleteMealsFromWeekPlanner(List<String> documentIDsAfterDeletionFromFavorites) {
+//        for (int i = 0 ; i<documentIDsAfterDeletionFromFavorites.size() ; i++) {
+//            FirebaseFirestore.getInstance().collection("userWeekPlan").document(documentIDsAfterDeletionFromFavorites.get(i))
+//                    .delete()
+//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Log.i(TAG, "DocumentSnapshot successfully deleted!");
+//
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.i(TAG, "Error deleting document", e);
+//                        }
+//                    });
+//        }
+//        interfaceMain.onFinishedDeletingItemsOfThisAccount();
+//        }
 
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.i(TAG, "Error deleting document", e);
-                        }
-                    });
-        }
-        interfaceMain.onFinishedDeletingItemsOfThisAccount();
 
-    }
 
     public void deleteAccount() {
         firebaseAuth.getCurrentUser().delete();
+        interfaceMain.onFinishedDeletingAccount();
     }
 }

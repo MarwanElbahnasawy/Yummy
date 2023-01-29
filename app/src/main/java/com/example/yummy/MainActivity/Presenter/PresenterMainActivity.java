@@ -35,7 +35,7 @@ public class PresenterMainActivity {
     }
 
     public void deleteAccount() {
-        repositoryRemote = new RepositoryRemote();
+        repositoryRemote = new RepositoryRemote(interfaceMain);
         repositoryRemote.deleteAccount();
     }
 

@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yummy.DailyInspiration.View.PlannedTodayAdapter;
 import com.example.yummy.MainActivity.Presenter.InterfaceMain;
 import com.example.yummy.MainActivity.Presenter.PresenterMainActivity;
 import com.example.yummy.R;
@@ -245,7 +246,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             
             toastLogOut = new Toast(this);
             toastLogOut.makeText(MainActivity.this, R.string.logout, Toast.LENGTH_SHORT).show();
-            
+
+
             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_signIn);
         } else {
             Toast.makeText(MainActivity.this, R.string.loggingOut, Toast.LENGTH_SHORT).show();
@@ -254,8 +256,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
     private void drawerDeleteAccount() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.DeleteAccount);
-        builder.setTitle(R.string.WaitAreYouSure);
+        builder.setMessage(R.string.WaitAreYouSure);
+        builder.setTitle(R.string.DeleteAccount);
         builder.setCancelable(true);
 
 
@@ -363,11 +365,24 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
     @Override
     public void onFinishedDeletingItemsOfThisAccount() {
-        presenterMainActivity = new PresenterMainActivity();
+        presenterMainActivity = new PresenterMainActivity((InterfaceMain) this);
         presenterMainActivity.deleteAccount();
-        drawerLogOut();
-        toastLogOut.cancel();
+
+    }
+
+    @Override
+    public void onFinishedDeletingAccount() {
+        presenterMainActivity = new PresenterMainActivity((Context) this);
+        presenterMainActivity.deleteTableRoom();
+
+        PlannedTodayAdapter.getInstance().clear();
+
+        while (navController.popBackStack() == true) {
+        }
+
         Toast.makeText(mainActivity, R.string.deleteAcount, Toast.LENGTH_SHORT).show();
+
+        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_signIn);
     }
 
     @Override
