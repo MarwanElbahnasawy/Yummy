@@ -6,7 +6,7 @@ public class RootCategoriesList {
 
     private List<EachCategoryModel> meals;
 
-    public List<EachCategoryModel> getCategories(){
+    public List<EachCategoryModel> getCategories() {
         return meals;
     }
 }

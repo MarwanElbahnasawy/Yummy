@@ -1,12 +1,10 @@
 package com.example.yummy.Register.Presenter;
 
 
-
 import android.content.Context;
 
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Repository.Model.RepositoryRemote;
-
 
 
 public class PresenterRegister {
@@ -34,7 +32,6 @@ public class PresenterRegister {
         repositoryRemote = new RepositoryRemote(interfaceRegister);
         repositoryRemote.createUserWithEmailAndPassword(email, password);
     }
-
 
 
 }

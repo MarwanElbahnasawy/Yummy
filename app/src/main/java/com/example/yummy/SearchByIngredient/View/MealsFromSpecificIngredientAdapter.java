@@ -65,14 +65,14 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
 
     public MealsFromSpecificIngredientAdapter(List<MealsItem> meals, NavController navController) {
         this.meals = meals;
-        this.navController =navController;
+        this.navController = navController;
 
     }
 
     @NonNull
     @Override
     public MealsFromSpecificIngredientAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        viewGroupOfMeal =parent;
+        viewGroupOfMeal = parent;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_meal_items_all, parent, false);
         return new MealsFromSpecificIngredientAdapter.MyViewHolder(view);
     }
@@ -86,7 +86,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
             @Override
             public void onClick(View v) {
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     MainActivity.mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -94,7 +94,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                         }
                     });
 
-                } else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
                     RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(meals.get(position).getIdMeal()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -125,7 +125,6 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                 }
 
 
-
             }
         });
 
@@ -135,7 +134,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
 
                 NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     MainActivity.mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -143,7 +142,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                         }
                     });
 
-                } else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
                     checkIfItemAlreadyExistsInFavoritesOfFirestore(meals.get(position));
                 }
 
@@ -160,16 +159,16 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
 
                 NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     MainActivity.mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
                     String daySelected = parent.getItemAtPosition(positionDay).toString();
-                    checkIfItemAlreadyExistsInWeekPlan(meals.get(position),daySelected);
+                    checkIfItemAlreadyExistsInWeekPlan(meals.get(position), daySelected);
 
                 }
 
@@ -177,7 +176,6 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
         });
 
     }
-
 
 
     @Override
@@ -195,15 +193,15 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mealName=itemView.findViewById(R.id.area_meal);
-            mealImage=itemView.findViewById(R.id.areaMeal_image);
-            btn_addToFavorites=itemView.findViewById(R.id.btn_add_favourite_search);
-            autoCompleteTextView=itemView.findViewById(R.id.auto_complete_textview_search);
+            mealName = itemView.findViewById(R.id.area_meal);
+            mealImage = itemView.findViewById(R.id.areaMeal_image);
+            btn_addToFavorites = itemView.findViewById(R.id.btn_add_favourite_search);
+            autoCompleteTextView = itemView.findViewById(R.id.auto_complete_textview_search);
             textInputLayout = itemView.findViewById(R.id.text_input_layout);
 
             imageView = itemView.findViewById(R.id.imageViewAll);
 
-            arrayAdapter = new ArrayAdapter<String>(viewGroupOfMeal.getContext(), R.layout.list_weekdays  , weekDays);
+            arrayAdapter = new ArrayAdapter<String>(viewGroupOfMeal.getContext(), R.layout.list_weekdays, weekDays);
             autoCompleteTextView.setAdapter(arrayAdapter);
 
         }
@@ -219,28 +217,31 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                                                mealsItemSelected.setWeekDay("NULL");
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                       if(document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                       if (document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                                                            isAlreadyInFavorites = true;
                                                            mealsItemSelected.documentID = document.getId();
                                                        }
                                                    }
-                                                   if(!isAlreadyInFavorites){
+                                                   if (!isAlreadyInFavorites) {
                                                        RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(mealsItemSelected.getIdMeal()))
                                                                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                                                                       next -> {mealsItemSelectedFull = next.getMeals().get(0);} ,
-                                                                       error -> {},
+                                                                       next -> {
+                                                                           mealsItemSelectedFull = next.getMeals().get(0);
+                                                                       },
+                                                                       error -> {
+                                                                       },
                                                                        () -> {
                                                                            uploadDataToFireStoreInFavorites(mealsItemSelectedFull);
                                                                        }
                                                                );
-                                                   } else{
+                                                   } else {
                                                        AlertDialog.Builder builder = new AlertDialog.Builder(viewGroupOfMeal.getContext());
                                                        builder.setTitle("This item is already in your favorite meals list.");
                                                        builder.setMessage("Would you like to remove it?");
                                                        builder.setCancelable(true);
 
                                                        builder.setPositiveButton("Remove it.", (DialogInterface.OnClickListener) (dialog, which) -> {
-                                                           if(!networkChecker.checkIfInternetIsConnected()){
+                                                           if (!networkChecker.checkIfInternetIsConnected()) {
                                                                MainActivity.mainActivity.runOnUiThread(new Runnable() {
                                                                    @Override
                                                                    public void run() {
@@ -248,7 +249,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                                                                    }
                                                                });
 
-                                                           } else if (networkChecker.checkIfInternetIsConnected()){
+                                                           } else if (networkChecker.checkIfInternetIsConnected()) {
                                                                progressDialog = new ProgressDialog(viewGroupOfMeal.getContext());
                                                                progressDialog.setTitle("Removing favorites");
                                                                progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
@@ -263,7 +264,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                                                                                Toast.makeText(viewGroupOfMeal.getContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
                                                                                Log.i(TAG, "DocumentSnapshot successfully deleted!");
 
-                                                                               rep=new RepositoryLocal(viewGroupOfMeal.getContext());
+                                                                               rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                                                                                rep.delete(mealsItemSelected);
 
                                                                            }
@@ -304,7 +305,6 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
         progressDialog.show();
 
 
-
         Map<String, Object> userFavorites = new HashMap<>();
 
         userFavorites.put("userID", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -318,7 +318,6 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
         userFavorites.put("weekDay", "NULL");
 
 
-
         FirebaseFirestore.getInstance().collection("userFavorites")
                 .add(userFavorites)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -327,7 +326,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
                         rep = new RepositoryLocal(viewGroupOfMeal.getContext());
-                        rep.insert(mealsItem, "NULL",  documentReference.getId());
+                        rep.insert(mealsItem, "NULL", documentReference.getId());
 
                         progressDialog.dismiss();
                         Toast.makeText(viewGroupOfMeal.getContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
@@ -345,7 +344,6 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
 
 
     }
-
 
 
     private void checkIfItemAlreadyExistsInWeekPlan(MealsItem mealsItemSelected, String weekDay) {
@@ -368,8 +366,11 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                                                    if (!isAlreadyInFavorites) {
                                                        RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(mealsItemSelected.getIdMeal()))
                                                                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                                                                       next -> {mealsItemSelectedFull = next.getMeals().get(0);} ,
-                                                                       error -> {},
+                                                                       next -> {
+                                                                           mealsItemSelectedFull = next.getMeals().get(0);
+                                                                       },
+                                                                       error -> {
+                                                                       },
                                                                        () -> {
                                                                            uploadDataToFireStoreInWeekPlan(mealsItemSelectedFull, weekDay);
                                                                        }
@@ -408,7 +409,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                                                                                rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                                                                                rep.delete(mealsItemSelected);
 
-                                                                               if(weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                                                               if (weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                                                                                    PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItemSelected);
 
 
@@ -473,7 +474,7 @@ public class MealsFromSpecificIngredientAdapter extends RecyclerView.Adapter<Mea
                         rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                         rep.insert(mealsItem, weekDay, documentReference.getId());
 
-                        if(weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                        if (weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                             PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
 
                         progressDialog.dismiss();

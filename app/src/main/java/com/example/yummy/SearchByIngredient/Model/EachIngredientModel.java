@@ -6,19 +6,19 @@ public class EachIngredientModel {
     private Object strType;
     private String idIngredient;
 
-    public String getStrDescription(){
+    public String getStrDescription() {
         return strDescription;
     }
 
-    public String getStrIngredient(){
+    public String getStrIngredient() {
         return strIngredient;
     }
 
-    public Object getStrType(){
+    public Object getStrType() {
         return strType;
     }
 
-    public String getIdIngredient(){
+    public String getIdIngredient() {
         return idIngredient;
     }
 }

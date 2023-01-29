@@ -15,11 +15,11 @@ public abstract class DB extends RoomDatabase {
 
     public abstract MealDAO mealDAO();
 
-    public static synchronized DB getInstance(Context context){
+    public static synchronized DB getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), DB.class, "Meal").build();
         }
         return instance;
-        }
+    }
 
 }

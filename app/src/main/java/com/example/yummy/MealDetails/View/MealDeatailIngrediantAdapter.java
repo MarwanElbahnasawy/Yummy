@@ -23,7 +23,7 @@ public class MealDeatailIngrediantAdapter extends RecyclerView.Adapter<MealDeata
 
     public MealDeatailIngrediantAdapter(List<String> mealsItems, List<String> megure) {
         this.mealsItems = mealsItems;
-        this.megure=megure;
+        this.megure = megure;
     }
 
     @NonNull
@@ -52,14 +52,14 @@ public class MealDeatailIngrediantAdapter extends RecyclerView.Adapter<MealDeata
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView ingrediant,megure;
+        TextView ingrediant, megure;
         CircleImageView imageView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ingrediant = itemView.findViewById(R.id.ingrediant_text);
             imageView = itemView.findViewById(R.id.ingrediant_image);
-            megure=itemView.findViewById(R.id.megure_text);
+            megure = itemView.findViewById(R.id.megure_text);
         }
     }
 }

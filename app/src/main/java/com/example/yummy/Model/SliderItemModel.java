@@ -8,12 +8,12 @@ public class SliderItemModel {
     private String imageURL;
     private String mealName;
 
-    public SliderItemModel(String imageURL, String mealName){
+    public SliderItemModel(String imageURL, String mealName) {
         this.imageURL = imageURL;
         this.mealName = mealName;
     }
 
-    public String getImageURL(){
+    public String getImageURL() {
         return imageURL;
     }
 

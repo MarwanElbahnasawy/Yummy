@@ -186,7 +186,7 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
 
             imageView = itemView.findViewById(R.id.imageViewAll);
 
-            arrayAdapter = new ArrayAdapter<String>(viewGroup.getContext(), R.layout.list_weekdays  , weekDays);
+            arrayAdapter = new ArrayAdapter<String>(viewGroup.getContext(), R.layout.list_weekdays, weekDays);
             autoCompleteTextView.setAdapter(arrayAdapter);
 
         }
@@ -241,7 +241,6 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
 
                                                                                rep = new RepositoryLocal(viewGroup.getContext());
                                                                                rep.delete(mealsItemSelected);
-
 
 
                                                                            }
@@ -376,7 +375,7 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
                                                                                rep = new RepositoryLocal(viewGroup.getContext());
                                                                                rep.delete(mealsItemSelected);
 
-                                                                               if(weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                                                               if (weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                                                                                    PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItemSelected);
 
 
@@ -441,7 +440,7 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
                         rep = new RepositoryLocal(viewGroup.getContext());
                         rep.insert(mealsItem, weekDay, documentReference.getId());
 
-                        if(weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                        if (weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                             PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
 
                         progressDialog.dismiss();

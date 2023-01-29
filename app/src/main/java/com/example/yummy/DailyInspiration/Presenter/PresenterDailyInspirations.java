@@ -6,6 +6,7 @@ import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Repository.Model.RepositoryRemote;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class PresenterDailyInspirations {
     }
 
     public void loadRoomFromFirestore() {
-        repositoryLocal = new RepositoryLocal(interfaceDailyInspirations,context);
+        repositoryLocal = new RepositoryLocal(interfaceDailyInspirations, context);
         repositoryLocal.loadRoomFromFirestore();
     }
 

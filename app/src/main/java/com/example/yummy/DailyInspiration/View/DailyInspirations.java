@@ -47,8 +47,6 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     Boolean isPlannedTodayAdapterInstanceCreated = false;
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,21 +76,16 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         presenterDailyInspirations.getDailyInspirations();
 
-        if (!MainActivity.isLoginAsGuest){
+        if (!MainActivity.isLoginAsGuest) {
             presenterDailyInspirations.loadRoomFromFirestore();
         }
 
-        if (!MainActivity.isLoginAsGuest){
+        if (!MainActivity.isLoginAsGuest) {
             presenterDailyInspirations.loadHeaderTitle();
         }
 
 
-
-
-
-
     }
-
 
 
     //for auto sliding part 2/2
@@ -105,14 +98,11 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     };
 
 
-
-
-
     @Override
     public void responseOfDataOnSuccess(List<MealsItem> mealsList) {
         viewPager2.setAdapter(new SliderAdapter(mealsList, viewPager2));
 
-        hideProgress() ;
+        hideProgress();
 
         //for slider to show 3 cards next to each other
         viewPager2.setClipToPadding(false);
@@ -162,21 +152,21 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         recyclerViewPlanToday.setLayoutManager(linearLayoutManager);
         List<MealsItem> returnStoredMealsItemsWithWeekDayNotNull = new ArrayList<>();
 
-        for(MealsItem mealsItem: allSavedMeals){
-            if(!mealsItem.getWeekDay().equals("NULL")){
+        for (MealsItem mealsItem : allSavedMeals) {
+            if (!mealsItem.getWeekDay().equals("NULL")) {
                 returnStoredMealsItemsWithWeekDayNotNull.add(mealsItem);
             }
         }
 
 
-        for(MealsItem mealsItem: returnStoredMealsItemsWithWeekDayNotNull){
-            if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase())){
+        for (MealsItem mealsItem : returnStoredMealsItemsWithWeekDayNotNull) {
+            if (mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase())) {
                 mealsWeekPlannedToday.add(mealsItem);
             }
         }
 
 
-        plannedTodayAdapter= PlannedTodayAdapter.getInstanceProvidingMeals(mealsWeekPlannedToday);
+        plannedTodayAdapter = PlannedTodayAdapter.getInstanceProvidingMeals(mealsWeekPlannedToday);
         recyclerViewPlanToday.setAdapter(plannedTodayAdapter);
         isPlannedTodayAdapterInstanceCreated = true;
     }
@@ -198,6 +188,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         Log.i(TAG, "onResume: ");
     }
+
     private void hideProgress() {
         progressBar.setVisibility(View.GONE);
     }

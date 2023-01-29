@@ -78,8 +78,6 @@ public class RepositoryRemote {
     List<EachIngredientModel> ingredients;
 
 
-
-
     public RepositoryRemote(InterfaceDailyInspirations interfaceDailyInspirations) {
         this.interfaceDailyInspirations = interfaceDailyInspirations;
     }
@@ -149,7 +147,7 @@ public class RepositoryRemote {
                 .subscribe(
                         response -> {
 
-                            for(int i = 0 ; i<response.getMeals().size() ; i++){
+                            for (int i = 0; i < response.getMeals().size(); i++) {
                                 meals.add(response.getMeals().get(i));
                             }
 
@@ -166,14 +164,14 @@ public class RepositoryRemote {
     }
 
     public void createUserWithEmailAndPassword(String email, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 interfaceRegister.onCompleteRegisterWithEmailAndPassword(task);
             }
         });
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 interfaceRegister.onFailureRegisterWithEmailAndPassword(e);
@@ -191,7 +189,7 @@ public class RepositoryRemote {
                 },
                 error -> {
                     error.printStackTrace();
-                } ,
+                },
                 () -> {
                     interfaceAllAreas.responseOfDataOnSuccess(areas);
                 }
@@ -204,15 +202,15 @@ public class RepositoryRemote {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        next->{
+                        next -> {
 
-                            meals =  next.getMeals();
+                            meals = next.getMeals();
 
 
                         },
-                        error->{
+                        error -> {
                             Log.i(TAG, "onViewCreated: " + error.getMessage());
-                        } ,
+                        },
                         () -> {
                             interfaceMealFromSpecificArea.responseOfDataOnSuccess(meals);
                         }
@@ -229,11 +227,10 @@ public class RepositoryRemote {
                     Log.i(TAG, "getAllCategories:---------------- " + categories.size());
 
 
-
                 },
                 error -> {
                     error.printStackTrace();
-                } ,
+                },
                 () -> {
                     interfaceAllCategories.responseOfDataOnSuccess(categories);
                 }
@@ -254,7 +251,7 @@ public class RepositoryRemote {
                         },
                         error -> {
                             Log.i(TAG, "getCategoryMeal: " + error.getMessage());
-                        } ,
+                        },
                         () -> {
                             interfaceMealFromSpecificCategory.responseOfDataOnSuccess(meals);
 
@@ -273,8 +270,8 @@ public class RepositoryRemote {
                 },
                 error -> {
                     error.printStackTrace();
-                } ,
-                ()->{
+                },
+                () -> {
                     interfaceAllIngredients.responseOfDataOnSuccess(ingredients);
                 }
         );
@@ -294,12 +291,10 @@ public class RepositoryRemote {
                             meals = next.getMeals();
 
 
-
-
                         },
                         error -> {
                             Log.i(TAG, "onViewCreated: " + error.getMessage());
-                        } ,
+                        },
                         () -> {
                             interfaceMealFromSpecificIngredient.responseOfDataOnSuccess(meals);
                         }
@@ -311,18 +306,17 @@ public class RepositoryRemote {
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 response -> {
 
-                    if (response.getMeals() != null){
+                    if (response.getMeals() != null) {
                         meals = response.getMeals();
 
                     }
 
 
-
                 },
                 error -> {
                     error.printStackTrace();
-                } ,
-                ()->{
+                },
+                () -> {
                     interfaceAllMeals.responseOfDataOnSuccess(meals);
                 }
         );
@@ -351,7 +345,6 @@ public class RepositoryRemote {
                 .requestEmail()
                 .build();
         GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);
-
 
 
         Intent signInIntent = gsc.getSignInIntent();
@@ -400,7 +393,7 @@ public class RepositoryRemote {
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                       if (document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                                                            //documentIDs.add(document.getId());
                                                            FirebaseFirestore.getInstance().collection("userFavorites").document(document.getId())
                                                                    .delete();
@@ -422,7 +415,7 @@ public class RepositoryRemote {
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                       if (document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                                                            FirebaseFirestore.getInstance().collection("userWeekPlan").document(document.getId())
                                                                    .delete();
                                                        }
@@ -435,7 +428,6 @@ public class RepositoryRemote {
                                            }
                                        }
                 );
-
 
 
     }
@@ -508,7 +500,6 @@ public class RepositoryRemote {
 //        }
 //        interfaceMain.onFinishedDeletingItemsOfThisAccount();
 //        }
-
 
 
     public void deleteAccount() {

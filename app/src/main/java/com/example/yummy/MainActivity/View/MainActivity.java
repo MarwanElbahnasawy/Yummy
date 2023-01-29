@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         navigationView = findViewById(R.id.nav_view);
 
 
-
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -153,16 +152,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             @Override
             public void onClick(View view) {
 
-                
 
-
-                if(navigationView.getVisibility() == View.GONE){
+                if (navigationView.getVisibility() == View.GONE) {
                     navigationView.setVisibility(View.VISIBLE);
-                } else{
+                } else {
                     navigationView.setVisibility(View.GONE);
                 }
-
-
 
 
             }
@@ -173,37 +168,36 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 
-                    switch (item.getItemId()) {
-                        case R.id.drawerChangeAppLanguage:
-                            navigationView.setVisibility(View.GONE);
-                            drawerChangeAppLanguage();
-                            break;
+                switch (item.getItemId()) {
+                    case R.id.drawerChangeAppLanguage:
+                        navigationView.setVisibility(View.GONE);
+                        drawerChangeAppLanguage();
+                        break;
 
-                        case R.id.drawerLogout:
-                            navigationView.setVisibility(View.GONE);
-                            drawerLogOut();
-                            break;
+                    case R.id.drawerLogout:
+                        navigationView.setVisibility(View.GONE);
+                        drawerLogOut();
+                        break;
 
-                        case R.id.drawerDeleteAcount:
-                            if(isLoginAsGuest){
+                    case R.id.drawerDeleteAcount:
+                        if (isLoginAsGuest) {
+                            Toast.makeText(MainActivity.this, R.string.needAcount, Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (!networkChecker.checkIfInternetIsConnected()) {
                                 Toast.makeText(MainActivity.this, R.string.needAcount, Toast.LENGTH_SHORT).show();
-                            } else{
-                                if (!networkChecker.checkIfInternetIsConnected()) {
-                                    Toast.makeText(MainActivity.this, R.string.needAcount, Toast.LENGTH_SHORT).show();
-                                } else{
-                                    navigationView.setVisibility(View.GONE);
-                                    drawerDeleteAccount();
-                                }
-
+                            } else {
+                                navigationView.setVisibility(View.GONE);
+                                drawerDeleteAccount();
                             }
-                            
-                            break;
-                    }
+
+                        }
+
+                        break;
+                }
 
                 return false;
             }
         });
-
 
 
         View headerView = navigationView.getHeaderView(0);
@@ -213,16 +207,16 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
     }
 
     private void drawerChangeAppLanguage() {
-        if(Locale.getDefault().getDisplayLanguage().toString().equals("English")){
+        if (Locale.getDefault().getDisplayLanguage().toString().equals("English")) {
             setLocale("ar");
-        }
-          else{
+        } else {
             setLocale("en");
         }
 
         recreate();
 
     }
+
     public void setLocale(String lang) {
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
@@ -243,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
             while (navController.popBackStack() == true) {
             }
-            
+
             toastLogOut = new Toast(this);
             toastLogOut.makeText(MainActivity.this, R.string.logout, Toast.LENGTH_SHORT).show();
 
@@ -269,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                         Toast.makeText(MainActivity.mainActivity, R.string.turnOnInternent, Toast.LENGTH_SHORT).show();
                     }
                 });
-            } else{
+            } else {
                 presenterMainActivity = new PresenterMainActivity((InterfaceMain) this);
                 presenterMainActivity.deleteAccountData();
             }

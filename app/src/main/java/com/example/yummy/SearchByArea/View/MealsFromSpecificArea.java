@@ -39,8 +39,8 @@ public class MealsFromSpecificArea extends Fragment implements InterfaceMealFrom
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.rv_MealByArea);
-            searchTextInput=view.findViewById(R.id.textInput_Meal_search);
-            String areaSelected = MealsFromSpecificAreaArgs.fromBundle(getArguments()).getArea();
+        searchTextInput = view.findViewById(R.id.textInput_Meal_search);
+        String areaSelected = MealsFromSpecificAreaArgs.fromBundle(getArguments()).getArea();
 
         tv_areaSelected = view.findViewById(R.id.tv_areaSelected);
         tv_areaSelected.setText(areaSelected);
@@ -49,22 +49,20 @@ public class MealsFromSpecificArea extends Fragment implements InterfaceMealFrom
         presenterMealFromSpecificArea.getMealFromSpecificArea(areaSelected);
 
 
-
         searchTextInput.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    mealsFromSpecificAreaAdapter = new MealsFromSpecificAreaAdapter(mealsItemList.stream().filter(
-                            mealsItem -> mealsItem.getStrMeal().toLowerCase().contains(s.toString().toLowerCase())).collect(Collectors.toList()));
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(mealsFromSpecificAreaAdapter);
+                mealsFromSpecificAreaAdapter = new MealsFromSpecificAreaAdapter(mealsItemList.stream().filter(mealsItem -> mealsItem.getStrMeal().toLowerCase().contains(s.toString().toLowerCase())).collect(Collectors.toList()));
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(mealsFromSpecificAreaAdapter);
 
 
             }
@@ -85,9 +83,7 @@ public class MealsFromSpecificArea extends Fragment implements InterfaceMealFrom
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
         return inflater.inflate(R.layout.fragment_meal_by_country, container, false);

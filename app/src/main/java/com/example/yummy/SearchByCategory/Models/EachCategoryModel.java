@@ -4,7 +4,7 @@ public class EachCategoryModel {
 
     private String strCategory;
 
-    public String getStrCategory(){
+    public String getStrCategory() {
         return strCategory;
     }
 }

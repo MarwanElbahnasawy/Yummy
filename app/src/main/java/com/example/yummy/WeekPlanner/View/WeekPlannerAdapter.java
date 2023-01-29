@@ -45,7 +45,6 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
     private ProgressDialog progressDialog;
 
 
-
     public WeekPlannerAdapter(List<MealsItem> mealsWeekPlanner) {
         this.mealsWeekPlanner = mealsWeekPlanner;
     }
@@ -59,7 +58,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
         context = parent.getContext();
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.row_week_planner, parent , false);          //\\\\\\\\\\
+        View itemView = layoutInflater.inflate(R.layout.row_week_planner, parent, false);          //\\\\\\\\\\
         WeekPlannerAdapter.ViewHolder viewHolder = new WeekPlannerAdapter.ViewHolder(itemView);
         Log.i(TAG, "onCreateViewHolder: ");
 
@@ -69,7 +68,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
         progressDialog.setCanceledOnTouchOutside(true);
 
 
-        return  viewHolder;
+        return viewHolder;
 
     }
 
@@ -84,93 +83,87 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
 
         NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-            /* WeekPlanner Firestore + Room part 3/4: Loading in recycler view and Removing */
+        /* WeekPlanner Firestore + Room part 3/4: Loading in recycler view and Removing */
 
-            holder.btn_removeWeekPlannerItem.setOnClickListener(new View.OnClickListener() {        //\\\\\\\
-                @Override
-                public void onClick(View view) {
-
-
-                    if(!networkChecker.checkIfInternetIsConnected()){
-                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to remove meals from your week plan.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    } else if (networkChecker.checkIfInternetIsConnected()){
+        holder.btn_removeWeekPlannerItem.setOnClickListener(new View.OnClickListener() {        //\\\\\\\
+            @Override
+            public void onClick(View view) {
 
 
-                        progressDialog.show();
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to remove meals from your week plan.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()) {
 
 
+                    progressDialog.show();
 
 
+                    FirebaseFirestore.getInstance().collection("userWeekPlan").document(mealsItem.documentID)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.i(TAG, "DocumentSnapshot successfully deleted!");
+                                    //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                        FirebaseFirestore.getInstance().collection("userWeekPlan").document(mealsItem.documentID)
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.i(TAG, "DocumentSnapshot successfully deleted!");
-                                        //(FavoriteMealsAdapter.this).notifyDataSetChanged();
+                                    rep = new RepositoryLocal(context);
+                                    rep.delete(mealsItem);
 
-                                        rep=new RepositoryLocal(context);
-                                        rep.delete(mealsItem);
-
-                                        if(mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
-                                            PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItem);
-
+                                    if (mealsItem.getWeekDay().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                        PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItem);
 
 
-                                        mealsWeekPlanner.remove(position);
-                                        notifyDataSetChanged();
+                                    mealsWeekPlanner.remove(position);
+                                    notifyDataSetChanged();
 
 
+                                    progressDialog.dismiss();
 
 
-                                        progressDialog.dismiss();
-
-
-                                        if(mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Saturday")){
-                                            WeekPlanner.tv_Saturday.setVisibility(View.GONE);
-                                        } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Sunday")){
-                                            WeekPlanner.tv_Sunday.setVisibility(View.GONE);
-                                        } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Monday")){
-                                            WeekPlanner.tv_Monday.setVisibility(View.GONE);
-                                        } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Tuesday")){
-                                            WeekPlanner.tv_Tuesday.setVisibility(View.GONE);
-                                        } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Wednesday")){
-                                            WeekPlanner.tv_Wednesday.setVisibility(View.GONE);
-                                        } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Thursday")){
-                                            WeekPlanner.tv_Thursday.setVisibility(View.GONE);
-                                        } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Friday")){
-                                            WeekPlanner.tv_Friday.setVisibility(View.GONE);
-                                        }
+                                    if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Saturday")) {
+                                        WeekPlanner.tv_Saturday.setVisibility(View.GONE);
+                                    } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Sunday")) {
+                                        WeekPlanner.tv_Sunday.setVisibility(View.GONE);
+                                    } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Monday")) {
+                                        WeekPlanner.tv_Monday.setVisibility(View.GONE);
+                                    } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Tuesday")) {
+                                        WeekPlanner.tv_Tuesday.setVisibility(View.GONE);
+                                    } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Wednesday")) {
+                                        WeekPlanner.tv_Wednesday.setVisibility(View.GONE);
+                                    } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Thursday")) {
+                                        WeekPlanner.tv_Thursday.setVisibility(View.GONE);
+                                    } else if (mealsWeekPlanner.size() == 0 & mealsItem.getWeekDay().equals("Friday")) {
+                                        WeekPlanner.tv_Friday.setVisibility(View.GONE);
                                     }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.i(TAG, "Error deleting document", e);
-                                    }
-                                });
-                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.i(TAG, "Error deleting document", e);
+                                }
+                            });
                 }
-            });
+            }
+        });
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
 
-                    Navigation.findNavController(viewGroup).navigate(WeekPlannerDirections.actionNavWeekPlannerToMealDeatailsFragment(mealsWeekPlanner.get(position)));
-                    //mealsWeekPlanner.clear(); //cause clicked back multiplied whats shown in the view.
+                Navigation.findNavController(viewGroup).navigate(WeekPlannerDirections.actionNavWeekPlannerToMealDeatailsFragment(mealsWeekPlanner.get(position)));
+                //mealsWeekPlanner.clear(); //cause clicked back multiplied whats shown in the view.
 
-                }
-            });
+            }
+        });
 
 
     }
@@ -182,11 +175,9 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
         return mealsWeekPlanner.size();
 
 
-
-
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView week_planner_tv_mealName;
         public TextView week_planner_tv_mealArea;
         public ImageView week_planner_img_mealImg;
@@ -201,7 +192,6 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
             btn_removeWeekPlannerItem = itemView.findViewById(R.id.btn_removeWeekPlannerItem);
         }
     }
-
 
 
 }

@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class EachAreaModel {
 
-	@SerializedName("strArea")
-	private String strArea;
+    @SerializedName("strArea")
+    private String strArea;
 
-	public String getStrArea(){
-		return strArea;
-	}
+    public String getStrArea() {
+        return strArea;
+    }
 }

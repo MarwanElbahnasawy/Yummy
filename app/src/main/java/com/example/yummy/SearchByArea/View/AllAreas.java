@@ -38,15 +38,13 @@ public class AllAreas extends Fragment implements InterfaceAllAreas {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.rv_coun);
-        textInputEditText=view.findViewById(R.id.tinput_search);
+        textInputEditText = view.findViewById(R.id.tinput_search);
 
         presenterAllAreas = new PresenterAllAreas(this);
         presenterAllAreas.getAllAreas();
 
 
-
-
-       textInputEditText .addTextChangedListener(new TextWatcher() {
+        textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -56,13 +54,11 @@ public class AllAreas extends Fragment implements InterfaceAllAreas {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 allAreasAdapter = new AllAreasAdapter(areas.stream().filter(
-                        EachAreaModel -> EachAreaModel.getStrArea().toLowerCase() .startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
+                        EachAreaModel -> EachAreaModel.getStrArea().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                 linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(allAreasAdapter);
-
-
 
 
             }

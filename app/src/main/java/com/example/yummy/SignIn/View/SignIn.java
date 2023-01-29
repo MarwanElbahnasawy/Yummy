@@ -115,7 +115,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                         presenterSignIn.signIn(email, password);
 
 
-
                     } else {
                         if (email.isEmpty()) {
                             Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();
@@ -173,7 +172,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
 
 
                     builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        if(!networkChecker.checkIfInternetIsConnected()){
+                        if (!networkChecker.checkIfInternetIsConnected()) {
                             MainActivity.mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -181,7 +180,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                                 }
                             });
 
-                        } else if (networkChecker.checkIfInternetIsConnected()){
+                        } else if (networkChecker.checkIfInternetIsConnected()) {
                             MainActivity.isLoginAsGuest = true;
                             Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
                             Navigation.findNavController(view).navigate(SignInDirections.actionNavSignInToNavHome());
@@ -202,14 +201,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                 }
 
 
-
-
-
-
-
-
-
-
             }
         });
 
@@ -225,8 +216,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
             Log.i(TAG, "onActivityResult: " + firebaseAuth.getCurrentUser().getEmail());
 
             Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show();
-
-
 
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
@@ -274,7 +263,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
 
 //            presenterSignIn = new PresenterSignIn(requireContext());
 //            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
 
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);

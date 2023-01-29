@@ -19,6 +19,8 @@ import com.example.yummy.Register.Presenter.InterfaceRegister;
 import com.example.yummy.Register.Presenter.PresenterRegister;
 import com.example.yummy.R;
 import com.example.yummy.Utility.NetworkChecker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseNetworkException;
@@ -75,10 +77,10 @@ public class Register extends Fragment implements InterfaceRegister {
                 String password = signUp_password.getText().toString();
                 String confirm = confirmPassword.getText().toString();
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to register.", Toast.LENGTH_SHORT).show();
 
-                }else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
                     loadingBar.setTitle("Registering");
                     loadingBar.setMessage("Please wait while registering");
                     loadingBar.setCanceledOnTouchOutside(false);
@@ -87,7 +89,51 @@ public class Register extends Fragment implements InterfaceRegister {
 
                         loadingBar.show();
 
-                        presenterRegister.createUserWithEmailAndPassword(email, password);
+                        //presenterRegister.createUserWithEmailAndPassword(email, password);
+
+                        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                //interfaceRegister.onCompleteRegisterWithEmailAndPassword(task);
+                                loadingBar.dismiss();
+
+                                if (task.isSuccessful()) {
+
+                                    Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
+
+                                    Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
+
+
+                                } else {
+                                    Exception exception = task.getException();
+                                    if (exception == null) {
+                                        Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
+                                    } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
+                                        Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
+
+                                    } else {
+                                        if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
+
+                                            Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+
+
+                                }
+                            }
+                        });
+
+                        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //interfaceRegister.onFailureRegisterWithEmailAndPassword(e);
+                                Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
+
+                            }
+                        });
 
 
                     } else {
@@ -105,10 +151,7 @@ public class Register extends Fragment implements InterfaceRegister {
                 }
 
 
-
-
             }
-
 
 
         });
@@ -116,39 +159,39 @@ public class Register extends Fragment implements InterfaceRegister {
 
     @Override
     public void onCompleteRegisterWithEmailAndPassword(Task<AuthResult> task) {
-        loadingBar.dismiss();
-
-        if (task.isSuccessful()) {
-
-                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
-
-                Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
-
-
-        } else {
-            Exception exception = task.getException();
-            if (exception == null) {
-                Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
-            } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
-                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
-
-            } else {
-                if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
-
-                    Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-
-        }
+//        loadingBar.dismiss();
+//
+//        if (task.isSuccessful()) {
+//
+//                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
+//
+//                Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
+//
+//
+//        } else {
+//            Exception exception = task.getException();
+//            if (exception == null) {
+//                Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
+//            } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
+//                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
+//
+//            } else {
+//                if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
+//
+//                    Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//
+//        }
     }
 
     @Override
     public void onFailureRegisterWithEmailAndPassword(Exception e) {
-        Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
+        //Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
     }
 
 

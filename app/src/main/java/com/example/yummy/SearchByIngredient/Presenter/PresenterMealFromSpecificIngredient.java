@@ -18,11 +18,7 @@ public class PresenterMealFromSpecificIngredient {
         repositoryRemote.getMealFromSpecificIngredient(ingredientSelected);
 
 
-
-
     }
-
-
 
 
 }

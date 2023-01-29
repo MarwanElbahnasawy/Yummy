@@ -1,9 +1,9 @@
 package com.example.yummy.SearchByArea.Presenter;
 
 
-
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryRemote;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +24,6 @@ public class PresenterMealFromSpecificArea {
 
 
     }
-
-
 
 
 }

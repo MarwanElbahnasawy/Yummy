@@ -16,28 +16,27 @@ public class NetworkChecker {
 
     }
 
-    public static NetworkChecker getInstance(Context contextInput){
-        if (instance == null){
+    public static NetworkChecker getInstance(Context contextInput) {
+        if (instance == null) {
             context = contextInput;
             instance = new NetworkChecker();
         }
         return instance;
     }
 
-    public static NetworkChecker getInstance(){
-        if (instance == null){
+    public static NetworkChecker getInstance() {
+        if (instance == null) {
             instance = new NetworkChecker();
         }
         return instance;
     }
 
 
-
     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-    public Boolean checkIfInternetIsConnected(){
+    public Boolean checkIfInternetIsConnected() {
         return ((connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)) ;
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED));
     }
 
 }

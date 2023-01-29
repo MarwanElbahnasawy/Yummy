@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.yummy.Favorites.Presenter.PresenterFavoriteMeals;
 import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
@@ -27,7 +28,6 @@ public class FavoriteMeals extends Fragment {
     FavoriteMealsAdapter favoriteMealsAdapter;
     private static final String TAG = "SavedMeals";
     PresenterFavoriteMeals presenterFavoriteMeals;
-
 
 
     @Override
@@ -50,7 +50,6 @@ public class FavoriteMeals extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
         recyclerView = view.findViewById(R.id.recyclerViewFavoriteMeals);          //\\\\\\\\\\\
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
@@ -71,21 +70,17 @@ public class FavoriteMeals extends Fragment {
 
         List<MealsItem> returnStoredMealsItemsWithWeekDayNull = new ArrayList<>();
 
-        for(MealsItem mealsItem: returnStoredMealsItems){
-            if(mealsItem.getWeekDay().equals("NULL")){
+        for (MealsItem mealsItem : returnStoredMealsItems) {
+            if (mealsItem.getWeekDay().equals("NULL")) {
                 returnStoredMealsItemsWithWeekDayNull.add(mealsItem);
             }
         }
 
-        favoriteMealsAdapter=new FavoriteMealsAdapter(returnStoredMealsItemsWithWeekDayNull);
+        favoriteMealsAdapter = new FavoriteMealsAdapter(returnStoredMealsItemsWithWeekDayNull);
         recyclerView.setAdapter(favoriteMealsAdapter);
 
 
-
-
-
     }
-
 
 
 }

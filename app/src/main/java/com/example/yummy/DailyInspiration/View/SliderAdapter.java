@@ -68,10 +68,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     List<MealsItem> meals = new ArrayList<>();
 
 
-
-
-
-
     public SliderAdapter(List<MealsItem> meals, ViewPager2 viewPager2) {
 
         this.meals = meals;
@@ -161,8 +157,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                     } else if (networkChecker.checkIfInternetIsConnected()) {
                         String daySelected = parent.getItemAtPosition(positionDay).toString();
                         checkIfItemAlreadyExistsInWeekPlan(meals.get(position), daySelected);
-
-
 
 
                     }

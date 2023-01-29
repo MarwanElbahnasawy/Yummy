@@ -56,7 +56,6 @@ public class AllIngredients extends Fragment implements InterfaceAllIngredients 
         presenterAllIngredients.getAllIngredients();
 
 
-
         textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,13 +66,12 @@ public class AllIngredients extends Fragment implements InterfaceAllIngredients 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                    allIngredientsAdapter = new AllIngredientsAdapter(ingredients.stream().filter(
-                            AreaModel -> AreaModel.getStrIngredient().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(allIngredientsAdapter);
-
+                allIngredientsAdapter = new AllIngredientsAdapter(ingredients.stream().filter(
+                        AreaModel -> AreaModel.getStrIngredient().toLowerCase().startsWith(s.toString().toLowerCase())).collect(Collectors.toList()));
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(allIngredientsAdapter);
 
 
             }
@@ -107,7 +105,7 @@ public class AllIngredients extends Fragment implements InterfaceAllIngredients 
         hideProgress();
     }
 
-  private void hideProgress() {
+    private void hideProgress() {
         progressBar.setVisibility(View.GONE);
     }
 }

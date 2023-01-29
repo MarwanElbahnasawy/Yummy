@@ -30,8 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapter.ViewHolder>{
-
+public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapter.ViewHolder> {
 
 
     private ViewGroup viewGroup;
@@ -46,13 +45,14 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
         this.mealsWeekPlanner = mealsWeekPlanner;
     }
 
-    public static PlannedTodayAdapter getInstanceProvidingMeals(List<MealsItem> mealsWeekPlanner){
-        if (InstanceProvidingMeals == null){
+    public static PlannedTodayAdapter getInstanceProvidingMeals(List<MealsItem> mealsWeekPlanner) {
+        if (InstanceProvidingMeals == null) {
             InstanceProvidingMeals = new PlannedTodayAdapter(mealsWeekPlanner);
         }
         return InstanceProvidingMeals;
     }
-    public static PlannedTodayAdapter getInstance(){
+
+    public static PlannedTodayAdapter getInstance() {
         return InstanceProvidingMeals;
     }
 
@@ -62,7 +62,7 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
         this.viewGroup = parent;
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.row_week_planner, parent , false);          //\\\\\\\\\\
+        View itemView = layoutInflater.inflate(R.layout.row_week_planner, parent, false);          //\\\\\\\\\\
         PlannedTodayAdapter.ViewHolder viewHolder = new PlannedTodayAdapter.ViewHolder(itemView);
         Log.i(TAG, "onCreateViewHolder: ");
 
@@ -71,7 +71,7 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
         progressDialog.setMessage("Please wait while removing the selected item from your week plan.");
         progressDialog.setCanceledOnTouchOutside(true);
 
-        return  viewHolder;
+        return viewHolder;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
             public void onClick(View view) {
 
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     MainActivity.mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -100,13 +100,10 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
                         }
                     });
 
-                } else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
 
 
                     progressDialog.show();
-
-
-
 
 
                     FirebaseFirestore.getInstance().collection("userWeekPlan").document(mealsItem.documentID)
@@ -117,7 +114,7 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
                                     Log.i(TAG, "DocumentSnapshot successfully deleted!");
                                     //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                                    rep=new RepositoryLocal(viewGroup.getContext());
+                                    rep = new RepositoryLocal(viewGroup.getContext());
                                     rep.delete(mealsItem);
 
                                     mealsWeekPlanner.remove(position);
@@ -158,7 +155,6 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
     }
 
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView week_planner_tv_mealName;
@@ -177,14 +173,14 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
 
     }
 
-    public void mealAddedFromDailyInspirations(MealsItem meal){
+    public void mealAddedFromDailyInspirations(MealsItem meal) {
         mealsWeekPlanner.add(meal);
         notifyDataSetChanged();
     }
 
     public void mealRemovedFromDailyInspirations(MealsItem meal) {
-        for(int i = 0 ; i<mealsWeekPlanner.size() ;i++){
-            if(meal.getStrMeal().equals(mealsWeekPlanner.get(i).getStrMeal()))
+        for (int i = 0; i < mealsWeekPlanner.size(); i++) {
+            if (meal.getStrMeal().equals(mealsWeekPlanner.get(i).getStrMeal()))
                 mealsWeekPlanner.remove(i);
         }
         notifyDataSetChanged();

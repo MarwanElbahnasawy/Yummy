@@ -42,7 +42,6 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
     private ProgressDialog progressDialog;
 
 
-
     public FavoriteMealsAdapter(List<MealsItem> mealsFavorite) {
         this.mealsFavorite = mealsFavorite;
     }
@@ -54,7 +53,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         this.viewGroup = parent;
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.row_favorite_meals, parent , false);          //\\\\\\\\\\
+        View itemView = layoutInflater.inflate(R.layout.row_favorite_meals, parent, false);          //\\\\\\\\\\
         ViewHolder viewHolder = new ViewHolder(itemView);
         Log.i(TAG, "onCreateViewHolder: ");
 
@@ -63,7 +62,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         progressDialog.setMessage("Please wait while removing the selected item from your favorites.");
         progressDialog.setCanceledOnTouchOutside(true);
 
-        return  viewHolder;
+        return viewHolder;
     }
 
     @Override
@@ -80,14 +79,12 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         NetworkChecker networkChecker = NetworkChecker.getInstance();
 
 
-
-
         holder.btn_removeFromFavorites.setOnClickListener(new View.OnClickListener() {        //\\\\\\\
             @Override
             public void onClick(View view) {
 
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     MainActivity.mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -95,11 +92,10 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
                         }
                     });
 
-                } else if (networkChecker.checkIfInternetIsConnected()){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
 
 
                     progressDialog.show();
-
 
 
                     FirebaseFirestore.getInstance().collection("userFavorites").document(mealsItem.documentID)
@@ -110,7 +106,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
                                     Log.i(TAG, "DocumentSnapshot successfully deleted!");
                                     //(FavoriteMealsAdapter.this).notifyDataSetChanged();
 
-                                    rep=new RepositoryLocal(viewGroup.getContext());
+                                    rep = new RepositoryLocal(viewGroup.getContext());
                                     rep.delete(mealsItem);
                                     mealsFavorite.remove(position);
                                     notifyDataSetChanged();
@@ -151,7 +147,6 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         return mealsFavorite.size();
 
 
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -159,7 +154,6 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         public TextView fav_tv_mealArea;
         public ImageView fav_img_mealImg;
         public ImageButton btn_removeFromFavorites;
-
 
 
         public ViewHolder(@NonNull View itemView) {

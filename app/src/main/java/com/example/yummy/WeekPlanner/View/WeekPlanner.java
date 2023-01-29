@@ -29,14 +29,13 @@ public class WeekPlanner extends Fragment {
 
     private WeekPlannerAdapter weekPlannerAdapterSaturday, weekPlannerAdapterSunday, weekPlannerAdapterMonday, weekPlannerAdapterTuesday, weekPlannerAdapterWednesday, weekPlannerAdapterThursday, weekPlannerAdapterFriday;
 
-    private List<MealsItem> mealsWeekPlanSaturday = new ArrayList<>() ,mealsWeekPlanSunday = new ArrayList<>(), mealsWeekPlanMonday = new ArrayList<>(), mealsWeekPlanTuesday = new ArrayList<>(), mealsWeekPlanWednesday = new ArrayList<>(), mealsWeekPlanThursday = new ArrayList<>(), mealsWeekPlanFriday= new ArrayList<>();
+    private List<MealsItem> mealsWeekPlanSaturday = new ArrayList<>(), mealsWeekPlanSunday = new ArrayList<>(), mealsWeekPlanMonday = new ArrayList<>(), mealsWeekPlanTuesday = new ArrayList<>(), mealsWeekPlanWednesday = new ArrayList<>(), mealsWeekPlanThursday = new ArrayList<>(), mealsWeekPlanFriday = new ArrayList<>();
 
     public static TextView tv_Saturday, tv_Sunday, tv_Monday, tv_Tuesday, tv_Wednesday, tv_Thursday, tv_Friday;
 
     private static final String TAG = "WeekPlanner";
 
     PresenterWeekPlanner presenterWeekPlanner;
-
 
 
     @Override
@@ -60,7 +59,6 @@ public class WeekPlanner extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
         recyclerViewSaturday = view.findViewById(R.id.recyclerViewFavoriteMealsSaturday);
         recyclerViewSunday = view.findViewById(R.id.recyclerViewFavoriteMealsSunday);
         recyclerViewMonday = view.findViewById(R.id.recyclerViewFavoriteMealsMonday);
@@ -78,10 +76,10 @@ public class WeekPlanner extends Fragment {
         tv_Friday = view.findViewById(R.id.tv_Friday);
 
         List<RecyclerView> recyclerViewArrayList = new ArrayList<>();
-        recyclerViewArrayList = Arrays.asList(recyclerViewSaturday,recyclerViewSunday,recyclerViewMonday,recyclerViewTuesday,recyclerViewWednesday,recyclerViewThursday,recyclerViewFriday);
+        recyclerViewArrayList = Arrays.asList(recyclerViewSaturday, recyclerViewSunday, recyclerViewMonday, recyclerViewTuesday, recyclerViewWednesday, recyclerViewThursday, recyclerViewFriday);
 
 
-        for (RecyclerView recyclerView: recyclerViewArrayList){
+        for (RecyclerView recyclerView : recyclerViewArrayList) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
             recyclerView.setHasFixedSize(true);
@@ -99,62 +97,74 @@ public class WeekPlanner extends Fragment {
 
         List<MealsItem> returnStoredMealsItemsWithWeekDayNotNull = new ArrayList<>();
 
-        for(MealsItem mealsItem: mealsItemsArrayList){
-            if(!mealsItem.getWeekDay().equals("NULL")){
+        for (MealsItem mealsItem : mealsItemsArrayList) {
+            if (!mealsItem.getWeekDay().equals("NULL")) {
                 returnStoredMealsItemsWithWeekDayNotNull.add(mealsItem);
             }
         }
 
-        for (MealsItem mealsItem : returnStoredMealsItemsWithWeekDayNotNull){
-            switch (mealsItem.getWeekDay()){
-                case "Saturday": mealsWeekPlanSaturday.add(mealsItem); break;
-                case "Sunday": mealsWeekPlanSunday.add(mealsItem); break;
-                case "Monday": mealsWeekPlanMonday.add(mealsItem); break;
-                case "Tuesday": mealsWeekPlanTuesday.add(mealsItem); break;
-                case "Wednesday": mealsWeekPlanWednesday.add(mealsItem); break;
-                case "Thursday": mealsWeekPlanThursday.add(mealsItem); break;
-                case "Friday": mealsWeekPlanFriday.add(mealsItem); break;
+        for (MealsItem mealsItem : returnStoredMealsItemsWithWeekDayNotNull) {
+            switch (mealsItem.getWeekDay()) {
+                case "Saturday":
+                    mealsWeekPlanSaturday.add(mealsItem);
+                    break;
+                case "Sunday":
+                    mealsWeekPlanSunday.add(mealsItem);
+                    break;
+                case "Monday":
+                    mealsWeekPlanMonday.add(mealsItem);
+                    break;
+                case "Tuesday":
+                    mealsWeekPlanTuesday.add(mealsItem);
+                    break;
+                case "Wednesday":
+                    mealsWeekPlanWednesday.add(mealsItem);
+                    break;
+                case "Thursday":
+                    mealsWeekPlanThursday.add(mealsItem);
+                    break;
+                case "Friday":
+                    mealsWeekPlanFriday.add(mealsItem);
+                    break;
             }
         }
 
-        if(mealsWeekPlanSaturday.size() != 0){
+        if (mealsWeekPlanSaturday.size() != 0) {
             tv_Saturday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterSaturday=new WeekPlannerAdapter(mealsWeekPlanSaturday);
+            weekPlannerAdapterSaturday = new WeekPlannerAdapter(mealsWeekPlanSaturday);
             recyclerViewSaturday.setAdapter(weekPlannerAdapterSaturday);
         }
-        if(mealsWeekPlanSunday.size() != 0){
+        if (mealsWeekPlanSunday.size() != 0) {
             tv_Sunday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterSunday=new WeekPlannerAdapter(mealsWeekPlanSunday);
+            weekPlannerAdapterSunday = new WeekPlannerAdapter(mealsWeekPlanSunday);
             recyclerViewSunday.setAdapter(weekPlannerAdapterSunday);
         }
-        if(mealsWeekPlanMonday.size() != 0){
+        if (mealsWeekPlanMonday.size() != 0) {
             tv_Monday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterMonday=new WeekPlannerAdapter(mealsWeekPlanMonday);
+            weekPlannerAdapterMonday = new WeekPlannerAdapter(mealsWeekPlanMonday);
             recyclerViewMonday.setAdapter(weekPlannerAdapterMonday);
         }
-        if(mealsWeekPlanTuesday.size() != 0){
+        if (mealsWeekPlanTuesday.size() != 0) {
             tv_Tuesday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterTuesday=new WeekPlannerAdapter(mealsWeekPlanTuesday);
+            weekPlannerAdapterTuesday = new WeekPlannerAdapter(mealsWeekPlanTuesday);
             recyclerViewTuesday.setAdapter(weekPlannerAdapterTuesday);
         }
-        if(mealsWeekPlanWednesday.size() != 0){
+        if (mealsWeekPlanWednesday.size() != 0) {
             tv_Wednesday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterWednesday=new WeekPlannerAdapter(mealsWeekPlanWednesday);
+            weekPlannerAdapterWednesday = new WeekPlannerAdapter(mealsWeekPlanWednesday);
             recyclerViewWednesday.setAdapter(weekPlannerAdapterWednesday);
         }
-        if(mealsWeekPlanThursday.size() != 0){
+        if (mealsWeekPlanThursday.size() != 0) {
             tv_Thursday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterThursday=new WeekPlannerAdapter(mealsWeekPlanThursday);
+            weekPlannerAdapterThursday = new WeekPlannerAdapter(mealsWeekPlanThursday);
             recyclerViewThursday.setAdapter(weekPlannerAdapterThursday);
         }
-        if(mealsWeekPlanFriday.size() != 0){
+        if (mealsWeekPlanFriday.size() != 0) {
             tv_Friday.setVisibility(View.VISIBLE);
-            weekPlannerAdapterFriday=new WeekPlannerAdapter(mealsWeekPlanFriday);
+            weekPlannerAdapterFriday = new WeekPlannerAdapter(mealsWeekPlanFriday);
             recyclerViewFriday.setAdapter(weekPlannerAdapterFriday);
         }
     }
-
-
 
 
     @Override

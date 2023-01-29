@@ -77,8 +77,6 @@ public class MealsFromSpecificIngredient extends Fragment implements InterfaceMe
                 recyclerView.setAdapter(mealsFromSpecificIngredientAdapter);
 
 
-
-
             }
 
             @Override

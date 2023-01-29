@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Repository.Model.RepositoryRemote;
+
 public class PresenterSignIn {
     InterfaceSignIn interfaceSignIn;
     private Context context;
@@ -25,24 +26,23 @@ public class PresenterSignIn {
 
     public void signIn(String email, String password) {
 
-        repositoryRemote = new RepositoryRemote(interfaceSignIn , context);
-        repositoryRemote.signIn(email , password);
+        repositoryRemote = new RepositoryRemote(interfaceSignIn, context);
+        repositoryRemote.signIn(email, password);
 
 
     }
 
     public void signInGoogle() {
 
-        repositoryRemote = new RepositoryRemote(interfaceSignIn , context);
+        repositoryRemote = new RepositoryRemote(interfaceSignIn, context);
         repositoryRemote.signInGoogle();
 
     }
 
     public void respondToActivityResultOfGoogleSignIn(int requestCode, int resultCode, Intent data) {
 
-        repositoryRemote = new RepositoryRemote(interfaceSignIn , context);
-        repositoryRemote.respondToActivityResultOfGoogleSignIn(requestCode , resultCode , data);
-
+        repositoryRemote = new RepositoryRemote(interfaceSignIn, context);
+        repositoryRemote.respondToActivityResultOfGoogleSignIn(requestCode, resultCode, data);
 
 
     }

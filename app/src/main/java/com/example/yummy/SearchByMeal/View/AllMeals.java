@@ -42,7 +42,7 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
     private static final String TAG = "SearchByAllMealsFragmen";
     private PresenterAllMeals presenterAllMeals;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
-    Toast toastMessage ;
+    Toast toastMessage;
     Boolean isInternetDisconnectedWhileTyping = false;
     Boolean shouldFilterAfterInternetWasOff = false;
 
@@ -51,15 +51,14 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.rv_allMeals);
-        searchTextInput=view.findViewById(R.id.tinput_search_AllMeals);
+        searchTextInput = view.findViewById(R.id.tinput_search_AllMeals);
 
         toastMessage = new Toast(requireContext());
 
         presenterAllMeals = new PresenterAllMeals(this);
 
 
-
-       searchTextInput .addTextChangedListener(new TextWatcher() {
+        searchTextInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -69,7 +68,7 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.i(TAG, "onTextChanged: " + isInternetDisconnectedWhileTyping);
 
-                if(!networkChecker.checkIfInternetIsConnected()){
+                if (!networkChecker.checkIfInternetIsConnected()) {
                     MainActivity.mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -80,28 +79,28 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                         }
                     });
 
-                } else if (networkChecker.checkIfInternetIsConnected()){
-                    if(isInternetDisconnectedWhileTyping == true & s.length() == 1){
+                } else if (networkChecker.checkIfInternetIsConnected()) {
+                    if (isInternetDisconnectedWhileTyping == true & s.length() == 1) {
                         isInternetDisconnectedWhileTyping = false;
                         presenterAllMeals.getAllMeals(s.charAt(0));
-                    }
-                    else if (isInternetDisconnectedWhileTyping == true & s.length() > 1){
+                    } else if (isInternetDisconnectedWhileTyping == true & s.length() > 1) {
                         shouldFilterAfterInternetWasOff = true;
                         isInternetDisconnectedWhileTyping = false;
                         presenterAllMeals.getAllMeals(s.charAt(0));
-                        if(mealsItemList.size() != 0){
+                        if (mealsItemList.size() != 0) {
                             filteredMealsItemList.clear();
-                            Observable<MealsItem> observable=Observable.fromIterable(mealsItemList);
+                            Observable<MealsItem> observable = Observable.fromIterable(mealsItemList);
                             observable
                                     .filter
-                                            (mealsItem->
+                                            (mealsItem ->
                                                     mealsItem.getStrMeal().toLowerCase().contains(searchTextInput.getText().toString().toLowerCase()))
                                     .subscribe(
-                                            mealsItem ->{
+                                            mealsItem -> {
                                                 filteredMealsItemList.add(mealsItem);
 
                                             }
-                                            , (error) -> {}
+                                            , (error) -> {
+                                            }
                                             , () -> {
                                                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                                                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -111,10 +110,9 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                                             }
                                     );
                         }
-                    }
-                    else{
+                    } else {
                         isInternetDisconnectedWhileTyping = false;
-                        if (s.length() == 0){
+                        if (s.length() == 0) {
                             mealsItemList.clear();
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                             recyclerView.setLayoutManager(linearLayoutManager);
@@ -123,27 +121,27 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                             allMealsAdapter = new AllMealsAdapter(mealsItemList);
                             recyclerView.setAdapter(allMealsAdapter);
                         }
-                        if(s.length() == 1){
+                        if (s.length() == 1) {
 
                             presenterAllMeals.getAllMeals(s.charAt(0));
 
 
+                        } else if (s.length() > 1) {
 
-                        } else if (s.length() > 1){
-
-                            if(mealsItemList.size() != 0){
+                            if (mealsItemList.size() != 0) {
                                 filteredMealsItemList.clear();
-                                Observable<MealsItem> observable=Observable.fromIterable(mealsItemList);
+                                Observable<MealsItem> observable = Observable.fromIterable(mealsItemList);
                                 observable
                                         .filter
-                                                (mealsItem->
+                                                (mealsItem ->
                                                         mealsItem.getStrMeal().toLowerCase().contains(searchTextInput.getText().toString().toLowerCase()))
                                         .subscribe(
-                                                mealsItem ->{
+                                                mealsItem -> {
                                                     filteredMealsItemList.add(mealsItem);
 
                                                 }
-                                                , (error) -> {}
+                                                , (error) -> {
+                                                }
                                                 , () -> {
                                                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
                                                     recyclerView.setLayoutManager(linearLayoutManager);
@@ -159,11 +157,7 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
                     }
 
 
-
-
                 }
-
-
 
 
             }
@@ -196,21 +190,22 @@ public class AllMeals extends Fragment implements InterfaceAllMeals {
         allMealsAdapter = new AllMealsAdapter(mealsItemList);
         recyclerView.setAdapter(allMealsAdapter);
 
-        if(shouldFilterAfterInternetWasOff){
+        if (shouldFilterAfterInternetWasOff) {
             shouldFilterAfterInternetWasOff = false;
-            if(mealsItemList.size() != 0){
+            if (mealsItemList.size() != 0) {
                 filteredMealsItemList.clear();
-                Observable<MealsItem> observable=Observable.fromIterable(mealsItemList);
+                Observable<MealsItem> observable = Observable.fromIterable(mealsItemList);
                 observable
                         .filter
-                                (mealsItem->
+                                (mealsItem ->
                                         mealsItem.getStrMeal().toLowerCase().contains(searchTextInput.getText().toString().toLowerCase()))
                         .subscribe(
-                                mealsItem ->{
+                                mealsItem -> {
                                     filteredMealsItemList.add(mealsItem);
 
                                 }
-                                , (error) -> {}
+                                , (error) -> {
+                                }
                                 , () -> {
                                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(requireContext());
                                     recyclerView.setLayoutManager(linearLayoutManage);

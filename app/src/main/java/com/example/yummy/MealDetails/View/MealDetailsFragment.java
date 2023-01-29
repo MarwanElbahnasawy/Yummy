@@ -90,7 +90,7 @@ public class MealDetailsFragment extends Fragment {
         mealsItem = MealDetailsFragmentArgs.fromBundle(getArguments()).getMealDetailsArgs();
 
         mealName = view.findViewById(R.id.tv_mealName);
-       area = view.findViewById(R.id.tv_meal_area);
+        area = view.findViewById(R.id.tv_meal_area);
         instructions = view.findViewById(R.id.tv_Meal_instructions);
         mealImage = view.findViewById(R.id.mealImage);
         videoView = view.findViewById(R.id.video);
@@ -100,25 +100,24 @@ public class MealDetailsFragment extends Fragment {
         textInputLayout = view.findViewById(R.id.textInputLayout);
         btn_addToCalendar = view.findViewById(R.id.btn_addToCalendar);
 
-        arrayAdapter = new ArrayAdapter<String>(requireContext(), R.layout.list_weekdays  , weekDays);
+        arrayAdapter = new ArrayAdapter<String>(requireContext(), R.layout.list_weekdays, weekDays);
         autoCompleteTextView.setAdapter(arrayAdapter);
 
         getLifecycle().addObserver((LifecycleObserver) videoView);
-        if(!mealsItem.getStrYoutube().isEmpty()){
+        if (!mealsItem.getStrYoutube().isEmpty()) {
 
             split = mealsItem.getStrYoutube().split("=");
             youtubeURLisExists = true;
             videoView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                    if(youtubeURLisExists){
+                    if (youtubeURLisExists) {
                         String videoId = split[1];
                         youTubePlayer.loadVideo(videoId, 0);
                     }
                 }
             });
-        }
-        else{
+        } else {
             videoView.setVisibility(View.GONE);
         }
 
@@ -157,17 +156,14 @@ public class MealDetailsFragment extends Fragment {
         getMegure(mealsItem.getStrMeasure15());
 
 
-
-
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
-        mealDeatailIngrediantAdapter = new MealDeatailIngrediantAdapter(ingrediant,megure);
+        mealDeatailIngrediantAdapter = new MealDeatailIngrediantAdapter(ingrediant, megure);
         recyclerView.setAdapter(mealDeatailIngrediantAdapter);
 
-        if(MainActivity.isLoginAsGuest == false) {
+        if (MainActivity.isLoginAsGuest == false) {
             btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -221,7 +217,7 @@ public class MealDetailsFragment extends Fragment {
                 }
             });
 
-        } else if(MainActivity.isLoginAsGuest == true){
+        } else if (MainActivity.isLoginAsGuest == true) {
             btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -249,7 +245,6 @@ public class MealDetailsFragment extends Fragment {
         }
 
 
-
     }
 
     @Nullable
@@ -269,6 +264,7 @@ public class MealDetailsFragment extends Fragment {
             ingrediant.add(ingredientName);
         return ingrediant;
     }
+
     private List<String> getMegure(String ingredientName) {
         if (ingredientName != null && !ingredientName.isEmpty())
             megure.add(ingredientName);
@@ -285,32 +281,34 @@ public class MealDetailsFragment extends Fragment {
                                                mealsItemSelected.setWeekDay("NULL");
                                                if (task.isSuccessful()) {
                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                       if(document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                       if (document.get("strMeal").equals(mealsItemSelected.getStrMeal()) & document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                                                            isAlreadyInFavorites = true;
                                                            mealsItemSelected.documentID = document.getId();
                                                        }
                                                    }
-                                                   if(!isAlreadyInFavorites){
+                                                   if (!isAlreadyInFavorites) {
 
                                                        RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(mealsItemSelected.getIdMeal()))
                                                                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                                                                       next -> {mealsItemSelectedFull = next.getMeals().get(0);} ,
-                                                                       error -> {},
+                                                                       next -> {
+                                                                           mealsItemSelectedFull = next.getMeals().get(0);
+                                                                       },
+                                                                       error -> {
+                                                                       },
                                                                        () -> {
                                                                            uploadDataToFireStoreInFavorites(mealsItemSelectedFull);
                                                                        }
                                                                );
 
 
-
-                                                   } else{
+                                                   } else {
                                                        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
                                                        builder.setTitle("This item is already in your favorite meals list.");
                                                        builder.setMessage("Would you like to remove it?");
                                                        builder.setCancelable(true);
 
                                                        builder.setPositiveButton("Remove it.", (DialogInterface.OnClickListener) (dialog, which) -> {
-                                                           if(!networkChecker.checkIfInternetIsConnected()){
+                                                           if (!networkChecker.checkIfInternetIsConnected()) {
                                                                MainActivity.mainActivity.runOnUiThread(new Runnable() {
                                                                    @Override
                                                                    public void run() {
@@ -318,7 +316,7 @@ public class MealDetailsFragment extends Fragment {
                                                                    }
                                                                });
 
-                                                           } else if (networkChecker.checkIfInternetIsConnected()){
+                                                           } else if (networkChecker.checkIfInternetIsConnected()) {
                                                                progressDialog = new ProgressDialog(requireContext());
                                                                progressDialog.setTitle("Removing favorites");
                                                                progressDialog.setMessage("Please wait while removing the selected item from your favorite meals.");
@@ -333,7 +331,7 @@ public class MealDetailsFragment extends Fragment {
                                                                                Toast.makeText(requireContext(), "Item removed successfully", Toast.LENGTH_SHORT).show();
                                                                                Log.i(TAG, "DocumentSnapshot successfully deleted!");
 
-                                                                               rep=new RepositoryLocal(requireContext());
+                                                                               rep = new RepositoryLocal(requireContext());
                                                                                rep.delete(mealsItemSelected);
 
                                                                            }
@@ -374,7 +372,6 @@ public class MealDetailsFragment extends Fragment {
         progressDialog.show();
 
 
-
         Map<String, Object> userFavorites = new HashMap<>();
 
         userFavorites.put("userID", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -388,7 +385,6 @@ public class MealDetailsFragment extends Fragment {
         userFavorites.put("weekDay", "NULL");
 
 
-
         FirebaseFirestore.getInstance().collection("userFavorites")
                 .add(userFavorites)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -397,7 +393,7 @@ public class MealDetailsFragment extends Fragment {
                         Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
                         rep = new RepositoryLocal(requireContext());
-                        rep.insert(mealsItem, "NULL",  documentReference.getId());
+                        rep.insert(mealsItem, "NULL", documentReference.getId());
 
                         progressDialog.dismiss();
                         Toast.makeText(requireContext(), "Item added successfully", Toast.LENGTH_SHORT).show();
@@ -415,7 +411,6 @@ public class MealDetailsFragment extends Fragment {
 
 
     }
-
 
 
     private void checkIfItemAlreadyExistsInWeekPlan(MealsItem mealsItemSelected, String weekDay) {
@@ -438,8 +433,11 @@ public class MealDetailsFragment extends Fragment {
                                                    if (!isAlreadyInFavorites) {
                                                        RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(mealsItemSelected.getIdMeal()))
                                                                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                                                                       next -> {mealsItemSelectedFull = next.getMeals().get(0);} ,
-                                                                       error -> {},
+                                                                       next -> {
+                                                                           mealsItemSelectedFull = next.getMeals().get(0);
+                                                                       },
+                                                                       error -> {
+                                                                       },
                                                                        () -> {
                                                                            uploadDataToFireStoreInWeekPlan(mealsItemSelectedFull, weekDay);
                                                                        }
@@ -478,7 +476,7 @@ public class MealDetailsFragment extends Fragment {
                                                                                rep = new RepositoryLocal(requireContext());
                                                                                rep.delete(mealsItemSelected);
 
-                                                                               if(weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                                                                               if (weekDay.toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                                                                                    PlannedTodayAdapter.getInstance().mealRemovedFromDailyInspirations(mealsItemSelected);
 
 
@@ -543,7 +541,7 @@ public class MealDetailsFragment extends Fragment {
                         rep = new RepositoryLocal(requireContext());
                         rep.insert(mealsItem, weekDay, documentReference.getId());
 
-                        if(weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
+                        if (weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                             PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
 
                         progressDialog.dismiss();

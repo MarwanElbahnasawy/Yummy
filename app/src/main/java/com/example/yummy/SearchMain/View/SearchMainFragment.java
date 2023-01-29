@@ -21,7 +21,7 @@ import com.example.yummy.Utility.NetworkChecker;
 
 public class SearchMainFragment extends Fragment {
 
-    CardView searchByCountry,searchByCategory,searchIngrediant,searchByAllMeals;
+    CardView searchByCountry, searchByCategory, searchIngrediant, searchByAllMeals;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
     private Toast toast;
 
@@ -37,7 +37,6 @@ public class SearchMainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         // Inflate the layout for this fragment
@@ -50,99 +49,95 @@ public class SearchMainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        searchByCountry = view.findViewById(R.id.card_country);
+        searchByCategory = view.findViewById(R.id.CardView_category);
+        searchIngrediant = view.findViewById(R.id.cardView_ingrediant);
+        searchByAllMeals = view.findViewById(R.id.card_AllMeals);
 
-     searchByCountry=view.findViewById(R.id.card_country);
-     searchByCategory=view.findViewById(R.id.CardView_category);
-     searchIngrediant=view.findViewById(R.id.cardView_ingrediant);
-     searchByAllMeals=view.findViewById(R.id.card_AllMeals);
+        toast = new Toast(requireContext());
 
-     toast = new Toast(requireContext());
+        searchByCountry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                            toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
 
-     searchByCountry.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             if(!networkChecker.checkIfInternetIsConnected()){
-                 MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         toast.cancel();
-                         toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
-                         toast.show();
-                     }
-                 });
-
-             } else if (networkChecker.checkIfInternetIsConnected()){
-                 Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToSearchBYCountryFragment());
-             }
-
+                } else if (networkChecker.checkIfInternetIsConnected()) {
+                    Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToSearchBYCountryFragment());
+                }
 
 
+            }
+        });
+
+        searchByCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                            toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+
+                } else if (networkChecker.checkIfInternetIsConnected()) {
+                    Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToCategoryFragment());
+                }
 
 
-         }
-     });
+            }
+        });
+        searchIngrediant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                            toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
 
-     searchByCategory.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             if(!networkChecker.checkIfInternetIsConnected()){
-                 MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         toast.cancel();
-                         toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
-                         toast.show();
-                     }
-                 });
-
-             } else if (networkChecker.checkIfInternetIsConnected()){
-                 Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToCategoryFragment());
-             }
-
-
-         }
-     });
-     searchIngrediant.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             if(!networkChecker.checkIfInternetIsConnected()){
-                 MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         toast.cancel();
-                         toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
-                         toast.show();
-                     }
-                 });
-
-             } else if (networkChecker.checkIfInternetIsConnected()){
-                 Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToSearchByIngrdiantFragment());
-             }
+                } else if (networkChecker.checkIfInternetIsConnected()) {
+                    Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToSearchByIngrdiantFragment());
+                }
 
 
-         }
-     });
+            }
+        });
 
-     searchByAllMeals.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             if(!networkChecker.checkIfInternetIsConnected()){
-                 MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         toast.cancel();
-                         toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
-                         toast.show();
-                     }
-                 });
+        searchByAllMeals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                            toast = Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to access search feature.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
 
-             } else if (networkChecker.checkIfInternetIsConnected()){
-                 Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToSearchByAllMealsFragment());
-             }
+                } else if (networkChecker.checkIfInternetIsConnected()) {
+                    Navigation.findNavController(view).navigate(SearchMainFragmentDirections.actionNavSearchToSearchByAllMealsFragment());
+                }
 
 
-         }
-     });
+            }
+        });
 
     }
 }

@@ -68,8 +68,6 @@ public class CalendarFragment extends Fragment {
                         .OnDateChangeListener() {
 
 
-
-
                     @Override
                     public void onSelectedDayChange(
                             @NonNull CalendarView view,
@@ -77,7 +75,7 @@ public class CalendarFragment extends Fragment {
                             int month,
                             int dayOfMonth) {
 
-                        if(MainActivity.isLoginAsGuest == false) {
+                        if (MainActivity.isLoginAsGuest == false) {
                             if (!networkChecker.checkIfInternetIsConnected()) {
                                 MainActivity.mainActivity.runOnUiThread(new Runnable() {
                                     @Override
@@ -116,12 +114,9 @@ public class CalendarFragment extends Fragment {
                                 MainActivity.navController.popBackStack();
                             }
 
-                        } else{
+                        } else {
                             Toast.makeText(requireContext(), "You need to log in to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
                         }
-
-
-
 
 
                     }
