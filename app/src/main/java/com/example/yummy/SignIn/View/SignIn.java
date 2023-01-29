@@ -265,23 +265,20 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK)
         {
-            switch(requestCode)
-            {
-                case 1:
-                    if (data.equals(null))
-                    {
+
+                    if (data == null) {
                         Toast.makeText(requireContext(), "Intent is Null", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
+                    else{
                         presenterSignIn.respondToActivityResultOfGoogleSignIn(requestCode, resultCode, data);
                     }
-                    break;
+
             }
+
+
         }
 
 
-    }
 
     @Override
     public void onCompleteGoogleSignIn(Task<AuthResult> task) {
