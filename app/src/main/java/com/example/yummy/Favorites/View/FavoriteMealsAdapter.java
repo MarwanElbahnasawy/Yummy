@@ -33,14 +33,10 @@ import io.reactivex.rxjava3.core.Observable;
 public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdapter.ViewHolder> {
 
     private ViewGroup viewGroup;
-    List<MealsItem> mealsFavorite = new ArrayList<>();
+    private List<MealsItem> mealsFavorite = new ArrayList<>();
     private static final String TAG = "FavoriteMealsAdapter";
-    Observable<RootSingleMeal> observableMealSelectedFromFavorites;
-
-    RepositoryLocal rep;
-
+    private RepositoryLocal rep;
     private ProgressDialog progressDialog;
-
 
     public FavoriteMealsAdapter(List<MealsItem> mealsFavorite) {
         this.mealsFavorite = mealsFavorite;
@@ -74,12 +70,10 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
 
         Glide.with(viewGroup.getContext()).load(mealsItem.getStrMealThumb()).into(holder.fav_img_mealImg);
 
-        /* Favorites Firestore + Room part 3/4: Loading in recycler view and Removing */
-
         NetworkChecker networkChecker = NetworkChecker.getInstance();
 
 
-        holder.btn_removeFromFavorites.setOnClickListener(new View.OnClickListener() {        //\\\\\\\
+        holder.btn_removeFromFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -132,7 +126,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(viewGroup).navigate(FavoriteMealsDirections.actionNavFavoriteMealsToMealDeatailsFragment(mealsFavorite.get(position)));
-                mealsFavorite.clear(); //cause clicked back multiplied whats shown in the view.
+                mealsFavorite.clear();
 
             }
         });
@@ -141,8 +135,6 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
 
     @Override
     public int getItemCount() {
-
-        /* Favorites Firestore + Room part 4/4: Getting item count */
 
         return mealsFavorite.size();
 

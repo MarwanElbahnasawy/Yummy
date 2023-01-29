@@ -8,8 +8,8 @@ import java.util.List;
 
 public class PresenterAllMeals {
     private InterfaceAllMeals interfaceAllMeals;
-    List<MealsItem> meals;
-    RepositoryRemote repositoryRemote;
+    private List<MealsItem> meals;
+    private RepositoryRemote repositoryRemote;
 
     public PresenterAllMeals(InterfaceAllMeals interfaceAllMeals) {
         this.interfaceAllMeals = interfaceAllMeals;

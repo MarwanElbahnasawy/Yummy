@@ -5,9 +5,9 @@ import com.example.yummy.Repository.Model.RepositoryRemote;
 
 
 public class PresenterMealFromSpecificCategory {
-    InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory;
+    private InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory;
     private static final String TAG = "PresenterSearchByCatego";
-    RepositoryRemote repositoryRemote;
+    private RepositoryRemote repositoryRemote;
 
     public PresenterMealFromSpecificCategory(InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory) {
         this.interfaceMealFromSpecificCategory = interfaceMealFromSpecificCategory;

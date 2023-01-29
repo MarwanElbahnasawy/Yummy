@@ -21,8 +21,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AllIngredientsAdapter extends RecyclerView.Adapter<AllIngredientsAdapter.MyViewHolder> {
-    ViewGroup CountryView;
-    List<EachIngredientModel> ingrediance;
+    private ViewGroup CountryView;
+    private List<EachIngredientModel> ingrediance;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     public AllIngredientsAdapter(List<EachIngredientModel> ingrediance) {

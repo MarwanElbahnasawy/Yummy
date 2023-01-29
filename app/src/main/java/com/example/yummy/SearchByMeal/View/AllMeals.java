@@ -34,17 +34,17 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AllMeals extends Fragment implements InterfaceAllMeals {
 
-    AllMealsAdapter allMealsAdapter;
-    RecyclerView recyclerView;
-    TextInputEditText searchTextInput;
-    List<MealsItem> mealsItemList = new ArrayList<>();
-    List<MealsItem> filteredMealsItemList = new ArrayList<>();
+    private AllMealsAdapter allMealsAdapter;
+    private RecyclerView recyclerView;
+    private TextInputEditText searchTextInput;
+    private List<MealsItem> mealsItemList = new ArrayList<>();
+    private List<MealsItem> filteredMealsItemList = new ArrayList<>();
     private static final String TAG = "SearchByAllMealsFragmen";
     private PresenterAllMeals presenterAllMeals;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
-    Toast toastMessage;
-    Boolean isInternetDisconnectedWhileTyping = false;
-    Boolean shouldFilterAfterInternetWasOff = false;
+    private Toast toastMessage;
+    private Boolean isInternetDisconnectedWhileTyping = false;
+    private Boolean shouldFilterAfterInternetWasOff = false;
 
 
     @Override

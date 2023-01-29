@@ -23,7 +23,6 @@ public interface MealDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertMeal(MealsItem mealsItem);
 
-
     @Delete
     void deleteMeal(MealsItem mealsItem);
 

@@ -10,8 +10,8 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
 
 public class PresenterWeekPlanner {
-    RepositoryLocal repositoryLocal;
-    Context context;
+    private RepositoryLocal repositoryLocal;
+    private Context context;
 
 
     public PresenterWeekPlanner(Context context) {

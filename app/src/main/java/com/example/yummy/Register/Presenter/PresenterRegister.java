@@ -12,9 +12,9 @@ public class PresenterRegister {
     private static final String TAG = "PresenterFirebaseFirea";
 
     private InterfaceRegister interfaceRegister;
-    RepositoryRemote repositoryRemote;
-    Context context;
-    RepositoryLocal repositoryLocal;
+    private RepositoryRemote repositoryRemote;
+    private Context context;
+    private RepositoryLocal repositoryLocal;
 
 
     public PresenterRegister(InterfaceRegister interfaceRegister) {

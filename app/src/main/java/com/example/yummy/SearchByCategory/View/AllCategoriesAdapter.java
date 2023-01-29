@@ -20,8 +20,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdapter.MyViewHolder> {
-    ViewGroup CountryView;
-    List<EachCategoryModel> categories;
+    private ViewGroup CountryView;
+    private List<EachCategoryModel> categories;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     public AllCategoriesAdapter(List<EachCategoryModel> categories) {

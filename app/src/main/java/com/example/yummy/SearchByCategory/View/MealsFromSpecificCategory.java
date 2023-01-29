@@ -26,13 +26,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MealsFromSpecificCategory extends Fragment implements InterfaceMealFromSpecificCategory {
-    MealsFromSpecificCategoryAdapter mealsFromSpecificCategoryAdapter;
-    RecyclerView recyclerView;
+    private MealsFromSpecificCategoryAdapter mealsFromSpecificCategoryAdapter;
+    private RecyclerView recyclerView;
     public static TextInputEditText searchTextInput;
-    List<MealsItem> mealsItemList = new ArrayList<>();
+    private List<MealsItem> mealsItemList = new ArrayList<>();
     private static final String TAG = "MealByCategory";
-    TextView tv_categorySelected;
-    PresenterMealFromSpecificCategory presenterMealFromSpecificCategory;
+    private TextView tv_categorySelected;
+    private PresenterMealFromSpecificCategory presenterMealFromSpecificCategory;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
     @Nullable

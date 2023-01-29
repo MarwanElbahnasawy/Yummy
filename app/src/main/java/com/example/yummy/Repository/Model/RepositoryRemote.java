@@ -55,27 +55,23 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class RepositoryRemote {
     private InterfaceDailyInspirations interfaceDailyInspirations;
     private InterfaceRegister interfaceRegister;
-    InterfaceAllAreas interfaceAllAreas;
-    InterfaceMealFromSpecificArea interfaceMealFromSpecificArea;
-    InterfaceAllCategories interfaceAllCategories;
-    InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory;
-    InterfaceAllIngredients interfaceAllIngredients;
-    InterfaceMealFromSpecificIngredient interfaceMealFromSpecificIngredient;
+    private InterfaceAllAreas interfaceAllAreas;
+    private InterfaceMealFromSpecificArea interfaceMealFromSpecificArea;
+    private InterfaceAllCategories interfaceAllCategories;
+    private InterfaceMealFromSpecificCategory interfaceMealFromSpecificCategory;
+    private InterfaceAllIngredients interfaceAllIngredients;
+    private InterfaceMealFromSpecificIngredient interfaceMealFromSpecificIngredient;
     private InterfaceAllMeals interfaceAllMeals;
-    InterfaceSignIn interfaceSignIn;
-    InterfaceMain interfaceMain;
-
-    Context context;
-
+    private InterfaceSignIn interfaceSignIn;
+    private InterfaceMain interfaceMain;
+    private Context context;
     private static final String TAG = "RepositoryRemote";
-
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    RetrofitClient retrofitClient = RetrofitClient.getInstance();
-
-    List<MealsItem> meals = new ArrayList<>();
-    List<EachAreaModel> areas;
-    List<EachCategoryModel> categories;
-    List<EachIngredientModel> ingredients;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private RetrofitClient retrofitClient = RetrofitClient.getInstance();
+    private List<MealsItem> meals = new ArrayList<>();
+    private List<EachAreaModel> areas;
+    private List<EachCategoryModel> categories;
+    private List<EachIngredientModel> ingredients;
 
 
     public RepositoryRemote(InterfaceDailyInspirations interfaceDailyInspirations) {
@@ -185,7 +181,6 @@ public class RepositoryRemote {
                 response -> {
                     areas = response.getMeals();
 
-
                 },
                 error -> {
                     error.printStackTrace();
@@ -287,9 +282,7 @@ public class RepositoryRemote {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         next -> {
-                            //  Log.e(TAG, "onViewCreated: "+MealByIngrediantFragmentDirections.actionMealByIngrediantFragmentToMealDeatailsFragment(null));
-                            meals = next.getMeals();
-
+                             meals = next.getMeals();
 
                         },
                         error -> {
@@ -310,7 +303,6 @@ public class RepositoryRemote {
                         meals = response.getMeals();
 
                     }
-
 
                 },
                 error -> {
@@ -399,7 +391,7 @@ public class RepositoryRemote {
                                                                    .delete();
                                                        }
                                                    }
-                                                   //getMealsToBeDeletedFromWeekPlan(documentIDs);
+
                                                } else {
                                                    Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
                                                }
@@ -420,7 +412,7 @@ public class RepositoryRemote {
                                                                    .delete();
                                                        }
                                                    }
-                                                   //deleteMealsFromFavorites(documentIDs);
+
                                                    interfaceMain.onFinishedDeletingItemsOfThisAccount();
                                                } else {
                                                    Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
@@ -431,76 +423,6 @@ public class RepositoryRemote {
 
 
     }
-
-//    private void getMealsToBeDeletedFromWeekPlan(List<String> documentIDs) {
-//        FirebaseFirestore.getInstance().collection("userWeekPlan")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                           @Override
-//                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                               if (task.isSuccessful()) {
-//                                                   for (QueryDocumentSnapshot document : task.getResult()) {
-//
-//                                                       if(document.get("userEmail").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-//                                                           documentIDs.add(document.getId());
-//                                                       }
-//                                                   }
-//                                                   deleteMealsFromFavorites(documentIDs);
-//                                               } else {
-//                                                   Log.i(TAG, "Error loading documents from firestore to Room.", task.getException());
-//                                               }
-//                                           }
-//                                       }
-//                );
-//    }
-//
-//    private void deleteMealsFromFavorites(List<String> documentIDs) {
-//        List<String> documentIDsAfterDeletionFromFavorites = new ArrayList<>();
-//        documentIDsAfterDeletionFromFavorites = documentIDs;
-//        for (int i = 0 ; i<documentIDs.size() ; i++) {
-//            FirebaseFirestore.getInstance().collection("userFavorites").document(documentIDs.get(i))
-//                    .delete()
-//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Log.i(TAG, "DocumentSnapshot successfully deleted!");
-//                            documentIDsAfterDeletionFromFavorites.remove(i);
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.i(TAG, "Error deleting document", e);
-//                        }
-//                    });
-//
-//
-//
-//        }
-//        deleteMealsFromWeekPlanner(documentIDsAfterDeletionFromFavorites);
-//    }
-//
-//    private void deleteMealsFromWeekPlanner(List<String> documentIDsAfterDeletionFromFavorites) {
-//        for (int i = 0 ; i<documentIDsAfterDeletionFromFavorites.size() ; i++) {
-//            FirebaseFirestore.getInstance().collection("userWeekPlan").document(documentIDsAfterDeletionFromFavorites.get(i))
-//                    .delete()
-//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Log.i(TAG, "DocumentSnapshot successfully deleted!");
-//
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.i(TAG, "Error deleting document", e);
-//                        }
-//                    });
-//        }
-//        interfaceMain.onFinishedDeletingItemsOfThisAccount();
-//        }
-
 
     public void deleteAccount() {
         firebaseAuth.getCurrentUser().delete();

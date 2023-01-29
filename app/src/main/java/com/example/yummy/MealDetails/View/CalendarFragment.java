@@ -25,17 +25,17 @@ import java.util.Date;
 
 public class CalendarFragment extends Fragment {
 
-    CalendarView calendar;
-    TextView date_view;
-    String startTime;
-    String endTime;
-    Date mStartTime;
-    Date mEndTime;
-    NetworkChecker networkChecker = NetworkChecker.getInstance();
+    private CalendarView calendar;
+    private TextView date_view;
+    private String startTime;
+    private String endTime;
+    private Date mStartTime;
+    private Date mEndTime;
+    private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
 
     public CalendarFragment() {
-        // Required empty public constructor
+
     }
 
 

@@ -2,20 +2,16 @@ package com.example.yummy.DailyInspiration.Presenter;
 
 import android.content.Context;
 
-import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Repository.Model.RepositoryRemote;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 
 
 public class PresenterDailyInspirations {
-    InterfaceDailyInspirations interfaceDailyInspirations;
-    List<MealsItem> meals = new ArrayList<>();
+    private InterfaceDailyInspirations interfaceDailyInspirations;
     private RepositoryRemote repositoryRemote;
     private RepositoryLocal repositoryLocal;
     Context context;

@@ -47,23 +47,18 @@ import java.util.Map;
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 
 
-    ViewGroup viewGroupOfMeal;
-
+    private ViewGroup viewGroupOfMeal;
     private ProgressDialog progressDialog;
-
     private static final String TAG = "SliderAdapter";
-
-    Boolean isAlreadyInFavorites;
-
-    RepositoryLocal rep;
-
+    private Boolean isAlreadyInFavorites;
+    private RepositoryLocal rep;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-    //For drop down weekdays:  part 1/3
+
     String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     ArrayAdapter<String> arrayAdapter;
 
-    //private List<SliderItem> meals;
+
     private ViewPager2 viewPager2;
     List<MealsItem> meals = new ArrayList<>();
 
@@ -104,7 +99,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //DailyInspirations.mealsWeekPlannedToday.clear();
+
                 Navigation.findNavController(viewGroupOfMeal).navigate(DailyInspirationsDirections.actionNavHomeToMealDeatailsFragment(meals.get(position)));
 
             }
@@ -114,7 +109,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         if (MainActivity.isLoginAsGuest == false) {
 
 
-            /* Favorites Firestore+Room part 1/4: Bookmark button */
+
 
             holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,8 +133,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                 }
             });
 
-            //For drop down weekdays: part 3/3
-            /* WeekPlanner Firestore+Room part 1/4: Add button  */
 
             holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -184,7 +177,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         }
 
 
-        // to make scrolling infinite part 2/2
+
         if (position == meals.size() - 2) {
             viewPager2.post(runnable);
         }
@@ -451,8 +444,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
                         rep = new RepositoryLocal(viewGroupOfMeal.getContext());
                         rep.insert(mealsItem, weekDay, documentReference.getId());
 
-                        //Log.i(TAG, "onSuccess: " + LocalDate.now().getDayOfWeek().name().toLowerCase());
-
                         if (weekDay.toLowerCase().toLowerCase().equals(LocalDate.now().getDayOfWeek().name().toLowerCase()))
                             PlannedTodayAdapter.getInstance().mealAddedFromDailyInspirations(mealsItem);
 
@@ -482,10 +473,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         private RoundedImageView imageView;
         private TextView tv_mealName;
         private ImageButton btn_addToFavorites;
-        //For drop down weekdays: part 2/3
-        AutoCompleteTextView autoCompleteTextView;
-        TextInputLayout textInputLayout;
-        //View viewSlider;
+        private AutoCompleteTextView autoCompleteTextView;
+        private TextInputLayout textInputLayout;
 
         SliderViewHolder(@NonNull View itemView) {
 
@@ -494,10 +483,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             tv_mealName = itemView.findViewById(R.id.tv_mealName);
             btn_addToFavorites = itemView.findViewById(R.id.btn_addToFavorites);
 
-            //viewSlider = itemView.findViewById(R.id.viewSlider);
-
-
-            //For drop down weekdays: part 2/3
             autoCompleteTextView = itemView.findViewById(R.id.auto_complete_textview);
             textInputLayout = itemView.findViewById(R.id.text_input_layout);
             arrayAdapter = new ArrayAdapter<String>(viewGroupOfMeal.getContext(), R.layout.list_weekdays, weekDays);
@@ -507,7 +492,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     }
 
-    // to make scrolling infinite part 1/2
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {

@@ -4,9 +4,9 @@ package com.example.yummy.SearchByCategory.Presenter;
 import com.example.yummy.Repository.Model.RepositoryRemote;
 
 public class PresenterAllCategories {
-    InterfaceAllCategories interfaceAllCategories;
+    private InterfaceAllCategories interfaceAllCategories;
     private static final String TAG = "PresenterAllCategories";
-    RepositoryRemote repositoryRemote;
+    private RepositoryRemote repositoryRemote;
 
     public PresenterAllCategories(InterfaceAllCategories interfaceAllCategories) {
         this.interfaceAllCategories = interfaceAllCategories;

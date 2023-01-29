@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PresenterMealFromSpecificArea {
-    InterfaceMealFromSpecificArea interfaceMealFromSpecificArea;
-    List<MealsItem> meals = new ArrayList<>();
+    private InterfaceMealFromSpecificArea interfaceMealFromSpecificArea;
+    private List<MealsItem> meals = new ArrayList<>();
     private static final String TAG = "PresenterMealSpecificCa";
-    RepositoryRemote repositoryRemote;
+    private RepositoryRemote repositoryRemote;
 
     public PresenterMealFromSpecificArea(InterfaceMealFromSpecificArea interfaceMealFromSpecificArea) {
         this.interfaceMealFromSpecificArea = interfaceMealFromSpecificArea;

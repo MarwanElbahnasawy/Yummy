@@ -35,7 +35,7 @@ public class WeekPlanner extends Fragment {
 
     private static final String TAG = "WeekPlanner";
 
-    PresenterWeekPlanner presenterWeekPlanner;
+    private PresenterWeekPlanner presenterWeekPlanner;
 
 
     @Override
@@ -85,12 +85,6 @@ public class WeekPlanner extends Fragment {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(linearLayoutManager);
         }
-
-
-
-        /* Weekplanner Firestore + Room part 2/4: Getting data */
-
-        //--> no need to get from firestore when items are already saved in room.
 
         presenterWeekPlanner = new PresenterWeekPlanner(requireContext());
         List<MealsItem> mealsItemsArrayList = presenterWeekPlanner.returnStoredMealsItems().blockingFirst();
@@ -170,7 +164,7 @@ public class WeekPlanner extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        //so when clicking an item then back, items dont get multiplied in the recycler views.
+
         mealsWeekPlanSaturday.clear();
         mealsWeekPlanSunday.clear();
         mealsWeekPlanMonday.clear();

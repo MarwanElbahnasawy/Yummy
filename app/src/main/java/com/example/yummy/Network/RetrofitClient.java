@@ -2,7 +2,6 @@ package com.example.yummy.Network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,9 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static RetrofitClient instance = null;
-
     private API myApi;
-
     private static final String TAG = "API_Client";
 
 

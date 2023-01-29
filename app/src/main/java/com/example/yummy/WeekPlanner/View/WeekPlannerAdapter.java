@@ -35,13 +35,10 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
 
     private Context context;
     private ViewGroup viewGroup;
-    List<MealsItem> mealsWeekPlanner = new ArrayList<>();
+    private List<MealsItem> mealsWeekPlanner = new ArrayList<>();
     private static final String TAG = "WeekPlannerAdapter";
-
-    Boolean firstTimeInTheView = true;
-
+    private Boolean firstTimeInTheView = true;
     private RepositoryLocal rep;
-
     private ProgressDialog progressDialog;
 
 
@@ -83,9 +80,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
 
         NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-        /* WeekPlanner Firestore + Room part 3/4: Loading in recycler view and Removing */
-
-        holder.btn_removeWeekPlannerItem.setOnClickListener(new View.OnClickListener() {        //\\\\\\\
+        holder.btn_removeWeekPlannerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -170,7 +165,7 @@ public class WeekPlannerAdapter extends RecyclerView.Adapter<WeekPlannerAdapter.
 
     @Override
     public int getItemCount() {
-        /* WeekPlanner Firestore + Room part 4/4: Getting item count */
+
 
         return mealsWeekPlanner.size();
 

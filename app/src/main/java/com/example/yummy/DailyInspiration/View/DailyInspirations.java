@@ -12,21 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import com.example.yummy.DailyInspiration.Presenter.InterfaceDailyInspirations;
 import com.example.yummy.DailyInspiration.Presenter.PresenterDailyInspirations;
 import com.example.yummy.MainActivity.View.MainActivity;
 import com.example.yummy.Model.MealsItem;
 import com.example.yummy.R;
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +31,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
     private static final String TAG = "DailyInspirations";
 
-    //for the slider
+
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
     private PresenterDailyInspirations presenterDailyInspirations;
@@ -43,8 +39,8 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     private PlannedTodayAdapter plannedTodayAdapter;
     private List<MealsItem> allSavedMeals = new ArrayList<>();
     private List<MealsItem> mealsWeekPlannedToday = new ArrayList<>();
-    ProgressBar progressBar;
-    Boolean isPlannedTodayAdapterInstanceCreated = false;
+    private ProgressBar progressBar;
+    private Boolean isPlannedTodayAdapterInstanceCreated = false;
 
 
     @Override
@@ -59,7 +55,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_daily_inspirations, container, false);
     }
 
@@ -88,7 +84,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     }
 
 
-    //for auto sliding part 2/2
+
     private Runnable sliderRunnable = new Runnable() {
         @Override
         public void run() {
@@ -104,7 +100,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
 
         hideProgress();
 
-        //for slider to show 3 cards next to each other
+
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(50);
@@ -121,7 +117,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         });
         viewPager2.setPageTransformer(compositePageTransformer);
 
-        //for auto sliding part 1/2
+
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -174,7 +170,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     @Override
     public void onPause() {
         super.onPause();
-        //to handle sliding at onPause
+
         sliderHandler.removeCallbacks(sliderRunnable);
         Log.i(TAG, "onPause: ");
     }
@@ -182,7 +178,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
     @Override
     public void onResume() {
         super.onResume();
-        //to handle sliding at onResume
+        
         sliderHandler.postDelayed(sliderRunnable, 5000);
         mealsWeekPlannedToday.clear();
 

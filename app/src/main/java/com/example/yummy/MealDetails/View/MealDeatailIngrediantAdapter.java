@@ -4,22 +4,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MealDeatailIngrediantAdapter extends RecyclerView.Adapter<MealDeatailIngrediantAdapter.MyViewHolder> {
-    ViewGroup CountryView;
-    List<String> mealsItems = new ArrayList<>();
-    List<String> megure = new ArrayList<>();
+    private ViewGroup CountryView;
+    private List<String> mealsItems = new ArrayList<>();
+    private List<String> megure = new ArrayList<>();
 
     public MealDeatailIngrediantAdapter(List<String> mealsItems, List<String> megure) {
         this.mealsItems = mealsItems;

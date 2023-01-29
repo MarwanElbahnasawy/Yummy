@@ -63,7 +63,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_sign_in, container, false);
     }
 
@@ -92,7 +92,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         presenterSignIn = new PresenterSignIn(this, requireContext());
 
 
-        //Signing in with email and password
+
         btn_signInWithEmailAndPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +130,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
             }
         });
 
-        // button to skip to register fragment
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +141,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
             }
         });
 
-        //Google sign in button
+
         googeSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,7 +248,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     }
 
 
-    //callback of sign in with google request (for google sign in)
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -273,10 +273,6 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     public void onCompleteGoogleSignIn(Task<AuthResult> task) {
         if (task.isSuccessful()) {
             Toast.makeText(requireContext(), "Sign in with Google was successful", Toast.LENGTH_SHORT).show();
-
-//            presenterSignIn = new PresenterSignIn(requireContext());
-//            presenterSignIn.loadRoomFromFirestore(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);
         } else {

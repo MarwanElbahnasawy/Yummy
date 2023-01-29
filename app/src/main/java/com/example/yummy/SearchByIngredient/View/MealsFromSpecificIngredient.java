@@ -28,12 +28,12 @@ import java.util.stream.Collectors;
 
 public class MealsFromSpecificIngredient extends Fragment implements InterfaceMealFromSpecificIngredient {
 
-    MealsFromSpecificIngredientAdapter mealsFromSpecificIngredientAdapter;
-    RecyclerView recyclerView;
+    private MealsFromSpecificIngredientAdapter mealsFromSpecificIngredientAdapter;
+    private RecyclerView recyclerView;
     public static TextInputEditText searchTextInput;
-    List<MealsItem> mealsItemList = new ArrayList<>();
+    private List<MealsItem> mealsItemList = new ArrayList<>();
     private static final String TAG = "MealByCategory";
-    TextView tv_ingredientSelected;
+    private TextView tv_ingredientSelected;
     private PresenterMealFromSpecificIngredient presenterMealFromSpecificIngredient;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 

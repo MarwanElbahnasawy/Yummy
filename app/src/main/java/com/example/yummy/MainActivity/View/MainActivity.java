@@ -45,19 +45,19 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
     public static NavController navController;
     public static BottomNavigationView bottomNavigationView;
-    ImageView img_logOut;
+    private ImageView img_logOut;
     public static Boolean isLoginAsGuest = false;
     private NetworkChecker networkChecker;
     public static MainActivity mainActivity;
-    TextView tv_internetConnection;
+    private TextView tv_internetConnection;
     private static final String TAG = "MainActivity";
     private Timer timer;
-    Boolean timerIsExists = false;
-    PresenterMainActivity presenterMainActivity;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    private Boolean timerIsExists = false;
+    private PresenterMainActivity presenterMainActivity;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     public static TextView tv_headerDrawer;
-    Toast toastLogOut;
+    private Toast toastLogOut;
 
 
     @Override
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
         tv_internetConnection = findViewById(R.id.tv_internetConnection);
 
         mainActivity = this;
-
 
         img_logOut = findViewById(R.id.img_logOut);
 

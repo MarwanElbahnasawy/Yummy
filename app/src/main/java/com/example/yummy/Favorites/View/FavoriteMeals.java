@@ -25,9 +25,9 @@ import java.util.List;
 public class FavoriteMeals extends Fragment {
 
     private RecyclerView recyclerView;
-    FavoriteMealsAdapter favoriteMealsAdapter;
+    private FavoriteMealsAdapter favoriteMealsAdapter;
     private static final String TAG = "SavedMeals";
-    PresenterFavoriteMeals presenterFavoriteMeals;
+    private PresenterFavoriteMeals presenterFavoriteMeals;
 
 
     @Override
@@ -41,7 +41,7 @@ public class FavoriteMeals extends Fragment {
                              Bundle savedInstanceState) {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_favorite_meals, container, false);
     }
 
@@ -50,19 +50,11 @@ public class FavoriteMeals extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        recyclerView = view.findViewById(R.id.recyclerViewFavoriteMeals);          //\\\\\\\\\\\
+        recyclerView = view.findViewById(R.id.recyclerViewFavoriteMeals);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-
-
-
-
-        /* Favorites Firestore + Room part 2/4: Getting data */
-
-        //--> no need to get from firestore when items are already saved in room.
 
 
         presenterFavoriteMeals = new PresenterFavoriteMeals(requireContext());

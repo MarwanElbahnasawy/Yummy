@@ -15,7 +15,6 @@ public interface API {
     //Base url for daily inspirations
     String BASE_URL_DAILY_INSPIRATIONS = "https://www.themealdb.com/api/json/v1/1/";
 
-
     @GET("random.php")
     Observable<RootMeal> getRootRandom();
 
@@ -45,8 +44,6 @@ public interface API {
 
     @GET("lookup.php")
     Observable<RootMeal> getMealById(@Query("i") int parseInt);
-
-    //www.themealdb.com/api/json/v1/1/search.php?f=a
 
     @GET("search.php")
     Observable<RootSingleMeal> getAllMeal(@Query("f") String mealName);

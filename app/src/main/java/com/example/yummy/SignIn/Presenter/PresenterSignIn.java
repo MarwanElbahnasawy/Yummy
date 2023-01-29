@@ -7,11 +7,11 @@ import com.example.yummy.Repository.Model.RepositoryLocal;
 import com.example.yummy.Repository.Model.RepositoryRemote;
 
 public class PresenterSignIn {
-    InterfaceSignIn interfaceSignIn;
+    private InterfaceSignIn interfaceSignIn;
     private Context context;
     private static final String TAG = "PresenterFirebaseFireau";
-    RepositoryRemote repositoryRemote;
-    RepositoryLocal repositoryLocal;
+    private RepositoryRemote repositoryRemote;
+    private RepositoryLocal repositoryLocal;
 
 
     public PresenterSignIn(InterfaceSignIn interfaceSignIn, Context context) {

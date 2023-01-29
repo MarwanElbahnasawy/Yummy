@@ -35,13 +35,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AllIngredients extends Fragment implements InterfaceAllIngredients {
 
-    List<EachIngredientModel> ingredients;
+    private List<EachIngredientModel> ingredients;
     public static TextInputEditText textInputEditText;
-    AllIngredientsAdapter allIngredientsAdapter;
-    RecyclerView recyclerView;
+    private AllIngredientsAdapter allIngredientsAdapter;
+    private RecyclerView recyclerView;
     private PresenterAllIngredients presenterAllIngredients;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

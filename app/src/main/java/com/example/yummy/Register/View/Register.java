@@ -30,17 +30,16 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 
 public class Register extends Fragment implements InterfaceRegister {
-    TextInputEditText signUp_email, signUp_password, confirmPassword;
-    AppCompatButton register;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    View view;
+
+    private TextInputEditText signUp_email, signUp_password, confirmPassword;
+    private AppCompatButton register;
+    private View view;
     private NetworkChecker networkChecker;
     private ProgressDialog loadingBar;
     private PresenterRegister presenterRegister;
     private String email;
     private static final String TAG = "Register";
     private Boolean isRegisterClicked = false;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,6 @@ public class Register extends Fragment implements InterfaceRegister {
         confirmPassword = view.findViewById(R.id.signUp_Confirm_password_edt);
         loadingBar = new ProgressDialog(requireContext());
         networkChecker = NetworkChecker.getInstance();
-
         presenterRegister = new PresenterRegister(this);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +92,6 @@ public class Register extends Fragment implements InterfaceRegister {
                             presenterRegister.createUserWithEmailAndPassword(email, password);
                             isRegisterClicked = true;
                         }
-
-
-
 
                     } else {
                         if (email.isEmpty()) {

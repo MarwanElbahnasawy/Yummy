@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 
 public class MealsFromSpecificArea extends Fragment implements InterfaceMealFromSpecificArea {
 
-    MealsFromSpecificAreaAdapter mealsFromSpecificAreaAdapter;
-    RecyclerView recyclerView;
+    private MealsFromSpecificAreaAdapter mealsFromSpecificAreaAdapter;
+    private RecyclerView recyclerView;
     public static TextInputEditText searchTextInput;
-    List<MealsItem> mealsItemList = new ArrayList<>();
+    private List<MealsItem> mealsItemList = new ArrayList<>();
     private static final String TAG = "MealFromSpecificArea";
-    TextView tv_areaSelected;
+    private TextView tv_areaSelected;
     private PresenterMealFromSpecificArea presenterMealFromSpecificArea;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 
@@ -41,10 +41,8 @@ public class MealsFromSpecificArea extends Fragment implements InterfaceMealFrom
         recyclerView = view.findViewById(R.id.rv_MealByArea);
         searchTextInput = view.findViewById(R.id.textInput_Meal_search);
         String areaSelected = MealsFromSpecificAreaArgs.fromBundle(getArguments()).getArea();
-
         tv_areaSelected = view.findViewById(R.id.tv_areaSelected);
         tv_areaSelected.setText(areaSelected);
-
         presenterMealFromSpecificArea = new PresenterMealFromSpecificArea(this);
         presenterMealFromSpecificArea.getMealFromSpecificArea(areaSelected);
 

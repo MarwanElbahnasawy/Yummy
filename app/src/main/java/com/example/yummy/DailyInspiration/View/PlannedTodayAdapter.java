@@ -36,8 +36,8 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
     private ViewGroup viewGroup;
     private static final String TAG = "PlannedTodayAdapter";
     private ProgressDialog progressDialog;
-    List<MealsItem> mealsWeekPlanner = new ArrayList<>();
-    RepositoryLocal rep;
+    private List<MealsItem> mealsWeekPlanner = new ArrayList<>();
+    private RepositoryLocal rep;
     public static PlannedTodayAdapter InstanceProvidingMeals;
 
 
@@ -85,9 +85,9 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
 
         NetworkChecker networkChecker = NetworkChecker.getInstance();
 
-        /* WeekPlanner Firestore + Room part 3/4: Loading in recycler view and Removing */
 
-        holder.btn_removeWeekPlannerItem.setOnClickListener(new View.OnClickListener() {        //\\\\\\\
+
+        holder.btn_removeWeekPlannerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -112,7 +112,7 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.i(TAG, "DocumentSnapshot successfully deleted!");
-                                    //(FavoriteMealsAdapter.this).notifyDataSetChanged();
+
 
                                     rep = new RepositoryLocal(viewGroup.getContext());
                                     rep.delete(mealsItem);
@@ -142,7 +142,7 @@ public class PlannedTodayAdapter extends RecyclerView.Adapter<PlannedTodayAdapte
 
 
                 Navigation.findNavController(viewGroup).navigate(DailyInspirationsDirections.actionNavHomeToMealDeatailsFragment(mealsWeekPlanner.get(position)));
-                //mealsWeekPlanner.clear(); //cause clicked back multiplied whats shown in the view.
+
 
             }
         });

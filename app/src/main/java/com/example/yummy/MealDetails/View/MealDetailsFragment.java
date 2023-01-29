@@ -60,28 +60,28 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealDetailsFragment extends Fragment {
-    TextView mealName, area, instructions;
-    ImageView mealImage;
-    YouTubePlayerView videoView;
-    RecyclerView recyclerView;
-    List<String> ingrediant = new ArrayList<>();
-    List<String> megure = new ArrayList<>();
-    MealDeatailIngrediantAdapter mealDeatailIngrediantAdapter;
-    String[] split;
-    Boolean youtubeURLisExists = false;
-    ImageButton btn_addToFavorites_meal_details;
-    AutoCompleteTextView autoCompleteTextView;
-    TextInputLayout textInputLayout;
+    private TextView mealName, area, instructions;
+    private ImageView mealImage;
+    private YouTubePlayerView videoView;
+    private RecyclerView recyclerView;
+    private List<String> ingrediant = new ArrayList<>();
+    private List<String> megure = new ArrayList<>();
+    private MealDeatailIngrediantAdapter mealDeatailIngrediantAdapter;
+    private String[] split;
+    private Boolean youtubeURLisExists = false;
+    private ImageButton btn_addToFavorites_meal_details;
+    private AutoCompleteTextView autoCompleteTextView;
+    private TextInputLayout textInputLayout;
     private ProgressDialog progressDialog;
-    Boolean isAlreadyInFavorites;
-    RepositoryLocal rep;
+    private Boolean isAlreadyInFavorites;
+    private RepositoryLocal rep;
     private static final String TAG = "MealDetailsFragment";
     private MealsItem mealsItem;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
-    String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-    ArrayAdapter<String> arrayAdapter;
+    private String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+    private ArrayAdapter<String> arrayAdapter;
     private ImageButton btn_addToCalendar;
-    MealsItem mealsItemSelectedFull;
+    private MealsItem mealsItemSelectedFull;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

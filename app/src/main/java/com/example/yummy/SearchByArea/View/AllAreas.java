@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AllAreas extends Fragment implements InterfaceAllAreas {
-    List<EachAreaModel> areas;
-    AllAreasAdapter allAreasAdapter;
-    RecyclerView recyclerView;
+    private List<EachAreaModel> areas;
+    private AllAreasAdapter allAreasAdapter;
+    private RecyclerView recyclerView;
     public static TextInputEditText textInputEditText;
     private PresenterAllAreas presenterAllAreas;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();

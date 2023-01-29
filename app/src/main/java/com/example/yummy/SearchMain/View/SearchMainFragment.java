@@ -21,7 +21,7 @@ import com.example.yummy.Utility.NetworkChecker;
 
 public class SearchMainFragment extends Fragment {
 
-    CardView searchByCountry, searchByCategory, searchIngrediant, searchByAllMeals;
+    private CardView searchByCountry, searchByCategory, searchIngrediant, searchByAllMeals;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
     private Toast toast;
 
@@ -39,7 +39,7 @@ public class SearchMainFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 

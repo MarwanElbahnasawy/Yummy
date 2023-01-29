@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AllCategories extends Fragment implements InterfaceAllCategories {
-    List<EachCategoryModel> categories;
+    private List<EachCategoryModel> categories;
     public static TextInputEditText textInputEditText;
-    AllCategoriesAdapter allCategoriesAdapter;
-    RecyclerView recyclerView;
+    private AllCategoriesAdapter allCategoriesAdapter;
+    private RecyclerView recyclerView;
     private PresenterAllCategories presenterAllCategories;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
 

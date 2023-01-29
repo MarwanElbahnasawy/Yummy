@@ -7,10 +7,10 @@ import com.example.yummy.SearchByIngredient.Model.EachIngredientModel;
 import java.util.List;
 
 public class PresenterAllIngredients {
-    InterfaceAllIngredients interfaceAllIngredients;
-    List<EachIngredientModel> ingredients;
+    private InterfaceAllIngredients interfaceAllIngredients;
+    private List<EachIngredientModel> ingredients;
     private static final String TAG = "PresenterAllIngredients";
-    RepositoryRemote repositoryRemote;
+    private RepositoryRemote repositoryRemote;
 
     public PresenterAllIngredients(InterfaceAllIngredients interfaceAllIngredients) {
         this.interfaceAllIngredients = interfaceAllIngredients;

@@ -51,16 +51,16 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsFromSpecificCategoryAdapter extends RecyclerView.Adapter<MealsFromSpecificCategoryAdapter.MyViewHolder> {
-    List<MealsItem> meals;
-    ViewGroup viewGroupOfMeal;
+    private List<MealsItem> meals;
+    private ViewGroup viewGroupOfMeal;
     private NetworkChecker networkChecker = NetworkChecker.getInstance();
-    String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-    ArrayAdapter<String> arrayAdapter;
+    private String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+    private ArrayAdapter<String> arrayAdapter;
     private static final String TAG = "MealsFromSpecificCatego";
     private ProgressDialog progressDialog;
-    Boolean isAlreadyInFavorites;
-    RepositoryLocal rep;
-    MealsItem mealsItemSelectedFull;
+    private Boolean isAlreadyInFavorites;
+    private RepositoryLocal rep;
+    private MealsItem mealsItemSelectedFull;
 
     public MealsFromSpecificCategoryAdapter(List<MealsItem> meals) {
         this.meals = meals;
@@ -98,7 +98,7 @@ public class MealsFromSpecificCategoryAdapter extends RecyclerView.Adapter<Meals
                             .subscribe(new Observer<RootMeal>() {
                                 @Override
                                 public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-                                    // loading ui
+
                                 }
 
                                 @Override
@@ -145,8 +145,6 @@ public class MealsFromSpecificCategoryAdapter extends RecyclerView.Adapter<Meals
             }
         });
 
-        //For drop down weekdays: part 3/3
-        /* WeekPlanner Firestore+Room part 1/4: Add button  */
 
         holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

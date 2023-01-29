@@ -22,31 +22,30 @@ import com.example.yummy.R;
 
 public class OnBoarding extends Fragment {
 
-    ViewPager viewPager;
-    LinearLayout dotLayout;
-    AppCompatButton skipButton;
-    TextView[] dots;
-    ViewPagerAdapter viewPagerAdapter;
+    private ViewPager viewPager;
+    private LinearLayout dotLayout;
+    private AppCompatButton skipButton;
+    private TextView[] dots;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_on_boarding, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //hide ActionBar
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         skipButton = view.findViewById(R.id.skip_btn);
