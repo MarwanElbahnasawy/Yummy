@@ -1,5 +1,6 @@
 package com.example.yummy.SignIn.View;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -262,8 +263,23 @@ public class SignIn extends Fragment implements InterfaceSignIn {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK)
+        {
+            switch(requestCode)
+            {
+                case 1:
+                    if (data.equals(null))
+                    {
+                        Toast.makeText(requireContext(), "Intent is Null", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        presenterSignIn.respondToActivityResultOfGoogleSignIn(requestCode, resultCode, data);
+                    }
+                    break;
+            }
+        }
 
-        presenterSignIn.respondToActivityResultOfGoogleSignIn(requestCode, resultCode, data);
 
     }
 
