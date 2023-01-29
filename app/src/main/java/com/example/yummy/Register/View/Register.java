@@ -39,6 +39,7 @@ public class Register extends Fragment implements InterfaceRegister {
     private PresenterRegister presenterRegister;
     private String email;
     private static final String TAG = "Register";
+    private Boolean isRegisterClicked = false;
 
 
     @Override
@@ -87,53 +88,14 @@ public class Register extends Fragment implements InterfaceRegister {
 
                     if ((!email.isEmpty()) && (!password.isEmpty()) && (password.equals(confirm))) {
 
-                        loadingBar.show();
 
-                        //presenterRegister.createUserWithEmailAndPassword(email, password);
-
-                        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                //interfaceRegister.onCompleteRegisterWithEmailAndPassword(task);
-                                loadingBar.dismiss();
-
-                                if (task.isSuccessful()) {
-
-                                    Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
-
-                                    Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
+                        if(isRegisterClicked == false){
+                            loadingBar.show();
+                            presenterRegister.createUserWithEmailAndPassword(email, password);
+                            isRegisterClicked = true;
+                        }
 
 
-                                } else {
-                                    Exception exception = task.getException();
-                                    if (exception == null) {
-                                        Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
-                                    } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
-                                        Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
-
-                                    } else {
-                                        if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
-
-                                            Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-
-
-                                }
-                            }
-                        });
-
-                        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //interfaceRegister.onFailureRegisterWithEmailAndPassword(e);
-                                Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
-
-                            }
-                        });
 
 
                     } else {
@@ -159,39 +121,43 @@ public class Register extends Fragment implements InterfaceRegister {
 
     @Override
     public void onCompleteRegisterWithEmailAndPassword(Task<AuthResult> task) {
-//        loadingBar.dismiss();
-//
-//        if (task.isSuccessful()) {
-//
-//                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
-//
-//                Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
-//
-//
-//        } else {
-//            Exception exception = task.getException();
-//            if (exception == null) {
-//                Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
-//            } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
-//                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
-//
-//            } else {
-//                if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
-//
-//                    Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//
-//        }
+        loadingBar.dismiss();
+
+        if (task.isSuccessful()) {
+
+            isRegisterClicked = false;
+
+                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
+
+                Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
+
+
+
+
+        } else {
+            Exception exception = task.getException();
+            if (exception == null) {
+                Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
+            } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
+                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
+
+            } else {
+                if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
+
+                    Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+
+        }
     }
 
     @Override
     public void onFailureRegisterWithEmailAndPassword(Exception e) {
-        //Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
+        Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
     }
 
 
