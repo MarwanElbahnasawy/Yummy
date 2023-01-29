@@ -18,11 +18,10 @@ public class ViewPagerAdapter extends PagerAdapter {
     private int images[] = {
             R.drawable.slide1,
             R.drawable.slide2,
-            R.drawable.slide3,
-            R.drawable.slide4
+            R.drawable.slide3
     };
     private int description[] = {
-            R.string.desrpition1, R.string.desrpition2, R.string.desrpition3, R.string.desrpition4
+            R.string.desrpition1, R.string.desrpition2, R.string.desrpition3
     };
 
     public ViewPagerAdapter(Context context) {

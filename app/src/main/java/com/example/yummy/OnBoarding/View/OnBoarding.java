@@ -71,7 +71,7 @@ public class OnBoarding extends Fragment {
 
     public void setUpIndicator(int position) {
 
-        dots = new TextView[4];
+        dots = new TextView[3];
         dotLayout.removeAllViews();
 
         for (int i = 0; i < dots.length; i++) {
