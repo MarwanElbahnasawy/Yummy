@@ -205,17 +205,7 @@ public class MealDetailsFragment extends Fragment {
                 }
             });
 
-            btn_addToCalendar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    NetworkChecker networkChecker = NetworkChecker.getInstance();
-
-                    Navigation.findNavController(view).navigate(MealDetailsFragmentDirections.actionMealDeatailsFragmentToNavCalendar(mealsItem.getStrMeal()));
-
-
-                }
-            });
 
         } else if (MainActivity.isLoginAsGuest == true) {
             btn_addToFavorites_meal_details.setOnClickListener(new View.OnClickListener() {
@@ -233,16 +223,19 @@ public class MealDetailsFragment extends Fragment {
                 }
             });
 
-            btn_addToCalendar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    Toast.makeText(requireContext(), "You need to log in to be able to add meals to your calendar.", Toast.LENGTH_SHORT).show();
-
-                }
-            });
 
         }
+
+        btn_addToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Navigation.findNavController(view).navigate(MealDetailsFragmentDirections.actionMealDeatailsFragmentToNavCalendar(mealsItem.getStrMeal()));
+
+
+            }
+        });
 
 
     }

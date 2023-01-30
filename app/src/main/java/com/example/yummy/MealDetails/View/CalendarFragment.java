@@ -51,7 +51,6 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_calendar, container, false);
 
-
     }
 
     @Override
@@ -75,16 +74,7 @@ public class CalendarFragment extends Fragment {
                             int month,
                             int dayOfMonth) {
 
-                        if (MainActivity.isLoginAsGuest == false) {
-                            if (!networkChecker.checkIfInternetIsConnected()) {
-                                MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
 
-                            } else if (networkChecker.checkIfInternetIsConnected()) {
                                 String date
                                         = dayOfMonth + "-"
                                         + (month + 1) + "-" + year;
@@ -112,11 +102,9 @@ public class CalendarFragment extends Fragment {
 
 
                                 MainActivity.navController.popBackStack();
-                            }
 
-                        } else {
-                            Toast.makeText(requireContext(), "You need to log in to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
-                        }
+
+
 
 
                     }

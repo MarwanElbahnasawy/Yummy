@@ -71,39 +71,42 @@ public class Register extends Fragment implements InterfaceRegister {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isRegisterClicked == false) {
+                    isRegisterClicked = true;
 
-                email = signUp_email.getText().toString();
-                String password = signUp_password.getText().toString();
-                String confirm = confirmPassword.getText().toString();
+                    email = signUp_email.getText().toString();
+                    String password = signUp_password.getText().toString();
+                    String confirm = confirmPassword.getText().toString();
 
-                if (!networkChecker.checkIfInternetIsConnected()) {
-                    Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to register.", Toast.LENGTH_SHORT).show();
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to register.", Toast.LENGTH_SHORT).show();
 
-                } else if (networkChecker.checkIfInternetIsConnected()) {
-                    loadingBar.setTitle("Registering");
-                    loadingBar.setMessage("Please wait while registering");
-                    loadingBar.setCanceledOnTouchOutside(false);
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        loadingBar.setTitle("Registering");
+                        loadingBar.setMessage("Please wait while registering");
+                        loadingBar.setCanceledOnTouchOutside(false);
 
-                    if ((!email.isEmpty()) && (!password.isEmpty()) && (password.equals(confirm))) {
+                        if ((!email.isEmpty()) && (!password.isEmpty()) && (password.equals(confirm))) {
 
 
-                        if(isRegisterClicked == false){
                             loadingBar.show();
                             presenterRegister.createUserWithEmailAndPassword(email, password);
-                            isRegisterClicked = true;
-                        }
 
-                    } else {
-                        if (email.isEmpty()) {
-                            Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();
-                        } else if (password.isEmpty()) {
-                            Toast.makeText(getContext(), "Enter your password", Toast.LENGTH_SHORT).show();
-                        } else if (!password.equals(confirm)) {
-                            Toast.makeText(getContext(), "Password not identical", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            if (email.isEmpty()) {
+                                Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();
+                            } else if (password.isEmpty()) {
+                                Toast.makeText(getContext(), "Enter your password", Toast.LENGTH_SHORT).show();
+                            } else if (!password.equals(confirm)) {
+                                Toast.makeText(getContext(), "Password not identical", Toast.LENGTH_SHORT).show();
+
+                            }
 
                         }
 
                     }
+
 
                 }
 
@@ -122,11 +125,9 @@ public class Register extends Fragment implements InterfaceRegister {
 
             isRegisterClicked = false;
 
-                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
 
-                Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
-
-
+            Navigation.findNavController(view).navigate(R.id.action_nav_register_to_nav_home);
 
 
         } else {
