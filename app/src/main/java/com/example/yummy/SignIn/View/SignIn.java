@@ -34,6 +34,7 @@ import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class SignIn extends Fragment implements InterfaceSignIn {
 
@@ -233,7 +234,10 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                     }
                 } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
                     Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(((FirebaseAuthInvalidUserException) exception).getErrorCode().equals("ERROR_USER_NOT_FOUND")){
+                    Toast.makeText(getContext(), "User not found", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -280,15 +284,9 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         }
     }
 
-    @Override
-    public void onFailureSignInWithEmailAndPassword(Exception e) {
-        Log.i(TAG, "onFailureSignInWithEmailAndPassword: Sign in with email and password request failed, error message --> " + e.toString());
-    }
 
-    @Override
-    public void onFailureGoogleSignIn(Exception e) {
-        Log.i(TAG, "onFailureGoogleSignIn: Sign in with google request failed, error message --> " + e.toString());
-    }
+
+
 
 }
 

@@ -165,14 +165,7 @@ public class RepositoryRemote {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 interfaceRegister.onCompleteRegisterWithEmailAndPassword(task);
             }
-        });
-
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                interfaceRegister.onFailureRegisterWithEmailAndPassword(e);
-            }
-        });
+        }) ;
     }
 
     public void getAllAreas() {
@@ -318,17 +311,11 @@ public class RepositoryRemote {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 interfaceSignIn.onCompleteSignInWithEmailAndPassword(task);
 
             }
-        });
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                interfaceSignIn.onFailureSignInWithEmailAndPassword(e);
-            }
-        });
+        }) ;
+
     }
 
     public void signInGoogle() {
@@ -354,14 +341,7 @@ public class RepositoryRemote {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     interfaceSignIn.onCompleteGoogleSignIn(task);
                 }
-            });
-
-            firebaseAuth.signInWithCredential(GoogleAuthProvider.getCredential(task.getResult().getIdToken(), null)).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    interfaceSignIn.onFailureGoogleSignIn(e);
-                }
-            });
+            }) ;
         }
     }
 

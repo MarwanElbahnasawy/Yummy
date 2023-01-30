@@ -11,8 +11,4 @@ public interface InterfaceSignIn {
     void onCompleteGoogleSignIn(Task<AuthResult> task);
 
     void onCompleteSignInIntent(Intent signInIntent, int i);
-
-    void onFailureSignInWithEmailAndPassword(Exception e);
-
-    void onFailureGoogleSignIn(Exception e);
 }

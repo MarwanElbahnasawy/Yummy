@@ -39,7 +39,6 @@ public class Register extends Fragment implements InterfaceRegister {
     private PresenterRegister presenterRegister;
     private String email;
     private static final String TAG = "Register";
-    private Boolean isRegisterClicked = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,6 @@ public class Register extends Fragment implements InterfaceRegister {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isRegisterClicked == false) {
-                    isRegisterClicked = true;
 
                     email = signUp_email.getText().toString();
                     String password = signUp_password.getText().toString();
@@ -108,7 +105,7 @@ public class Register extends Fragment implements InterfaceRegister {
                     }
 
 
-                }
+
 
 
             }
@@ -123,7 +120,6 @@ public class Register extends Fragment implements InterfaceRegister {
 
         if (task.isSuccessful()) {
 
-            isRegisterClicked = false;
 
             Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
 
@@ -151,10 +147,6 @@ public class Register extends Fragment implements InterfaceRegister {
         }
     }
 
-    @Override
-    public void onFailureRegisterWithEmailAndPassword(Exception e) {
-        Log.i(TAG, "onFailureRegisterWithEmailAndPassword: Registration request failed, error message --> " + e.toString());
-    }
 
 
 }
