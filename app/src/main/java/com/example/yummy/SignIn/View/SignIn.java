@@ -234,7 +234,8 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                     }
                 } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
                     Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
-                } else if(((FirebaseAuthInvalidUserException) exception).getErrorCode().equals("ERROR_USER_NOT_FOUND")){
+                }
+                else if (task.getException().getMessage().equals("There is no user record corresponding to this identifier. The user may have been deleted.")) {
                     Toast.makeText(getContext(), "User not found", Toast.LENGTH_SHORT).show();
                 }
                 else {
