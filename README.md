@@ -52,25 +52,29 @@
 <hr>
 splash 
 
-![splash](https://user-images.githubusercontent.com/86933863/215290971-72375e87-6023-4633-b766-34a368175908.jpg)  
+
 
 <img src="https://user-images.githubusercontent.com/86933863/215290971-72375e87-6023-4633-b766-34a368175908.jpg" width=50% height=50%>
 
 register
 
-![register](https://user-images.githubusercontent.com/86933863/215290975-814e4722-496b-4c59-8095-ffe6e3527ef8.jpg)
+
+<img src="https://user-images.githubusercontent.com/86933863/215290975-814e4722-496b-4c59-8095-ffe6e3527ef8.jpg" width=50% height=50%>
+
 
 login
 
-![login](https://user-images.githubusercontent.com/86933863/215291029-b96949c9-cd20-4774-a391-59b746f072a3.jpg)
+
+
+<img src="https://user-images.githubusercontent.com/86933863/215291029-b96949c9-cd20-4774-a391-59b746f072a3.jpg" width=50% height=50%>
 
 home
 
-![home](https://user-images.githubusercontent.com/86933863/215291036-43ef935d-d0d2-480d-8ba9-aea6b329be5c.jpg)
+<img src="https://user-images.githubusercontent.com/86933863/215291036-43ef935d-d0d2-480d-8ba9-aea6b329be5c.jpg" width=50% height=50%>
 
 profile
 
-![profile](https://user-images.githubusercontent.com/86933863/215291037-7ba1909d-e45f-4306-b2eb-be3e2425e5be.jpg)
+<img src="https://user-images.githubusercontent.com/86933863/215291037-7ba1909d-e45f-4306-b2eb-be3e2425e5be.jpg" width=50% height=50%>
 
 search
 
