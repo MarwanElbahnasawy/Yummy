@@ -59,7 +59,7 @@ splash
 register
 
 
-<img src="https://user-images.githubusercontent.com/86933863/215290975-814e4722-496b-4c59-8095-ffe6e3527ef8.jpg" width=50% height=50%>
+<img src="https://user-images.githubusercontent.com/86933863/215290975-814e4722-496b-4c59-8095-ffe6e3527ef8.jpg" width=30% height=30%>
 
 
 login
