@@ -168,8 +168,8 @@ public class SignIn extends Fragment implements InterfaceSignIn {
                 } else if (networkChecker.checkIfInternetIsConnected()) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                    builder.setTitle("Wait! Are You Sure You Want To Skip?");
                     builder.setMessage("You 'll miss out on personalized content and saving our delicious recipes");
-                    builder.setTitle("Wait! Are You Sure?");
                     builder.setCancelable(true);
 
 
@@ -217,7 +217,7 @@ public class SignIn extends Fragment implements InterfaceSignIn {
         if (task.isSuccessful()) {
             Log.i(TAG, "onActivityResult: " + firebaseAuth.getCurrentUser().getEmail());
 
-            Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show();
 
 
             Navigation.findNavController(view).navigate(R.id.action_navSignIn_to_nav_home);

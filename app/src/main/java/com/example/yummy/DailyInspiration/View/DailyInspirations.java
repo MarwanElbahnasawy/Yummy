@@ -165,12 +165,12 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         plannedTodayAdapter = PlannedTodayAdapter.getInstanceProvidingMeals(mealsWeekPlannedToday);
         recyclerViewPlanToday.setAdapter(plannedTodayAdapter);
         isPlannedTodayAdapterInstanceCreated = true;
+        PlannedTodayAdapter.getInstance().notifyDataSetChanged();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         sliderHandler.removeCallbacks(sliderRunnable);
         Log.i(TAG, "onPause: ");
     }
@@ -180,7 +180,7 @@ public class DailyInspirations extends Fragment implements InterfaceDailyInspira
         super.onResume();
         
         sliderHandler.postDelayed(sliderRunnable, 5000);
-        mealsWeekPlannedToday.clear();
+
 
         Log.i(TAG, "onResume: ");
     }

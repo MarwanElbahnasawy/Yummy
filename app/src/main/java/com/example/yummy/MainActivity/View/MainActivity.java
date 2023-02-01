@@ -1,8 +1,5 @@
 package com.example.yummy.MainActivity.View;
 
-import static com.example.yummy.R.string.deleteAcount;
-import static com.example.yummy.R.string.turnOnInternent;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
     public static NavController navController;
     public static BottomNavigationView bottomNavigationView;
-    private ImageView img_logOut;
+    private ImageView drawerButton;
     public static Boolean isLoginAsGuest = false;
     private NetworkChecker networkChecker;
     public static MainActivity mainActivity;
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
         mainActivity = this;
 
-        img_logOut = findViewById(R.id.img_logOut);
+        drawerButton = findViewById(R.id.img_logOut);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -135,19 +132,19 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
                     case R.id.nav_favoriteMeals:
                     case R.id.nav_weekPlanner:
                         bottomNavigationView.setVisibility(View.VISIBLE);
-                        img_logOut.setVisibility(View.VISIBLE);
+                        drawerButton.setVisibility(View.VISIBLE);
 
 
                         break;
                     default:
                         bottomNavigationView.setVisibility(View.GONE);
-                        img_logOut.setVisibility(View.GONE);
+                        drawerButton.setVisibility(View.GONE);
 
                 }
             }
         });
 
-        img_logOut.setOnClickListener(new View.OnClickListener() {
+        drawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -226,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
     }
 
     private void drawerLogOut() {
+        PlannedTodayAdapter.InstanceProvidingMeals = null;
         FirebaseAuth.getInstance().signOut();
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
 
@@ -365,10 +363,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain {
 
     @Override
     public void onFinishedDeletingAccount() {
+        PlannedTodayAdapter.InstanceProvidingMeals = null;
         presenterMainActivity = new PresenterMainActivity((Context) this);
         presenterMainActivity.deleteTableRoom();
 
-        PlannedTodayAdapter.getInstance().clear();
 
         while (navController.popBackStack() == true) {
         }

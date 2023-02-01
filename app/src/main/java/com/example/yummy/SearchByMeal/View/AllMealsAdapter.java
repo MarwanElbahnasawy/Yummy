@@ -85,78 +85,96 @@ public class AllMealsAdapter extends RecyclerView.Adapter<AllMealsAdapter.MyView
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(mealsItems.get(position).getIdMeal()))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<RootMeal>() {
+
+                if (!networkChecker.checkIfInternetIsConnected()) {
+                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to check this meal's details.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else if (networkChecker.checkIfInternetIsConnected()) {
+                    RetrofitClient.getInstance().getMyApi().getMealById(Integer.parseInt(mealsItems.get(position).getIdMeal()))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    rootMeal -> { Navigation.findNavController(viewGroup).navigate(AllMealsDirections.actionSearchByAllMealsFragmentToMealDeatailsFragment(rootMeal.getMeals().get(0)));
+
+                                    }
+                            );
+                }
+
+
+            }
+        });
+
+        if (MainActivity.isLoginAsGuest == false) {
+
+
+            holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
+
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
                             @Override
-                            public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-                                // loading ui
-                            }
-
-                            @Override
-                            public void onNext(@io.reactivex.rxjava3.annotations.NonNull RootMeal rootMeal) {
-                                Navigation.findNavController(viewGroup).navigate(AllMealsDirections.actionSearchByAllMealsFragmentToMealDeatailsFragment(rootMeal.getMeals().get(0)));
-                            }
-
-                            @Override
-                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-            }
-        });
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
 
-        holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                        checkIfItemAlreadyExistsInFavoritesOfFirestore(mealsItems.get(position));
+                    }
 
-                NetworkChecker networkChecker = NetworkChecker.getInstance();
-
-                if (!networkChecker.checkIfInternetIsConnected()) {
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                } else if (networkChecker.checkIfInternetIsConnected()) {
-
-                    checkIfItemAlreadyExistsInFavoritesOfFirestore(mealsItems.get(position));
-                }
-
-
-            }
-        });
-
-        holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
-
-                NetworkChecker networkChecker = NetworkChecker.getInstance();
-
-                if (!networkChecker.checkIfInternetIsConnected()) {
-                    MainActivity.mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else if (networkChecker.checkIfInternetIsConnected()) {
-                    String daySelected = parent.getItemAtPosition(positionDay).toString();
-                    checkIfItemAlreadyExistsInWeekPlan(mealsItems.get(position), daySelected);
 
                 }
+            });
 
-            }
-        });
+            holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+
+                    NetworkChecker networkChecker = NetworkChecker.getInstance();
+
+                    if (!networkChecker.checkIfInternetIsConnected()) {
+                        MainActivity.mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.mainActivity, "Turn internet on to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (networkChecker.checkIfInternetIsConnected()) {
+                        String daySelected = parent.getItemAtPosition(positionDay).toString();
+                        checkIfItemAlreadyExistsInWeekPlan(mealsItems.get(position), daySelected);
+
+                    }
+
+                }
+            });
+        } else if (MainActivity.isLoginAsGuest == true) {
+
+            holder.btn_addToFavorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(viewGroup.getContext(), "You need to log in to be able to save meals to your favorites.", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+            holder.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int positionDay, long id) {
+                    Toast.makeText(viewGroup.getContext(), "You need to log in to be able to save meals to your week plan.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+
 
 
     }
